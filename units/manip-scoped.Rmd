@@ -38,7 +38,7 @@ flights %>%
   )
 ```
 
-We can save a bunch of typing by using `summarise_ar()` instead:
+We can save a bunch of typing by using `summarise_at()` instead:
 
 ```{r, na.rm = TRUE}
 flights %>%
