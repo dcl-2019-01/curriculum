@@ -1,0 +1,24 @@
+title: Setup
+theme: workflow
+
+desc: |
+  Ensure that you have all the tools you need for this class. You should
+  have done this before the first day.
+
+  Note the two important R functions:
+
+  * `install.packages()` downloads a package from the internet and
+    saves on your computer.
+
+  * `library()` loads an installed package and makes it available for use.
+duration: 15-45
+
+readings:
+- book: r4ds-1.4
+
+- book: r4ds-1.5
+
+- book: cheatsheets-rstudio-ide
+  desc: >
+    You don't need to read the complete cheatsheet, but you should
+    know that it exists.

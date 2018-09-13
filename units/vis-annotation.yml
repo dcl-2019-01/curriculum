@@ -1,0 +1,13 @@
+title: Annotations
+theme: communicate
+
+desc: |
+  Adding strings to a plot is challenging because they almost invariably
+  seem to end up plotted on top of each other. This section gives you a
+  few helpful tools for adding strings to a plot without generating a
+  giant hairball.
+
+needs: [vis-basics-2]
+
+readings:
+- book: r4ds-28.3

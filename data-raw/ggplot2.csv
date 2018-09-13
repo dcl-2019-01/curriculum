@@ -1,0 +1,13 @@
+id,depth,title,href
+1,1,Introduction,https://link-springer-com.stanford.idm.oclc.org/chapter/10.1007/978-3-319-24277-4_1
+2,1,Getting started with ggplot2,https://link-springer-com.stanford.idm.oclc.org/chapter/10.1007/978-3-319-24277-4_2
+3,1,Toolbox,https://link-springer-com.stanford.idm.oclc.org/chapter/10.1007/978-3-319-24277-4_3
+4,1,Mastering the grammar,https://link-springer-com.stanford.idm.oclc.org/chapter/10.1007/978-3-319-24277-4_4
+5,1,Build a plot layer by layer,https://link-springer-com.stanford.idm.oclc.org/chapter/10.1007/978-3-319-24277-4_5
+6,1,"Scales, axes and legends",https://link-springer-com.stanford.idm.oclc.org/chapter/10.1007/978-3-319-24277-4_6
+7,1,Positioning,https://link-springer-com.stanford.idm.oclc.org/chapter/10.1007/978-3-319-24277-4_7
+8,1,Themes,https://link-springer-com.stanford.idm.oclc.org/chapter/10.1007/978-3-319-24277-4_8
+9,1,Data analysis,https://link-springer-com.stanford.idm.oclc.org/chapter/10.1007/978-3-319-24277-4_9
+10,1,Data transformation,https://link-springer-com.stanford.idm.oclc.org/chapter/10.1007/978-3-319-24277-4_10
+11,1,Modelling for visualisation,https://link-springer-com.stanford.idm.oclc.org/chapter/10.1007/978-3-319-24277-4_11
+12,1,Programming with ggplot2,https://link-springer-com.stanford.idm.oclc.org/chapter/10.1007/978-3-319-24277-4_12

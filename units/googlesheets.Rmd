@@ -1,0 +1,95 @@
+---
+unit_title: "Google sheets"
+theme: wrangle
+needs: [parse-basics]
+---
+
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Use the googlesheets package by Jenny Bryan to (suprise!) extract data from Google sheets. Google sheets are a surprisingly useful way of collecting data (especially with Google forms) and collaboratively working with data. googlesheets makes it easy to get that data into R and make use of it.
+
+If you haven't already, install it:
+
+```{r, eval = FALSE}
+install.packages("googlesheets")
+```
+
+```{r setup, message=FALSE, warning=FALSE}
+# Libraries
+library(tidyverse)
+library(googlesheets)
+
+# Parameters
+  # URL for Gapminder example
+url_gapminder <- "https://docs.google.com/spreadsheets/d/1BzfL0kZUz1TsI5zxJF1WNF01IxvC67FbOJUiiGMZ_mQ/"
+```
+
+## Public sheets
+
+Some Google sheets are public, anyone can read them. Take a look at this [example](https://docs.google.com/spreadsheets/d/1BzfL0kZUz1TsI5zxJF1WNF01IxvC67FbOJUiiGMZ_mQ/) of data from [Gapminder](https://www.gapminder.org/).
+
+Each Google sheet has a sheet key, which is needed by googlesheets. Here's how to get the sheet key from a sheet's URL.
+
+```{r}
+sheet_key <- extract_key_from_url(url_gapminder)
+
+sheet_key
+```
+
+Once you have the sheet key, you can use it to create a googlesheets object.
+
+```{r, message=FALSE}
+gs <- gs_key(sheet_key)
+
+class(gs)
+```
+
+Here's how you can list the worksheets in the Google sheet.
+
+```{r}
+gs_ws_ls(gs)
+```
+
+Here's how you can read in the Asia worksheet.
+
+```{r}
+asia <- 
+  gs %>% 
+  gs_read(ws = "Asia")
+
+asia
+```
+
+## Private sheets
+
+Accessing private sheets requires you to authenticate to Google. Authentication is done with this command.
+
+```{r, eval=FALSE}
+# Give googlesheets permission to access spreadsheet
+gs_auth()
+```
+
+You will be prompted to log into Google. Once you have done this, googlesheets will create a file called `.httr-oauth` in your current directory. __NEVER CHECK THIS INTO GIT OR UPLOAD IT TO GITHUB__. (RStudio should create a `.gitignore` file to prevent `.httr-oauth` from being checked into Git or uploaded to GitHub.)
+
+The `.httr-oauth` file allows you to avoid having to log into Google in the future. The reason you don't upload this to GitHub is that if someone were able to obtain this file, they could use it to access your Google files.
+
+A common problem in using googlesheets is that it cannot find the `.httr-oauth` file. If you are using an RStudio project, your working directory is often the top level of the project, not the current subfolder. One way to avoid this problem is to simply make a copy of `.httr-oauth` to have one at both the top level of the project and the subfolder.
+
+Once you are authenticated into Google, your next challenge is to find the sheet key for the Google sheet you are interested in using. You can use the following so see the sheets you have access to. The list is ordered by modification time, with the most recently modified sheets first.
+
+```{r, eval=FALSE}
+gs_ls() %>% View()
+```
+
+Once you find the sheet you are interested in, you can copy its sheet key can create a variable for the it to place in the parameter section of your code.
+
+Finally, you can read in the sheet using
+
+```{r, eval=FALSE}
+df <- 
+  gs_key(sheet_key) %>%
+  gs_read()
+```

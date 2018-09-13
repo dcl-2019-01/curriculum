@@ -1,0 +1,102 @@
+---
+unit_title: Getting help
+theme: workflow
+needs: [documentation]
+author: Jenny Bryan and Hadley Wickham
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+## Help yourself
+
+![](https://imgs.xkcd.com/comics/tech_support_cheat_sheet.png)
+
+*   Carefully read the error message. Often it won't help, but sometimes there
+    are hints that will help you get started.
+
+*   If you encounter an error message you don't understand, strip anything
+    highly specific (like your object or variable names), surround it with
+    quotes and __Google__ it!
+    
+    (If the error message isn't in English, run `Sys.setenv(LANGUAGE = "en")` 
+    and re-run the code; you're more likely to find help for English error 
+    messages.)
+    
+*   Search the [tidyverse community](https://community.rstudio.com/c/tidyverse). If you can't find an answer, you can pose a question using a __reprex__ as explained below.
+
+## Get help from others
+
+> If someone has the wit and knowledge to answer your question, they 
+> probably have other things they would like to do. Making your message 
+> clear, concise and user-friendly gives you the best hope of at least 
+> one of those strangers diverting their attention away from their life 
+> towards your problem.
+> 
+> — The 9th circle of [The R Inferno][r-inferno]
+  
+
+If you need help getting unstuck, the first step is to create a __reprex__, or reproducible example. The goal of a reprex is to package your problematic code in such a way that other people can run it and feel your pain. Then, hopefully, they can provide a solution and put you out of your misery.
+
+There are two parts to creating a reprex:
+
+* First, you need to make your code reproducible. This means that you need
+  to capture everything, i.e., include any `library()` calls and create all necessary objects. The easiest way to make sure you've done this is to use the [reprex package](/help#reprex-pkg).
+  
+* Second, you need to make it minimal. Strip away everything that is not directly related to your problem until removing any remaining code will either remove your problem or cause a new error. This usually involves creating a much smaller and simpler R object than the one you’re facing in real life or even using built-in data.
+  
+That sounds like a lot of work!  And it can be, but it has a great payoff:
+
+* 80% of the time creating an excellent reprex reveals the source of your problem. It's amazing how often the process of writing up a self-contained and minimal example allows you to answer your own question.
+
+* The other 20% of time you will have captured the essence of your problem in
+  a way that is easy for others to play with. This substantially improves
+  your chances of getting help!
+
+### The reprex package {#reprex-pkg}
+
+When creating a reprex by hand, it's easy to accidentally miss something that means your code can't be run on someone else's computer. Avoid this problem by using the [reprex package](http://reprex.tidyverse.org). It's installed as part of the tidyverse *(will be true soon)* or you can install it by itself. Go ahead and load it.
+
+```R
+## pick one:
+##   install.packages("tidyverse") <-- will work soon
+##   install.packages("reprex")    <-- works today
+
+library(reprex)
+```
+
+Write a bit of code and copy it to the clipboard:
+
+```R
+(y <- 1:4)
+mean(y)
+```
+
+Enter `reprex()` in the R Console. In RStudio, you'll see a preview of your rendered reprex.
+
+```R
+(y <- 1:4)
+#> [1] 1 2 3 4
+mean(y)
+#> [1] 2.5
+```
+
+It is now ready and waiting on your clipboard, so you can paste it into, say, a GitHub issue. In RStudio, you can access reprex from the [addins menu](https://rstudio.github.io/rstudioaddins/), which makes it even easier to point out your code and select the output format.
+
+If your code is not self-contained, running `reprex()` results in an error. It may feel like tough love, but this way you can get your story straight in private. The reprex format also strongly encourages you to find the minimal dataset necessary to show your problem. Creating an effective reprex is a learned skill and the immediate feedback from reprex makes this very concrete.
+
+### More resources on asking good questions
+
+* [How To Ask Questions The Smart Way](http://www.catb.org/~esr/faqs/smart-questions.html),
+  Eric Raymond and Rick Moen. You'll need a slightly thick skin, but they speak truth.
+  
+* [How to Ask for Programming Help](http://codingkilledthecat.wordpress.com/2012/06/26/how-to-ask-for-programming-help/)
+
+* [How to ask](https://codereview.stackexchange.com/help/how-to-ask),
+  Stack Exchange's
+
+* [What have you tried?](http://mattgemmell.com/what-have-you-tried/), 
+  Matt Gemmell.
+
+[r-inferno]:http://www.burns-stat.com/documents/books/the-r-inferno/

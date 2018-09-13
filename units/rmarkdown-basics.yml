@@ -1,0 +1,23 @@
+title: R Markdown basics
+theme: communicate
+
+desc: |
+  Experience the full data science workflow by creating an RMarkdown file that
+  includes prose and code. __Knit__ the file to create output that intermingles
+  your text and the results of the code. This is an authentic workflow: the only
+  difference between this and what you'll use as a data scientist is that in
+  this class you'll always show your code so we can give you feedback on both
+  your results _and_ your process.
+
+needs: [setup]
+
+readings:
+- book: r4ds-27.1
+- book: r4ds-27.2
+- book: r4ds-27.4
+- book: cheatsheets-rmarkdown-2.0
+- book: cheatsheets-rmarkdown-reference
+
+supplements:
+- grolemund-rmarkdown
+- rmarkdown

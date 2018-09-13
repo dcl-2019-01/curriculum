@@ -1,0 +1,39 @@
+title: Spatial visualisation
+theme: explore
+needs: spatial-basics
+readings: ~
+updated: ~
+desc: "\n## Setup\n\nSince sf is so new, support for it in ggplot2 is also very new.
+  That\nmeans you’ll need to install the development version of ggplot2 from\nGitHub.
+  That’s easy to do using the devtools package:\n\n``` r\n# install.packages(\"devtools\")\ndevtools::install_github(\"tidyverse/ggplot2\")\n```\n\nCheck
+  that the install has succeeded by loading the tidyverse and then\nrunning `?geom_sf`.
+  If you can’t find the documentation for `geom_sf`,\nsomething has gone wrong. The
+  first thing to try is restarting R so that\nyou have a clean session. Installing
+  ggplot2 is tricky if you already\nhave it loaded\\!\n\nNext we’ll load the tidyverse,
+  sf, and read in a couple of sample\ndatasets.\n\n``` r\nlibrary(tidyverse)\nlibrary(sf)\nlibrary(maps)\n\nnc
+  <- sf::st_read(system.file(\"shape/nc.shp\", package = \"sf\"), quiet = TRUE)\nstates
+  <- sf::st_as_sf(map(\"state\", plot = FALSE, fill = TRUE))\n```\n\n## `geom_sf()`\n\nThe
+  easiest way to get started is to supply an sf object to `geom_sf()`:\n\n``` r\nggplot()
+  +\n  geom_sf(data = nc)\n```\n\n![](spatial-vis_files/figure-gfm/unnamed-chunk-3-1.png)<!--
+  -->\n\nNotice that ggplot2 takes care of setting the aspect ratio correctly.\n\nYou
+  can supply other aesthetics: for polygons, `fill` is most useful:\n\n``` r\nggplot()
+  +\n  geom_sf(aes(fill = AREA), data = nc, colour = \"white\")\n```\n\n![](spatial-vis_files/figure-gfm/unnamed-chunk-4-1.png)<!--
+  -->\n\nWhen you include multiple layers, ggplot2 will take care of ensuring\nthat
+  they all have a common CRS so that it makes sense to overlay them.\n\n``` r\nggplot()
+  +\n  geom_sf(data = states) + \n  geom_sf(data = nc)\n```\n\n![](spatial-vis_files/figure-gfm/unnamed-chunk-5-1.png)<!--
+  -->\n\nYou can combine `geom_sf()` with other geoms. In this case, `x` and `y`\npositions
+  are assumed be in the same CRS as the sf object (typically\nthese will be longitude
+  and latitude).\n\n``` r\nggplot() +\n  geom_sf(data = nc) +\n  annotate(\"point\",
+  x = -80, y = 35, colour = \"red\", size = 4)\n```\n\n![](spatial-vis_files/figure-gfm/unnamed-chunk-6-1.png)<!--
+  -->\n\n## `coord_sf()`\n\nYou’ll need to use `coord_sf()` for two reasons:\n\n  -
+  You want to zoom into a specified region of the plot by using `xlim`\n    and `ylim`\n
+  \   \n    ``` r\n    ggplot() +\n      geom_sf(data = nc) +\n      annotate(\"point\",
+  x = -80, y = 35, colour = \"red\", size = 4) + \n      coord_sf(xlim = c(-81, -79),
+  ylim = c(34, 36))\n    ```\n    \n    ![](spatial-vis_files/figure-gfm/unnamed-chunk-7-1.png)<!--
+  -->\n\n  - You want to override to use a specific projection. If you don’t\n    specify
+  the `crs` argument, it just uses the one provided in the\n    first layer. The following
+  example uses\n    “USA\\_Contiguous\\_Albers\\_Equal\\_Area\\_Conic”. The easiest
+  way to\n    supply the CRS is as a EPSG ID. I found this ID (102003) with a\n    little
+  googling.\n    \n    ``` r\n    ggplot() +\n      geom_sf(data = states) +\n      coord_sf(crs
+  = st_crs(102003))\n    ```\n    \n    ![](spatial-vis_files/figure-gfm/unnamed-chunk-8-1.png)<!--
+  -->\n"

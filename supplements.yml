@@ -1,0 +1,118 @@
+- slug: wickham-purrr
+  href: https://github.com/cwickham/purrr-tutorial
+  text: RStudio conference purrr tutorial
+  author: Charlotte Wickham
+  desc: >
+    This purrr tutorial doesn't assume any knowledge of functions, providing
+    an approachable introduction.
+
+- slug: rmarkdown
+  href: http://rmarkdown.rstudio.com/
+  text: RMarkdown homepage
+  desc: >
+    The official RStudio source of RMarkdown documentation.
+    We're only scraping the surface of RMarkdown's capabilities in
+    this course; read here to unlock more of its power.
+
+- slug: happy-git
+  href: http://happygitwithr.com
+  text: Happy Git and GitHub for the useR
+  desc: >
+    Refer to the first two parts of this book ("Installation" and
+    "Connect Git, GitHub, RStudio" if you have problems getting set up
+    with Git and Github.
+  needs: [setup]
+
+- slug: rauser-how-humans-see
+  href: https://youtu.be/fSgEeI2Xpdc
+  text: How humans see data
+  author: John Rauser
+  desc: Slides at <http://www.slideshare.net/JohnRauser/how-humans-see-data>
+  needs: [vis-theory]
+
+- slug: grolemund-wrangle
+  safari: video/programming/r/9781491917046
+  text: Expert data wrangling with R
+  author: Garrett Grolemund
+  desc: A video introduction to dplyr.
+  needs: [manip-basics]
+
+- slug: woo-vis
+  safari: video/programming/r/9781491963661
+  text: Data Visualisation in R with ggplot2
+  author: Kara Woo
+  desc: A video introduction to ggplot2.
+  needs: [vis-basics]
+
+- slug: grolemund-rmarkdown
+  href: https://www.rstudio.com/resources/webinars/getting-started-with-r-markdown/
+  text: Getting Started with R Markdown
+  desc: >
+    This 60 minute webinar introduces you to R Markdown. It covers
+    similar content to the readings in video form.
+  needs: [rmarkdown-basics]
+
+- slug: keifer-blog
+  href: http://lenkiefer.com
+  text: Len Keifer's blog
+  desc: >
+    Len Keifer is Deputy Chief Economist at Freddie Mac, and posts many
+    interesting analyses of economic data.
+  needs: [vis-basics, manip-basics]
+
+- slug: schneider-bikes
+  href: http://toddwschneider.com/posts/a-tale-of-twenty-two-million-citi-bikes-analyzing-the-nyc-bike-share-system/
+  text: "A Tale of Twenty-Two Million Citi Bike Rides: Analyzing the NYC Bike Share System"
+  author: Todd W. Schneider
+  desc: >
+    This analysis uses R (along with other tools) to analyse over 20 million
+    bike rides in NYC. As you read through the analysis think how you would do
+    it yourself using the techniques you have learned so far.
+
+- slug: schneider-taxis
+  href: http://toddwschneider.com/posts/analyzing-1-1-billion-nyc-taxi-and-uber-trips-with-a-vengeance/
+  text: Analyzing 1.1 Billion NYC Taxi and Uber Trips, with a Vengeance
+  author: Todd W. Schneider
+  desc: >
+    This analysis uses much more data than the previous analysis. What
+    additional challenges did Todd need to solve to allow him to work with
+    this much data?
+
+- slug: naniar
+  href: https://github.com/njtierney/naniar
+  text: naniar
+  author: Nicholas Tierny
+  desc: >
+    This is an ggplot2 extension that adds comprehensive tools for
+    visulising missing data.
+  needs: [missing-values]
+
+- slug: biobroom
+  href: http://varianceexplained.org/r/tidy-genomics-biobroom/
+  text: Tidying computational biology models with biobroom
+  desc: by David Robinson
+  needs: [tidy-tibble, model-basics]
+
+- slug: leek-non-tidy
+  href: http://simplystatistics.org/2016/02/17/non-tidy-data/
+  text: Non-tidy data
+  desc: >
+    An example, by Jeff Leek, of when tidy data isn't as useful as
+    a non-tidy structure.
+  needs: [tidy-tibble]
+
+- slug: wickham-tidy-data
+  href: https://www.jstatsoft.org/v59/i10/
+  text: "Tidy Data"
+  desc: >
+    This article lays out more of the details behind tidy data, and works
+    through a few more case studies. However, it uses a previous iteration
+    of the tools, using reshape2 instead of tidyr. To see the code translated
+    into tidyr, read the
+    [tidy data vignette](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html).
+  needs: [tidy-tibble]
+
+- slug: happy-graphing
+  href: http://stat545.com/block016_secrets-happy-graphing.html
+  text: Secrets of a happy graphing life
+  needs: [vis-basics, tidy-tibble]

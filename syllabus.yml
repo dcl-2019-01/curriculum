@@ -1,0 +1,92 @@
+cur-week: 10
+
+weeks:
+  week-01:
+  - setup
+  - code-style
+  - documentation
+  - data-basics
+  - vis-basics
+  - manip-basics
+  - rmarkdown-basics
+
+  week-02:
+  - vis-basics-2
+  - vis-labelling
+  - data-structure-basics
+  - manip-one-table
+  - eda-1d
+  - getting-help
+  - tidy-data
+  - vis-calls
+
+  week-03:
+  - parse-basics
+  - function-basics
+  - vis-scales
+  - relational-basics
+  - spread-gather
+  - vis-perception
+
+  week-04:
+  - string-basics
+  - purrr-map
+  - vis-position
+  - missing-values
+  - datetime-basics
+  - eda-2d
+
+  week-05:
+  - manip-scoped
+  - factor-basics
+  - vis-scales-2
+  - lists
+  - model-basics
+
+  week-06:
+  - regexps
+  - spatial-basics
+  - vector-functions
+  - vis-themes
+  - model-vis
+  - parse-details
+
+  week-07:
+  - timespans
+  - vis-annotation
+  - workflow-rmarkdown
+  - model-multivariate
+  - purrr-map-variants
+
+  week-08:
+  - list-cols
+  - model-many
+  - separate-unite
+  - spatial-vis
+  - string-basics
+
+  week-09:
+  - tidy-eval
+  - window-functions
+  - model-eval
+  - rectangling
+
+  week-10:
+  - rmarkdown-formats
+  - dplyr-databases
+  - ggplot2-exts
+  - googlesheets
+  - learning-more
+
+# Not used
+# - export
+# - vector-summary-functions
+# - report-generation
+# - filter-joins
+# - reprexes # included in getting-help
+# Next
+# - analysis-workflow
+# - times
+# - factor-basics-2
+# - parse-many-files
+# - joins-debugging

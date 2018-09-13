@@ -1,0 +1,23 @@
+title: Missing values
+theme: wrangle
+
+desc: |
+  R uses `NA` to present unknown, but potentially measurable variables.
+
+  The pattern of missingness in a dataset is often informative, so you
+  should never silently ignore missing values.
+
+needs: [eda-2d]
+
+readings:
+- book: r4ds-5.2.3
+  desc: (transformation)
+
+- book: r4ds-5.6.2
+  desc: (summary)
+
+- book: r4ds-7.4
+  desc: (visualisation)
+
+supplements:
+- naniar

@@ -1,0 +1,187 @@
+---
+unit_title: Manipulation basics
+theme: wrangle
+needs: [data-basics]
+updated: 2018-01
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+options(digits = 3)
+set.seed(1014)
+```
+
+```{r}
+library(tidyverse)
+library(nycflights13)
+```
+
+## dplyr basics
+
+In this reading you will going to learn about three important dplyr functions that give you basic data manipulation power:
+
+* Pick observations by their values (`filter()`).
+* Create new variables with functions of existing variables (`mutate()`).
+* Collapse many values down to a single summary (`summarise()`).
+
+These can all be used in conjunction with `group_by()` which changes the scope of each function from operating on the entire dataset to operating on it group-by-group. 
+
+(Use the [data transformation cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf) to jog your memory, and learn about other dplyr functions we'll cover in the future)
+
+All dplyr verbs work similarly: 
+
+1.  The first argument is a data frame.
+
+1.  The subsequent arguments describe what to do with the data frame.
+    
+1.  The result is a new data frame.
+
+Together these properties make it easy to chain together multiple simple steps to achieve a complex result. Let's dive in and see how these verbs work.
+
+## Filter rows with `filter()`
+
+`filter()` allows you to subset observations based on their values. The first argument is the name of the data frame. The second and subsequent arguments are the expressions that filter the data frame. For example, we can select all flights on January 1st with:
+
+```{r}
+filter(flights, month == 1, day == 1)
+```
+
+When you run that line of code, dplyr executes the filtering operation and returns a new data frame. dplyr functions never modify their inputs, so if you want to save the result, you'll need to use the assignment operator, `<-`:
+
+```{r}
+jan1 <- filter(flights, month == 1, day == 1)
+```
+
+R either prints out the results, or saves them to a variable. If you want to do both, you can wrap the assignment in parentheses:
+
+```{r}
+(dec25 <- filter(flights, month == 12, day == 25))
+```
+
+### Comparisons
+
+To use filtering effectively, you have to know how to select the observations that you want using the comparison operators. R provides the standard suite: `>`, `>=`, `<`, `<=`, `!=` (not equal), and `==` (equal). 
+
+When you're starting out with R, the easiest mistake to make is to use `=` instead of `==` when testing for equality. When this happens you'll get an informative error:
+
+```{r, error = TRUE}
+filter(flights, month = 1)
+```
+
+### Logical operators
+
+Multiple arguments to `filter()` are combined with "and": every expression must be true in order for a row to be included in the output. For other types of combinations, you'll need to use Boolean operators yourself: `&` is "and", `|` is "or", and `!` is "not".
+
+The following code finds all flights that departed in November or December:
+
+```{r, eval = FALSE}
+filter(flights, month == 11 | month == 12)
+```
+
+The order of operations doesn't work like English. You can't write `filter(flights, month == 11 | 12)`, which you might literally translate into  "finds all flights that departed in November or December". Instead it finds all months that equal `11 | 12`, an expression that evaluates to `TRUE`. In a numeric context (like here), `TRUE` becomes one, so this finds all flights in January, not November or December. This is quite confusing!
+
+A useful short-hand for this problem is `x %in% y`. This will select every row where `x` is one of the values in `y`. We could use it to rewrite the code above:
+
+```{r, eval = FALSE}
+nov_dec <- filter(flights, month %in% c(11, 12))
+```
+
+As well as `&` and `|`, R also has `&&` and `||`. Don't use them here! You'll learn more about them later.
+
+## Add new variables with `mutate()`
+
+Besides selecting sets of existing columns, it's often useful to add new columns that are functions of existing columns. That's the job of `mutate()`. 
+
+`mutate()` always adds new columns at the end of your dataset so we'll start by creating a narrower dataset so we can see the new variables. Remember that when you're in RStudio, the easiest way to see all the columns is `View()`.
+
+```{r}
+flights_sml <- select(flights, 
+  year:day, 
+  ends_with("delay"), 
+  distance, 
+  air_time
+)
+mutate(flights_sml,
+  gain = arr_delay - dep_delay,
+  speed = distance / air_time * 60
+)
+```
+
+Note that you can refer to columns that you've just created:
+
+```{r}
+mutate(flights_sml,
+  gain = arr_delay - dep_delay,
+  hours = air_time / 60,
+  gain_per_hour = gain / hours
+)
+```
+
+## Grouped summaries with `summarise()`
+
+The last key verb is `summarise()`. It collapses a data frame to a single row:
+
+```{r}
+summarise(flights, delay = mean(dep_delay, na.rm = TRUE))
+```
+
+(`na.rm = TRUE` removes the missing values so they don't affect the final summary)
+
+`summarise()` is not terribly useful unless we pair it with `group_by()`. This changes the unit of analysis from the complete dataset to individual groups. Then, when you use the dplyr verbs on a grouped data frame they'll be automatically applied "by group". For example, if we applied exactly the same code to a data frame grouped by date, we get the average delay per date:
+
+```{r}
+by_day <- group_by(flights, year, month, day)
+summarise(by_day, delay = mean(dep_delay, na.rm = TRUE))
+```
+
+Together `group_by()` and `summarise()` provide one of the tools that you'll use most commonly when working with dplyr: grouped summaries. But before we go any further with this, we need to introduce a powerful new idea: the pipe.
+
+## Combining multiple operations with the pipe
+
+Imagine that we want to explore the relationship between the distance and average delay for each location. Using what you know about dplyr, you might write code like this:
+
+```{r, fig.width = 6}
+by_dest <- group_by(flights, dest)
+delay <- summarise(by_dest,
+  count = n(),
+  dist = mean(distance, na.rm = TRUE),
+  delay = mean(arr_delay, na.rm = TRUE)
+)
+delay <- filter(delay, count > 20, dest != "HNL")
+
+# It looks like delays increase with distance up to ~750 miles 
+# and then decrease. Maybe as flights get longer there's more 
+# ability to make up delays in the air?
+ggplot(data = delay, mapping = aes(x = dist, y = delay)) +
+  geom_point(aes(size = count), alpha = 1/3) +
+  geom_smooth(se = FALSE)
+```
+
+There are three steps to prepare this data:
+
+1.  Group flights by destination.
+
+1.  Summarise to compute distance, average delay, and number of flights.
+
+1.  Filter to remove noisy points and Honolulu airport, which is almost
+    twice as far away as the next closest airport.
+
+This code is a little frustrating to write because we have to give each intermediate data frame a name, even though we don't care about it. Naming things is hard, so this slows down our analysis. 
+
+There's another way to tackle the same problem with the pipe, `%>%`:
+
+```{r}
+delays <- flights %>% 
+  group_by(dest) %>% 
+  summarise(
+    count = n(),
+    dist = mean(distance, na.rm = TRUE),
+    delay = mean(arr_delay, na.rm = TRUE)
+  ) %>% 
+  filter(count > 20, dest != "HNL")
+```
+
+This focuses on the transformations, not what's being transformed, which makes the code easier to read. You can read it as a series of imperative statements: group, then summarise, then filter. As suggested by this reading, a good way to pronounce `%>%` when reading code is "then".
+
+Behind the scenes, `x %>% f(y)` turns into `f(x, y)`, and `x %>% f(y) %>% g(z)` turns into `g(f(x, y), z)` and so on. You can use the pipe to rewrite multiple operations in a way that you can read left-to-right, top-to-bottom. We'll use piping frequently from now on because it considerably improves the readability of code, and we'll come back to it in more detail later on.
+

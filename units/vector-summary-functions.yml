@@ -1,0 +1,166 @@
+title: Vector and summary functions
+theme: wrangle
+needs:
+- manip-basics
+- missing-values
+readings: ~
+updated: ~
+desc: "\n``` r\nlibrary(tidyverse)\nlibrary(nycflights13)\n```\n\n`mutate()` and `summarise()`
+  operate on data frames. You use them with vector and summary functions which work
+  with individual variables (or vectors).\n\nVector functions\n----------------\n\nA
+  vector function takes one (or sometimes more) vectors as input and returns a vector
+  of the same length as output. These are typically used with `mutate()` to create
+  new variables.\n\nI can't list every vector function, but here's a few that are
+  often useful:\n\n-   Arithmetic operators: `+`, `-`, `*`, `/`, `^`. These are all
+  vectorised, using the so called \"recycling rules\". If one parameter is shorter
+  than the other, it will be automatically extended to be the same length. This is
+  most useful when one of the arguments is a single number: `air_time / 60`, `hours
+  * 60 + minute`, etc.\n\n    Arithmetic operators are also useful in conjunction
+  with the aggregate functions you'll learn about later. For example, `x / sum(x)`
+  calculates the proportion of a total, and `y - mean(y)` computes the difference
+  from the mean.\n\n-   Modular arithmetic: `%/%` (integer division) and `%%` (remainder),
+  where `x == y * (x %/% y) + (x %% y)`. Modular arithmetic is a handy tool because
+  it allows you to break integers up into pieces. For example, in the flights dataset,
+  you can compute `hour` and `minute` from `dep_time` with:\n\n    ``` r\n    flights
+  %>% \n      transmute(\n        dep_time,\n        hour = dep_time %/% 100,\n        minute
+  = dep_time %% 100\n      )\n    #> # A tibble: 336,776 x 3\n    #>    dep_time  hour
+  minute\n    #>       <int> <dbl>  <dbl>\n    #>  1      517  5.00   17.0\n    #>
+  \ 2      533  5.00   33.0\n    #>  3      542  5.00   42.0\n    #>  4      544  5.00
+  \  44.0\n    #>  5      554  5.00   54.0\n    #>  6      554  5.00   54.0\n    #>
+  \ 7      555  5.00   55.0\n    #>  8      557  5.00   57.0\n    #>  9      557  5.00
+  \  57.0\n    #> 10      558  5.00   58.0\n    #> # ... with 336,766 more rows\n
+  \   ```\n\n-   Logs: `log()`, `log2()`, `log10()`. Logarithms are an incredibly
+  useful transformation for dealing with data that ranges across multiple orders of
+  magnitude. They also convert multiplicative relationships to additive, a feature
+  we'll come back to in modelling.\n\n    All else being equal, I recommend using
+  `log2()` because it's easy to interpret: a difference of 1 on the log scale corresponds
+  to doubling on the original scale and a difference of -1 corresponds to halving.\n\n-
+  \  Logical comparisons, `<`, `<=`, `>`, `>=`, `!=`, which you learned about earlier.
+  If you're doing a complex sequence of logical operations it's often a good idea
+  to store the interim values in new variables so you can check that each step is
+  working as expected.\n\n-   `if_else()` allows you perform a conditional calculation.
+  The first argument should be a logical statement; the second argument is the value
+  to use if the first argument is true; the third argument is the value to use if
+  the first argument is false.\n\n    ``` r\n    flights %>% \n      transmute(\n
+  \       on_time = if_else(arr_delay < 0, \"early\", \"late\")\n      )\n    #> #
+  A tibble: 336,776 x 1\n    #>    on_time\n    #>    <chr>  \n    #>  1 late   \n
+  \   #>  2 late   \n    #>  3 late   \n    #>  4 early  \n    #>  5 early  \n    #>
+  \ 6 late   \n    #>  7 late   \n    #>  8 early  \n    #>  9 early  \n    #> 10
+  late   \n    #> # ... with 336,766 more rows\n    ```\n\n-   `case_when()` allows
+  you to combine multiple logical conditions, evaluated in turn. Each condition goes
+  on the left hand side of the `~`, and the result goes on the right hand side.\n\n
+  \   ``` r\n    flights %>% \n      transmute(\n        on_time = case_when(\n          abs(arr_delay)
+  < 10 ~ \"on time\",\n          arr_delay < 0 ~ \"early\",\n          arr_delay >
+  0 ~ \"late\",\n          is.na(arr_delay) ~ \"cancelled\"\n        )\n      )\n
+  \   #> # A tibble: 336,776 x 1\n    #>    on_time\n    #>    <chr>  \n    #>  1
+  late   \n    #>  2 late   \n    #>  3 late   \n    #>  4 early  \n    #>  5 early
+  \ \n    #>  6 late   \n    #>  7 late   \n    #>  8 early  \n    #>  9 on time\n
+  \   #> 10 on time\n    #> # ... with 336,766 more rows\n    ```\n\nSummary functions\n-----------------\n\nA
+  summary function takes a vector of inputs and returns a single output. They are
+  most commonly used with `summarise()`.\n\nJust using means, counts, and sum can
+  get you a long way, but R provides many other useful summary functions:\n\n-   Measures
+  of location: we've used `mean(x)`, but `median(x)` is also useful. The mean is the
+  sum divided by the length; the median is a value where 50% of `x` is above it, and
+  50% is below it.\n\n    It's sometimes useful to combine aggregation with logical
+  subsetting. We haven't talked about this sort of subsetting yet, but you'll learn
+  more about it later.\n\n    ``` r\n    flights %>% \n      group_by(year, month,
+  day) %>% \n      summarise(\n        avg_delay1 = mean(arr_delay, na.rm = TRUE),\n
+  \       # the average positive delay\n        avg_delay2 = mean(arr_delay[arr_delay
+  > 0], na.rm = TRUE)\n      ) %>% \n      ungroup()\n    #> # A tibble: 365 x 5\n
+  \   #>     year month   day avg_delay1 avg_delay2\n    #>    <int> <int> <int>      <dbl>
+  \     <dbl>\n    #>  1  2013     1     1     12.7         32.5\n    #>  2  2013
+  \    1     2     12.7         32.0\n    #>  3  2013     1     3      5.73        27.7\n
+  \   #>  4  2013     1     4    - 1.93        28.3\n    #>  5  2013     1     5    -
+  1.53        22.6\n    #>  6  2013     1     6      4.24        24.4\n    #>  7  2013
+  \    1     7    - 4.95        27.8\n    #>  8  2013     1     8    - 3.23        20.8\n
+  \   #>  9  2013     1     9    - 0.264       25.6\n    #> 10  2013     1    10    -
+  5.90        27.3\n    #> # ... with 355 more rows\n    ```\n\n-   Measures of spread:
+  `sd(x)`, `IQR(x)`, `mad(x)`. The mean squared deviation, or standard deviation or
+  sd for short, is the standard measure of spread. The interquartile range `IQR()`
+  and median absolute deviation `mad(x)` are robust equivalents that may be more useful
+  if you have outliers.\n\n    ``` r\n    # Why is distance to some destinations more
+  variable than to others?\n    flights %>% \n      group_by(dest) %>% \n      summarise(distance_sd
+  = sd(distance, na.rm = TRUE)) %>% \n      arrange(desc(distance_sd))\n    #> # A
+  tibble: 105 x 2\n    #>    dest  distance_sd\n    #>    <chr>       <dbl>\n    #>
+  \ 1 EGE         10.5 \n    #>  2 SAN         10.3 \n    #>  3 SFO         10.2 \n
+  \   #>  4 HNL         10.0 \n    #>  5 SEA          9.98\n    #>  6 LAS          9.91\n
+  \   #>  7 PDX          9.88\n    #>  8 PHX          9.86\n    #>  9 LAX          9.66\n
+  \   #> 10 IND          9.46\n    #> # ... with 95 more rows\n    ```\n\n-   Measures
+  of rank: `min(x)`, `quantile(x, 0.25)`, `max(x)`. Quantiles are a generalisation
+  of the median. For example, `quantile(x, 0.25)` will find a value of `x` that is
+  greater than 25% of the values, and less than the remaining 75%.\n\n    ``` r\n
+  \   # When do the first and last flights leave each day?\n    flights %>% \n      group_by(year,
+  month, day) %>% \n      summarise(\n        first = min(sched_dep_time, na.rm =
+  TRUE),\n        last = max(sched_dep_time, na.rm = TRUE)\n      ) %>% \n      ungroup()\n
+  \   #> # A tibble: 365 x 5\n    #>     year month   day first  last\n    #>    <int>
+  <int> <int> <dbl> <dbl>\n    #>  1  2013     1     1   515  2359\n    #>  2  2013
+  \    1     2   500  2359\n    #>  3  2013     1     3   500  2359\n    #>  4  2013
+  \    1     4   500  2359\n    #>  5  2013     1     5   500  2359\n    #>  6  2013
+  \    1     6   500  2359\n    #>  7  2013     1     7   500  2359\n    #>  8  2013
+  \    1     8   500  2359\n    #>  9  2013     1     9   500  2359\n    #> 10  2013
+  \    1    10   500  2359\n    #> # ... with 355 more rows\n    ```\n\n-   Measures
+  of position: `first(x)`, `nth(x, 2)`, `last(x)`. These work similarly to `x[1]`,
+  `x[2]`, and `x[length(x)]` but let you set a default value if that position does
+  not exist (i.e. you're trying to get the 3rd element from a group that only has
+  two elements). For example, we can find the first and last departure for each day:\n\n
+  \   ``` r\n    flights %>% \n      filter(!is.na(dep_time)) %>% \n      group_by(year,
+  month, day) %>% \n      summarise(\n        first_dep = first(dep_time), \n        last_dep
+  = last(dep_time)\n      ) %>% \n      ungroup()\n    #> # A tibble: 365 x 5\n    #>
+  \    year month   day first_dep last_dep\n    #>    <int> <int> <int>     <int>
+  \   <int>\n    #>  1  2013     1     1       517     2356\n    #>  2  2013     1
+  \    2        42     2354\n    #>  3  2013     1     3        32     2349\n    #>
+  \ 4  2013     1     4        25     2358\n    #>  5  2013     1     5        14
+  \    2357\n    #>  6  2013     1     6        16     2355\n    #>  7  2013     1
+  \    7        49     2359\n    #>  8  2013     1     8       454     2351\n    #>
+  \ 9  2013     1     9         2     2252\n    #> 10  2013     1    10         3
+  \    2320\n    #> # ... with 355 more rows\n    ```\n\n    These functions are complementary
+  to filtering on ranks. Filtering gives you all variables, with each observation
+  in a separate row:\n\n    ``` r\n    flights %>% \n      filter(!is.na(dep_time))
+  %>% \n      group_by(year, month, day) %>% \n      mutate(r = min_rank(desc(dep_time)))
+  %>% \n      filter(r %in% range(r)) %>% \n      ungroup()\n    #> # A tibble: 770
+  x 20\n    #>     year month   day dep_time sched_dep_time dep_delay arr_time\n    #>
+  \   <int> <int> <int>    <int>          <int>     <dbl>    <int>\n    #>  1  2013
+  \    1     1      517            515      2.00      830\n    #>  2  2013     1     1
+  \    2356           2359    - 3.00      425\n    #>  3  2013     1     2       42
+  \          2359     43.0       518\n    #>  4  2013     1     2     2354           2359
+  \   - 5.00      413\n    #>  5  2013     1     3       32           2359     33.0
+  \      504\n    #>  6  2013     1     3     2349           2359    -10.0       434\n
+  \   #>  7  2013     1     4       25           2359     26.0       505\n    #>  8
+  \ 2013     1     4     2358           2359    - 1.00      429\n    #>  9  2013     1
+  \    4     2358           2359    - 1.00      436\n    #> 10  2013     1     5       14
+  \          2359     15.0       503\n    #> # ... with 760 more rows, and 13 more
+  variables: sched_arr_time <int>,\n    #> #   arr_delay <dbl>, carrier <chr>, flight
+  <int>, tailnum <chr>,\n    #> #   origin <chr>, dest <chr>, air_time <dbl>, distance
+  <dbl>, hour <dbl>,\n    #> #   minute <dbl>, time_hour <dttm>, r <int>\n    ```\n\n-
+  \  Counts: You've seen `n()`, which takes no arguments, and returns the size of
+  the current group. To count the number of non-missing values, use `sum(!is.na(x))`.
+  To count the number of distinct (unique) values, use `n_distinct(x)`.\n\n    ```
+  r\n    # Which destinations have the most carriers?\n    flights %>% \n      group_by(dest)
+  %>% \n      summarise(carriers = n_distinct(carrier)) %>% \n      arrange(desc(carriers))\n
+  \   #> # A tibble: 105 x 2\n    #>    dest  carriers\n    #>    <chr>    <int>\n
+  \   #>  1 ATL          7\n    #>  2 BOS          7\n    #>  3 CLT          7\n    #>
+  \ 4 ORD          7\n    #>  5 TPA          7\n    #>  6 AUS          6\n    #>  7
+  DCA          6\n    #>  8 DTW          6\n    #>  9 IAD          6\n    #> 10 MSP
+  \         6\n    #> # ... with 95 more rows\n    ```\n\n-   Counts and proportions
+  of logical values: `sum(x > 10)`, `mean(y == 0)`. When used with numeric functions,
+  `TRUE` is converted to 1 and `FALSE` to 0. This makes `sum()` and `mean()` very
+  useful: `sum(x)` gives the number of `TRUE`s in `x`, and `mean(x)` gives the proportion.\n\n
+  \   ``` r\n    # How many flights left before 5am? (these usually indicate delayed\n
+  \   # flights from the previous day)\n    flights %>% \n      filter(!is.na(dep_time))
+  %>%\n      group_by(year, month, day) %>% \n      summarise(n_early = sum(dep_time
+  < 500)) %>% \n      ungroup()\n    #> # A tibble: 365 x 4\n    #>     year month
+  \  day n_early\n    #>    <int> <int> <int>   <int>\n    #>  1  2013     1     1
+  \      0\n    #>  2  2013     1     2       3\n    #>  3  2013     1     3       4\n
+  \   #>  4  2013     1     4       3\n    #>  5  2013     1     5       3\n    #>
+  \ 6  2013     1     6       2\n    #>  7  2013     1     7       2\n    #>  8  2013
+  \    1     8       1\n    #>  9  2013     1     9       3\n    #> 10  2013     1
+  \   10       3\n    #> # ... with 355 more rows\n\n    # What proportion of flights
+  are delayed by more than an hour?\n    flights %>% \n      filter(!is.na(arr_delay))
+  %>%\n      group_by(year, month, day) %>% \n      summarise(hour_perc = mean(arr_delay
+  > 60)) %>% \n      ungroup()\n    #> # A tibble: 365 x 4\n    #>     year month
+  \  day hour_perc\n    #>    <int> <int> <int>     <dbl>\n    #>  1  2013     1     1
+  \   0.0722\n    #>  2  2013     1     2    0.0851\n    #>  3  2013     1     3    0.0567\n
+  \   #>  4  2013     1     4    0.0396\n    #>  5  2013     1     5    0.0349\n    #>
+  \ 6  2013     1     6    0.0470\n    #>  7  2013     1     7    0.0333\n    #>  8
+  \ 2013     1     8    0.0213\n    #>  9  2013     1     9    0.0202\n    #> 10  2013
+  \    1    10    0.0183\n    #> # ... with 355 more rows\n    ```\n"

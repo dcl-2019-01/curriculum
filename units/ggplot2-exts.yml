@@ -1,0 +1,17 @@
+title: ggplot2 extensions
+theme: communicate
+updated: 2018-01
+
+desc: |
+  ggplot2 is not an island; it also has a rich ecosystem of extensions that
+  solve a wide range of problems that base ggplot2 does not. In this reading
+  you'll learn about the most important site for finding ggplot2 extensions.
+
+needs: [vis-basics-2]
+
+readings:
+- href: http://www.ggplot2-exts.org/gallery/
+  text: ggplot2 extensions gallery
+  desc: >
+    This is the best place to start if you discover a challenge plot type
+    that doesn't seem easy to do with just ggplot2.

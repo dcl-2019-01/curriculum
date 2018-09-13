@@ -1,0 +1,12 @@
+title: Lists
+theme: program
+
+desc: |
+  Lists are R's most flexible data structure because you can put anything
+  inside a list, even other lists. They power tibbles and data frames,
+  and most other complex object types (e.g. linear models).
+
+needs: [data-structure-basics]
+
+readings:
+- book: r4ds-20.5

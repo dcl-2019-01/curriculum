@@ -1,0 +1,14 @@
+id,title,href
+keras,Deep Learning with Keras Cheat Sheet,https://github.com/rstudio/cheatsheets/raw/master/keras.pdf
+lubridate,Dates and Times Cheat Sheet,https://github.com/rstudio/cheatsheets/raw/master/lubridate.pdf
+strings,Work with Strings Cheat Sheet,https://github.com/rstudio/cheatsheets/raw/master/strings.pdf
+purrr,Apply Functions Cheat Sheet,https://github.com/rstudio/cheatsheets/raw/master/purrr.pdf
+data-import,Data Import Cheat Sheet,https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf
+data-transformation,Data Transformation Cheat Sheet,https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf
+sparklyr,Sparklyr Cheat Sheet,https://github.com/rstudio/cheatsheets/raw/master/sparklyr.pdf
+rmarkdown-2.0,R Markdown Cheat Sheet,https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf
+rstudio-ide,RStudio IDE Cheat Sheet,https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf
+shiny,Shiny Cheat Sheet,https://github.com/rstudio/cheatsheets/raw/master/shiny.pdf
+data-visualization-2.1,Data Visualization Cheat Sheet,https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf
+package-development,Package Development Cheat Sheet,https://github.com/rstudio/cheatsheets/raw/master/package-development.pdf
+rmarkdown-reference,R Markdown Reference Guide,https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf

@@ -1,0 +1,183 @@
+---
+unit_title: Scoped verbs
+needs: [manip-basics]
+theme: wrangle
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+options(tibble.print_min = 5, tibble.print_max = 5)
+library(tidyverse)
+```
+
+## Introduction
+
+Each of the single table verbs comes in three additional forms with the suffixes `_if`, `_at`, and `_all`. These __scoped__ variants allow you to work with multiple variables with a single call:
+
+* `_if` allows you to pick variables based on a predicate function like
+  `is.numeric()` or `is.character()`.
+  
+* `_at` allows you to pick variables using the same syntax as `select()`.
+
+* `_all` operates on all variables.
+
+These variants are coupled with `funs()` and `vars()` helpers that let you describe which functions you want to apply to which variables.
+
+The scoped verbs are useful because they can allow you to save a lot of typing. For example, imagine that you want to group `nycflights13::flights` by destination, then compute the mean the delay variables, the distance, and the time in the air. That's a lot of typing!
+
+```{r, results = FALSE}
+library(nycflights13)
+
+flights %>%
+  group_by(dest) %>%
+  summarise(
+    dep_delay = mean(dep_delay, na.rm = TRUE),
+    arr_delay = mean(arr_delay, na.rm = TRUE),
+    distance = mean(distance, na.rm = TRUE),
+    air_time = mean(air_time, na.rm = TRUE)
+  )
+```
+
+We can save a bunch of typing by using `summarise_ar()` instead:
+
+```{r, na.rm = TRUE}
+flights %>%
+  group_by(dest) %>%
+  summarise_at(
+    vars(dep_delay, arr_delay, distance, air_time),
+    funs(mean(., na.rm = TRUE))
+  )
+```
+
+You can imagine that this gets even more helpful as the number of variables increases.
+
+I'll illustrate the three variants in detail for `summarise()`, then show how you can use the same ideas with `mutate()` and `filter()`. You'll need the scoped variants of the other verbs less frequently, but when you do, it should be straightforward to generalise what you've learn here.
+
+## Summarise
+
+### `summarise_all()`
+
+The simplest variant to understand is `summarise_all()`. The first argument is a tibble. The second argument is one of more functions wrapped inside of the `funs()` helper:
+
+```{r}
+df <- tibble(
+  x = runif(100),
+  y = runif(100),
+  z = runif(100)
+)
+summarise_all(df, funs(mean))
+summarise_all(df, funs(min, max))
+```
+
+You might wonder why we need `funs()`. You don't actually need it if you have a single function, but it's necessary for technical reasons for more than one function, and always using it makes your code more consistent.
+
+You can also use `funs()` with custom expressions: just use a `.` as a pronoun to denote the "current" column:
+
+```{r}
+summarise_all(df, funs(mean(., na.rm = TRUE)))
+```
+
+NB: unfortunately `funs()` does not use the same syntax as purrr - you don't need the `~` in front of a custom function like you do in purrr. This is an unfortunate oversight that is relatively hard to fix, but will hopefully be resolved in dplyr one day.
+
+### `summarise_at()`
+
+`summarise_at()` allows you to pick columns to summarise in the same way as `select()`. There is one small difference: you need to wrap the complete selection with the `vars()` helper:
+
+```{r}
+summarise_at(df, vars(-z), funs(mean))
+```
+
+You can put anything inside `vars()` that you can put inside a call to `select()`:
+
+```{r}
+library(nycflights13)
+summarise_at(flights, vars(contains("delay")), funs(mean), na.rm = TRUE)
+summarise_at(flights, vars(starts_with("arr")), funs(mean), na.rm = TRUE)
+```
+
+(Note that `na.rm = TRUE` is passed on to `mean()` in the same way as in `purrr::map()`.)
+
+If the function doesn't fit on one line, put each argument on a new line:
+
+```{r}
+flights %>%
+  group_by(dest) %>% 
+  summarise_at(
+    vars(contains("delay"), distance, air_time), 
+    funs(mean), 
+    na.rm = TRUE
+  )
+```
+
+By default, the newly created columns have the shortest names needed to uniquely identify the output. See the examples in the documentation if you want to force names when they're not otherwise needed.
+
+```{r}
+# Note the use of extra spaces to make the 3rd argument line
+# up - this makes it easy to scan the code and see what's different
+summarise_at(df, vars(x),    funs(mean))
+summarise_at(df, vars(x),    funs(min, max))
+summarise_at(df, vars(x, y), funs(mean))
+summarise_at(df, vars(x, y), funs(min, max))
+```
+
+### `summarise_if()`
+
+`summarise_if()` allows you to pick variables to summarise based on some property of the column, specified by a __predicate__ function. A predicate function is a function that takes a whole column and returns either a single `TRUE` or a single `FALSE`. Commonly this a function that tells you if a variable is a specific type like `is.numeric()`, `is.character()`, or `is.logical()`.
+
+This makes it easier to summarise only numeric columns:
+
+```{r}
+starwars %>%
+  group_by(species) %>%
+  summarise_if(is.numeric, funs(mean), na.rm = TRUE)
+```
+
+## Mutate
+
+`mutate_all()`, `mutate_if()` and `mutate_at()` work in a similar way to their summarise equivalents.
+
+```{r}
+mutate_all(df, funs(log10))
+```
+
+If you need a transformation that is not already a function, it's easiest to create your own function:
+
+```{r}
+double <- function(x) x * 2
+half <- function(x) x / 2
+
+mutate_all(df, funs(half, double))
+```
+
+The default names are generated in the same way as `summarise()`. That means that you may want to use a `transmute()` variant if you want to apply multiple transformations and don't want the original values:
+
+```{r}
+transmute_all(df, funs(half, double))
+```
+
+## Filter
+
+The `filter()` variants work a little differently to `summarise()` and `mutate()`. Like `summarise()` and `mutate()` you must choose between either all variables (`_all`), selecting variables by name (`_at`), or selecting by some property of the variable (`_if`). However, the `funs()` is no longer enough because you need to say whether the filtering functions should be combined with "and" (`&`) or "or" (`|`). That means that `funs()` is not enough:
+
+```{r, error = TRUE}
+diamonds %>% filter_all(funs(. == 0))
+```
+
+You have to be explicit and say you either want the rows where the all of the variables equal 0:
+
+```{r, error = FALSE}
+diamonds %>% filter_if(is.numeric, all_vars(. == 0))
+```
+
+Or the rows where any of the variables equals zero:
+
+```{r}
+diamonds %>% filter_if(is.numeric, any_vars(. == 0))
+```
+
+This is particularly useful if you're looking for missing values:
+
+```{r}
+flights %>% filter_all(any_vars(is.na(.)))
+```
+

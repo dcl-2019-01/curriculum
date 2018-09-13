@@ -1,0 +1,192 @@
+title: Iteration basics
+theme: program
+needs: data-structure-basics
+readings: ~
+updated: ~
+desc: "\n## Introduction\n\nOne of the biggest advantage to using a programming langauge
+  rather than\na point-and-click GUI is that you can automate repetitive tasks. In
+  this\nlesson, you’ll the learn basics of the purrr package in order to repeat\na
+  task across multiple elements of a vector. We’ll also use the\nrepurrrsive package,
+  which contains some interesting data sets.\n\n``` r\nlibrary(purrr)\nlibrary(repurrrsive)\n```\n\nThis
+  lesson was adapted from “[An introduction to\npurrr](https://github.com/cwickham/purrr-tutorial)”
+  by Charlotte\nWickham.\n\n## Star Wars\n\nTo illustrate purrr we’re going to use
+  `repurrrsive::starwars`, which\ncontains data about characters in the Star Wars
+  movies. The data is\ncontained in a data structure that we haven’t talk about yet:
+  a list.\nLists are a step up in complexity from atomic vectors, because lists can\ncontain
+  other lists. This makes them suitable for representing\nhierarchical or tree-like
+  structures.\n\n``` r\ntypeof(sw_people)\n#> [1] \"list\"\nlength(sw_people)\n#>
+  [1] 87\n```\n\nThe best to interactively explore a complex list is with `View()`
+  in\nRStudio.\n\n![](diagrams/view-sw_people.png)<!-- -->\n\nFailing that, it’s often
+  possible to extract out the first element with\n`x[[1]]`, then use `str()` on that:\n\n```
+  r\nluke <- sw_people[[1]]\nstr(luke)\n#> List of 16\n#>  $ name      : chr \"Luke
+  Skywalker\"\n#>  $ height    : chr \"172\"\n#>  $ mass      : chr \"77\"\n#>  $
+  hair_color: chr \"blond\"\n#>  $ skin_color: chr \"fair\"\n#>  $ eye_color : chr
+  \"blue\"\n#>  $ birth_year: chr \"19BBY\"\n#>  $ gender    : chr \"male\"\n#>  $
+  homeworld : chr \"http://swapi.co/api/planets/1/\"\n#>  $ films     : chr [1:5]
+  \"http://swapi.co/api/films/6/\" \"http://swapi.co/api/films/3/\" \"http://swapi.co/api/films/2/\"
+  \"http://swapi.co/api/films/1/\" ...\n#>  $ species   : chr \"http://swapi.co/api/species/1/\"\n#>
+  \ $ vehicles  : chr [1:2] \"http://swapi.co/api/vehicles/14/\" \"http://swapi.co/api/vehicles/30/\"\n#>
+  \ $ starships : chr [1:2] \"http://swapi.co/api/starships/12/\" \"http://swapi.co/api/starships/22/\"\n#>
+  \ $ created   : chr \"2014-12-09T13:50:51.644000Z\"\n#>  $ edited    : chr \"2014-12-20T21:17:56.891000Z\"\n#>
+  \ $ url       : chr \"http://swapi.co/api/people/1/\"\n```\n\nIn this case, each
+  element of the `sw_people` list is another list\ncontaining data about a character.\n\n###
+  `map()` basics\n\nThere are lots of questions that are easy to answer if we have
+  one\ncharacter, but harder if we have many characters. For example, image we\nwant
+  to find out how many starships Luke has been on:\n\n``` r\nluke[[\"starships\"]]\n#>
+  [1] \"http://swapi.co/api/starships/12/\" \"http://swapi.co/api/starships/22/\"\nlength(luke[[\"starships\"]])\n#>
+  [1] 2\n```\n\nIt’s easy to do this for a few individuals:\n\n``` r\nleia <- sw_people[[5]]\nlength(leia[[\"starships\"]])\n#>
+  [1] 0\n```\n\nBut what if you want to do it for all 87 people? Using copy and paste\nwill
+  be both tedious and error prone.\n\n``` r\nlength(sw_people[[1]][[\"starships\"]])\n#>
+  [1] 2\nlength(sw_people[[2]][[\"starships\"]])\n#> [1] 0\nlength(sw_people[[3]][[\"starships\"]])\n#>
+  [1] 0\n# ...\nlength(sw_people[[87]][[\"starships\"]])\n#> [1] 3\n```\n\nInstead,
+  we’re going to learn a new approach using `purrr::map()`.\n`map()` has two key arguments:\n\n
+  \ - `.x`: an atomic vector, list, or data frame to do manipulate.\n  - `.f`: the
+  thing to do each element.\n\nThere are many ways to specify `.f` which you’ll learn
+  about later. For\nnow, we’re going to focus on using it with **formulas**, which
+  are\ncreated with `~`. Formulas allow us to extract out a common pattern, or\nrecipe,
+  from repeated code.\n\nCreating a recipe is easy: take a single solution and put
+  a `~` in front\nof it, and replace the part the varies over elements with `.x`,
+  a\npronoun. For example, to find the number of starships for a person, we’d\ndo:\n\n```
+  r\n~ length(.x$starships)\n#> ~length(.x$starships)\n#> <environment: 0x7fb6506d9a78>\n```\n\nThis
+  is a formula. A formula doesn’t do anything; it just captures your\nintent. Here
+  `.x` is a pronoun like “it”, `map()` will replace `.x` with\neach element of the
+  list in turn. To use formula, we need to apply it to\nthe `sw_people` list with
+  `map()`:\n\n``` r\nships <- map(sw_people, ~ length(.x$starships))\nhead(ships)\n#>
+  [[1]]\n#> [1] 2\n#> \n#> [[2]]\n#> [1] 0\n#> \n#> [[3]]\n#> [1] 0\n#> \n#> [[4]]\n#>
+  [1] 1\n#> \n#> [[5]]\n#> [1] 0\n#> \n#> [[6]]\n#> [1] 0\n```\n\nNote that the output
+  is quite long so I save it to a variable and then\nonly look at the first few entries
+  (using the helpful `head()`\nfunction).\n\nThis is much easier than copy and pasting\\!\n\n##
+  Output type\n\n`map()` always returns a list. This is the most general function
+  because\nany R data structure can be stored inside a list. But often you want\nsomething
+  simpler, so you’ll use one of the map variants:\n\n  - `map_lgl()` makes a logical
+  vector.\n  - `map_int()` makes an integer vector.\n  - `map_dbl()` makes a double
+  vector.\n  - `map_chr()` makes a character vector.\n\nHere are a few examples: try
+  and figure out what they do. If you don’t\nunderstand, translate back from the generic
+  formula to a specific\nexample. For example, you could translate `~ .x[[\"name\"]]`
+  back to\n`luke[[\"name\"]]`.\n\n``` r\nmap_chr(sw_people, ~ .x[[\"name\"]])\n#>
+  \ [1] \"Luke Skywalker\"        \"C-3PO\"                \n#>  [3] \"R2-D2\"                 \"Darth
+  Vader\"          \n#>  [5] \"Leia Organa\"           \"Owen Lars\"            \n#>
+  \ [7] \"Beru Whitesun lars\"    \"R5-D4\"                \n#>  [9] \"Biggs Darklighter\"
+  \    \"Obi-Wan Kenobi\"       \n#> [11] \"Anakin Skywalker\"      \"Wilhuff Tarkin\"
+  \      \n#> [13] \"Chewbacca\"             \"Han Solo\"             \n#> [15] \"Greedo\"
+  \               \"Jabba Desilijic Tiure\"\n#> [17] \"Wedge Antilles\"        \"Jek
+  Tono Porkins\"     \n#> [19] \"Yoda\"                  \"Palpatine\"            \n#>
+  [21] \"Boba Fett\"             \"IG-88\"                \n#> [23] \"Bossk\"                 \"Lando
+  Calrissian\"     \n#> [25] \"Lobot\"                 \"Ackbar\"               \n#>
+  [27] \"Mon Mothma\"            \"Arvel Crynyd\"         \n#> [29] \"Wicket Systri
+  Warrick\" \"Nien Nunb\"            \n#> [31] \"Qui-Gon Jinn\"          \"Nute Gunray\"
+  \         \n#> [33] \"Finis Valorum\"         \"Jar Jar Binks\"        \n#> [35]
+  \"Roos Tarpals\"          \"Rugor Nass\"           \n#> [37] \"Ric Olié\"              \"Watto\"
+  \               \n#> [39] \"Sebulba\"               \"Quarsh Panaka\"        \n#>
+  [41] \"Shmi Skywalker\"        \"Darth Maul\"           \n#> [43] \"Bib Fortuna\"
+  \          \"Ayla Secura\"          \n#> [45] \"Dud Bolt\"              \"Gasgano\"
+  \             \n#> [47] \"Ben Quadinaros\"        \"Mace Windu\"           \n#>
+  [49] \"Ki-Adi-Mundi\"          \"Kit Fisto\"            \n#> [51] \"Eeth Koth\"
+  \            \"Adi Gallia\"           \n#> [53] \"Saesee Tiin\"           \"Yarael
+  Poof\"          \n#> [55] \"Plo Koon\"              \"Mas Amedda\"           \n#>
+  [57] \"Gregar Typho\"          \"Cordé\"                \n#> [59] \"Cliegg Lars\"
+  \          \"Poggle the Lesser\"    \n#> [61] \"Luminara Unduli\"       \"Barriss
+  Offee\"        \n#> [63] \"Dormé\"                 \"Dooku\"                \n#>
+  [65] \"Bail Prestor Organa\"   \"Jango Fett\"           \n#> [67] \"Zam Wesell\"
+  \           \"Dexter Jettster\"      \n#> [69] \"Lama Su\"               \"Taun
+  We\"              \n#> [71] \"Jocasta Nu\"            \"Ratts Tyerell\"        \n#>
+  [73] \"R4-P17\"                \"Wat Tambor\"           \n#> [75] \"San Hill\"              \"Shaak
+  Ti\"             \n#> [77] \"Grievous\"              \"Tarfful\"              \n#>
+  [79] \"Raymus Antilles\"       \"Sly Moore\"            \n#> [81] \"Tion Medon\"
+  \           \"Finn\"                 \n#> [83] \"Rey\"                   \"Poe Dameron\"
+  \         \n#> [85] \"BB8\"                   \"Captain Phasma\"       \n#> [87]
+  \"Padmé Amidala\"\nmap_lgl(sw_people, ~ .x[[\"gender\"]] == \"male\")\n#>  [1]  TRUE
+  FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE  TRUE  TRUE  TRUE\n#> [12]  TRUE  TRUE
+  \ TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE\n#> [23]  TRUE  TRUE  TRUE
+  \ TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE\n#> [34]  TRUE  TRUE  TRUE  TRUE
+  \ TRUE  TRUE  TRUE FALSE  TRUE  TRUE FALSE\n#> [45]  TRUE  TRUE  TRUE  TRUE  TRUE
+  \ TRUE  TRUE FALSE  TRUE  TRUE  TRUE\n#> [56]  TRUE  TRUE FALSE  TRUE  TRUE FALSE
+  FALSE FALSE  TRUE  TRUE  TRUE\n#> [67] FALSE  TRUE  TRUE FALSE FALSE  TRUE FALSE
+  \ TRUE  TRUE FALSE  TRUE\n#> [78]  TRUE  TRUE FALSE  TRUE  TRUE FALSE  TRUE FALSE
+  FALSE FALSE\nmap_int(sw_people, ~ length(.x$starships))\n#>  [1] 2 0 0 1 0 0 0 0
+  1 5 3 0 2 2 0 0 1 1 0 0 1 0 0 1 0 0 0 1 0 1 0 0 0 0 0\n#> [36] 0 1 0 0 0 0 1 0 0
+  0 0 0 0 0 0 0 0 0 0 1 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0\n#> [71] 0 0 0 0 0 0 1 0 0 0
+  0 0 0 1 0 0 3\nmap_chr(sw_people, ~ .x[[\"hair_color\"]])\n#>  [1] \"blond\"         \"n/a\"
+  \          \"n/a\"           \"none\"         \n#>  [5] \"brown\"         \"brown,
+  grey\"   \"brown\"         \"n/a\"          \n#>  [9] \"black\"         \"auburn,
+  white\" \"blond\"         \"auburn, grey\" \n#> [13] \"brown\"         \"brown\"
+  \        \"n/a\"           \"n/a\"          \n#> [17] \"brown\"         \"brown\"
+  \        \"white\"         \"grey\"         \n#> [21] \"black\"         \"none\"
+  \         \"none\"          \"black\"        \n#> [25] \"none\"          \"none\"
+  \         \"auburn\"        \"brown\"        \n#> [29] \"brown\"         \"none\"
+  \         \"brown\"         \"none\"         \n#> [33] \"blond\"         \"none\"
+  \         \"none\"          \"none\"         \n#> [37] \"brown\"         \"black\"
+  \        \"none\"          \"black\"        \n#> [41] \"black\"         \"none\"
+  \         \"none\"          \"none\"         \n#> [45] \"none\"          \"none\"
+  \         \"none\"          \"none\"         \n#> [49] \"white\"         \"none\"
+  \         \"black\"         \"none\"         \n#> [53] \"none\"          \"none\"
+  \         \"none\"          \"none\"         \n#> [57] \"black\"         \"brown\"
+  \        \"brown\"         \"none\"         \n#> [61] \"black\"         \"black\"
+  \        \"brown\"         \"white\"        \n#> [65] \"black\"         \"black\"
+  \        \"blonde\"        \"none\"         \n#> [69] \"none\"          \"none\"
+  \         \"white\"         \"none\"         \n#> [73] \"none\"          \"none\"
+  \         \"none\"          \"none\"         \n#> [77] \"none\"          \"brown\"
+  \        \"brown\"         \"none\"         \n#> [81] \"none\"          \"black\"
+  \        \"brown\"         \"brown\"        \n#> [85] \"none\"          \"unknown\"
+  \      \"brown\"\n```\n\nThe `map_` functions always either give you the type of
+  vector that you\nasked for, or they throw an error. Sometimes this reveals surprising\ninformation
+  about your data:\n\n``` r\nmap_dbl(sw_people, ~ .x[[\"mass\"]])\n#> Error: Can't
+  coerce element 1 from a character to a double\n```\n\nWhy not? Whenever you get
+  an error, a good strategy is to go back to the\nbasics and look at a single value:\n\n```
+  r\nluke[[\"mass\"]]\n#> [1] \"77\"\n```\n\n`mass` has been recorded as a string\\!
+  So lets use `map_chr()` to get\nit.\n\n``` r\nmap_chr(sw_people, ~ .x[[\"mass\"]])\n#>
+  \ [1] \"77\"      \"75\"      \"32\"      \"136\"     \"49\"      \"120\"     \"75\"
+  \    \n#>  [8] \"32\"      \"84\"      \"77\"      \"84\"      \"unknown\" \"112\"
+  \    \"80\"     \n#> [15] \"74\"      \"1,358\"   \"77\"      \"110\"     \"17\"
+  \     \"75\"      \"78.2\"   \n#> [22] \"140\"     \"113\"     \"79\"      \"79\"
+  \     \"83\"      \"unknown\" \"unknown\"\n#> [29] \"20\"      \"68\"      \"89\"
+  \     \"90\"      \"unknown\" \"66\"      \"82\"     \n#> [36] \"unknown\" \"unknown\"
+  \"unknown\" \"40\"      \"unknown\" \"unknown\" \"80\"     \n#> [43] \"unknown\"
+  \"55\"      \"45\"      \"unknown\" \"65\"      \"84\"      \"82\"     \n#> [50]
+  \"87\"      \"unknown\" \"50\"      \"unknown\" \"unknown\" \"80\"      \"unknown\"\n#>
+  [57] \"85\"      \"unknown\" \"unknown\" \"80\"      \"56.2\"    \"50\"      \"unknown\"\n#>
+  [64] \"80\"      \"unknown\" \"79\"      \"55\"      \"102\"     \"88\"      \"unknown\"\n#>
+  [71] \"unknown\" \"15\"      \"unknown\" \"48\"      \"unknown\" \"57\"      \"159\"
+  \   \n#> [78] \"136\"     \"79\"      \"48\"      \"80\"      \"unknown\" \"unknown\"
+  \"unknown\"\n#> [85] \"unknown\" \"unknown\" \"45\"\n```\n\nWe probably want that
+  as a number so we can use `read::parse_number()`,\nand tell it that in this variable
+  missing values are recorded as\n“unknown”:\n\n``` r\nsw_people %>% \n  map_chr(~
+  .x[[\"mass\"]]) %>% \n  readr::parse_number(na = \"unknown\")\n#>  [1]   77.0   75.0
+  \  32.0  136.0   49.0  120.0   75.0   32.0   84.0   77.0\n#> [11]   84.0     NA
+  \ 112.0   80.0   74.0 1358.0   77.0  110.0   17.0   75.0\n#> [21]   78.2  140.0
+  \ 113.0   79.0   79.0   83.0     NA     NA   20.0   68.0\n#> [31]   89.0   90.0
+  \    NA   66.0   82.0     NA     NA     NA   40.0     NA\n#> [41]     NA   80.0
+  \    NA   55.0   45.0     NA   65.0   84.0   82.0   87.0\n#> [51]     NA   50.0
+  \    NA     NA   80.0     NA   85.0     NA     NA   80.0\n#> [61]   56.2   50.0
+  \    NA   80.0     NA   79.0   55.0  102.0   88.0     NA\n#> [71]     NA   15.0
+  \    NA   48.0     NA   57.0  159.0  136.0   79.0   48.0\n#> [81]   80.0     NA
+  \    NA     NA     NA     NA   45.0\n```\n\n## Shortcuts\n\nSo far we’ve used a
+  formula recipe for the second argument of `map()`.\nBut it can be lots of other
+  things. For example, it can also be a string\nor integer:\n\n  - `map(.x, .f = \"some_name\")`
+  is equivalent to `map(.x, ~\n    .x[[\"some_name\"]])`\n  - `map(.x, .f = some_name)`
+  is equivalent to `map(.x, ~\n    .x[[some_name]])`\n\nThat lets us simplify some
+  exressions:\n\n``` r\n# BEFORE: \n# map_chr(sw_people, ~ .x[[\"mass\"]])\n\n# AFTER\nmap_chr(sw_people,
+  \"mass\")\n#>  [1] \"77\"      \"75\"      \"32\"      \"136\"     \"49\"      \"120\"
+  \    \"75\"     \n#>  [8] \"32\"      \"84\"      \"77\"      \"84\"      \"unknown\"
+  \"112\"     \"80\"     \n#> [15] \"74\"      \"1,358\"   \"77\"      \"110\"     \"17\"
+  \     \"75\"      \"78.2\"   \n#> [22] \"140\"     \"113\"     \"79\"      \"79\"
+  \     \"83\"      \"unknown\" \"unknown\"\n#> [29] \"20\"      \"68\"      \"89\"
+  \     \"90\"      \"unknown\" \"66\"      \"82\"     \n#> [36] \"unknown\" \"unknown\"
+  \"unknown\" \"40\"      \"unknown\" \"unknown\" \"80\"     \n#> [43] \"unknown\"
+  \"55\"      \"45\"      \"unknown\" \"65\"      \"84\"      \"82\"     \n#> [50]
+  \"87\"      \"unknown\" \"50\"      \"unknown\" \"unknown\" \"80\"      \"unknown\"\n#>
+  [57] \"85\"      \"unknown\" \"unknown\" \"80\"      \"56.2\"    \"50\"      \"unknown\"\n#>
+  [64] \"80\"      \"unknown\" \"79\"      \"55\"      \"102\"     \"88\"      \"unknown\"\n#>
+  [71] \"unknown\" \"15\"      \"unknown\" \"48\"      \"unknown\" \"57\"      \"159\"
+  \   \n#> [78] \"136\"     \"79\"      \"48\"      \"80\"      \"unknown\" \"unknown\"
+  \"unknown\"\n#> [85] \"unknown\" \"unknown\" \"45\"\n```\n\n`.f` can also be a function:
+  `map(.x, .f = some_function, ...)` is\nequivalent to `map(.x, .f = ~ some_function(.x,
+  ...))`\n\n``` r\n# BEFORE\n# map_int(sw_people, ~ length(.x$starships))\n\nsw_people
+  %>%\n  map(\"starships\") %>%\n  map_int(length)\n#>  [1] 2 0 0 1 0 0 0 0 1 5 3
+  0 2 2 0 0 1 1 0 0 1 0 0 1 0 0 0 1 0 1 0 0 0 0 0\n#> [36] 0 1 0 0 0 0 1 0 0 0 0 0
+  0 0 0 0 0 0 0 1 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0\n#> [71] 0 0 0 0 0 0 1 0 0 0 0 0 0
+  1 0 0 3\n```\n\nGenerally, I think the “after” form is a little better. It’s usually\neasier
+  to solve a problem by taking one small step at a time. Check your\nresults, then
+  only proceed to the next step if they’re proceed. Each\nstep becomes one entry in
+  a pipeline. This might lead to a long\npipeline; if you’re worried about that, you
+  can rewrite it for clarity\nand concision **after** you have got it working.\n"

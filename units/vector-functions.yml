@@ -1,0 +1,72 @@
+title: Vector functions
+theme: program
+needs: manip-basics
+readings: ~
+updated: ~
+desc: "\nVector functions\n----------------\n\nIt's often easy to create a **scalar
+  function**, that is a function, that takes a length-one input and produces a length-one
+  output. You can always apply a scalar function to a vector of values by using the
+  appropriate purrr `map_` function, but you can often find a more efficient approach
+  by relying on an existing vectorized function. It's also easy to accidentally use
+  a vectorized function as if it's a scalar function; doing so makes life harder for
+  yourself than it needs to be. This reading illustrates each problem with an example.\n\nLetter
+  grades\n-------------\n\nA common way to create a scalar function is by using a
+  if-else statement. For example, you might write the following function that converts
+  a numeric grade to a letter grade:\n\n``` r\ngrade_1 <- function(x) {\n  if (x >=
+  90) {\n    \"A\"\n  } else if (x >= 80) {\n    \"B\"\n  } else if (x >= 70) {\n
+  \   \"C\"\n  } else if (x >= 60) {\n    \"D\"\n  } else {\n    \"F\"\n  }\n}\n```\n\nThis
+  works well when applied to single values:\n\n``` r\ngrade_1(92)\n#> [1] \"A\"\ngrade_1(76)\n#>
+  [1] \"C\"\ngrade_1(60)\n#> [1] \"D\"\n```\n\nBut it fails if you attempt to apply
+  it to an entire column of a data frame:\n\n``` r\nset.seed(523)\ndf <- tibble(\n
+  \ score = sample(100, 10, replace = TRUE)\n)\n\ndf %>%\n  mutate(grade = grade_1(score))\n#>
+  Warning in if (x >= 90) {: the condition has length > 1 and only the first\n#> element
+  will be used\n#> Warning in if (x >= 80) {: the condition has length > 1 and only
+  the first\n#> element will be used\n#> Warning in if (x >= 70) {: the condition
+  has length > 1 and only the first\n#> element will be used\n#> Warning in if (x
+  >= 60) {: the condition has length > 1 and only the first\n#> element will be used\n#>
+  # A tibble: 10 x 2\n#>   score grade\n#>   <int> <chr>\n#> 1    17 F    \n#> 2    97
+  F    \n#> 3    76 F    \n#> 4    87 F    \n#> 5    51 F    \n#> # ... with 5 more
+  rows\n```\n\n`if` can only work with a single element at a time, so if `grade_1()`
+  is given a vector it will only use the first element. You can always work around
+  this problem by using one of the `map_` functions from purrr. In this case, `grade_1()`
+  returns a character vector so we'd use `map_chr()`:\n\n``` r\ndf %>%\n  mutate(grade
+  = map_chr(score, grade_1))\n#> # A tibble: 10 x 2\n#>   score grade\n#>   <int>
+  <chr>\n#> 1    17 F    \n#> 2    97 A    \n#> 3    76 C    \n#> 4    87 B    \n#>
+  5    51 F    \n#> # ... with 5 more rows\n```\n\nHowever, there is often an alternative,
+  more elegant, approach by relying on an existing vector function. For example, you
+  can always rewrite a set of nested if-else statements to use `case_when()`:\n\n```
+  r\ngrade_2 <- function(x) {\n  case_when(\n    x >= 90 ~ \"A\",\n    x >= 80 ~ \"B\",\n
+  \   x >= 70 ~ \"C\",\n    x >= 60 ~ \"D\",\n    TRUE    ~ \"F\"\n  )\n}\n\ngrade_2(seq(0,
+  100, by = 10))\n#>  [1] \"F\" \"F\" \"F\" \"F\" \"F\" \"F\" \"D\" \"C\" \"B\" \"A\"
+  \"A\"\n\ndf %>%\n  mutate(grade = grade_2(score))\n#> # A tibble: 10 x 2\n#>   score
+  grade\n#>   <int> <chr>\n#> 1    17 F    \n#> 2    97 A    \n#> 3    76 C    \n#>
+  4    87 B    \n#> 5    51 F    \n#> # ... with 5 more rows\n```\n\nAnd for this
+  particular case, there's an even more targeted function from base R: `cut()`. Its
+  job is to divide a numeric range into named intervals. You give it a vector of breaks
+  and a vector of labels, and it produces a factor for you. You use the `right` argument
+  to tell it whether to include numbers on the right or left end of the range:\n\n```
+  r\ngrade_3 <- function(x) {\n  cut(x, \n    breaks = c(-Inf, 60, 70, 80, 90, Inf),
+  \n    labels = c(\"F\", \"D\", \"C\", \"B\", \"A\"),\n    right = FALSE\n  )\n}\n\ngrade_3(seq(0,
+  100, by = 10))\n#>  [1] F F F F F F D C B A A\n#> Levels: F D C B A\n```\n\n(Note
+  that you supply it one less `label` than `breaks`; if this is confusing, try drawing
+  a picture.)\n\nIn general, there's no easy way to find out that there's an existing
+  function that will make your life much easier. The best technique is to continually
+  expand your knowledge of R by reading widely; a good place to start are the weekly
+  highlights on <http://rweekly.org/>.\n\nMatching many patterns\n----------------------\n\nA
+  similar problem is accidentally using a vectorized function as if it's a scalar
+  function, making life harder for yourself. I'll illustrate the problem with a function
+  that you'll already familiar with `stringr::str_detect()`. So far when you've used
+  stringr, we've always used a single `pattern`. But imagine you have a new challenge:
+  you have a single string and you want see which of a possible set of patterns it
+  matches:\n\n``` r\nprivate <- tribble(\n  ~ name,  ~ pattern,\n  \"ssn\",   \"\\\\d{3}-\\\\d{2}-\\\\d{4}\",\n
+  \ \"email\", \"[a-z]+@[a-z]+\\\\.[a-z]{2,4}\",\n  \"phone\", \"\\\\d{3}[- ]?\\\\d{3}[-
+  ]?\\\\d{4}\"\n)\n\nstring <- \"My social security number is 231-57-7340 and my phone
+  number is 712-458-2189\"\n```\n\nYou might be tempted to use `map_lgl()`:\n\n```
+  r\nmatch <- map_lgl(private$pattern, ~ str_detect(string, pattern = .))\nprivate$name[match]\n#>
+  [1] \"ssn\"   \"phone\"\n```\n\nBut if you carefully read the documentation for
+  `str_detect()` you'll discover that this is unnecessary because `str_detect()` is
+  vectored oven `pattern`. That means you don't need `map_lgl()`!\n\n``` r\nprivate$name[str_detect(string,
+  private$pattern)]\n#> [1] \"ssn\"   \"phone\"\n```\n\nIt's sometimes hard to tell
+  from the documentation whether or not an argument is vectored. If reading the docs
+  doesn't help, just try it with a vector; if it works, you'll have learned something
+  new and saved yourself a little typing.\n"
