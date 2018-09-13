@@ -312,12 +312,6 @@ title: Theme index
   <td colspan="4"><a class="explore" href="spatial-vis.html">Spatial visualisation</a></td>
   <td colspan="5"></td>
 </tr>
-<tr>
-<td></td>
-  <td colspan="1"></td>
-  <td colspan="4"><a class="wrangle" href="string-basics.html">String basics</a></td>
-  <td colspan="4"></td>
-</tr>
 </tbody>
 <tbody>
 <tr>
