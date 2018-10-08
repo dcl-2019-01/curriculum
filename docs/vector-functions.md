@@ -15,6 +15,7 @@ Vector functions
 
 ``` r
 x <- c(5, 2, 1)
+
 log10(x)
 #> [1] 0.69897 0.30103 0.00000
 ```
@@ -23,8 +24,10 @@ The simple mathematical operators are also vector functions:
 
 ``` r
 y <- c(1, 2, 4)
+
 x + y
 #> [1] 6 4 5
+
 x * y
 #> [1] 5 4 4
 ```
@@ -59,8 +62,10 @@ This works well when applied to single values:
 ``` r
 recommendation_1(92)
 #> [1] "locate air conditioning"
+
 recommendation_1(34)
 #> [1] "wear a jacket"
+
 recommendation_1(-15)
 #> [1] "move"
 ```
@@ -69,6 +74,7 @@ but fails when applied to a vector with more than one element:
 
 ``` r
 temps <- c(1, 55, 101)
+
 recommendation_1(temps)
 #> Warning in if (x >= 90) {: the condition has length > 1 and only the first
 #> element will be used

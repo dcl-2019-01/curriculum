@@ -16,6 +16,7 @@ library(tidyverse)
 
 ```{r}
 x <- c(5, 2, 1)
+
 log10(x)
 ```
 
@@ -23,7 +24,9 @@ The simple mathematical operators are also vector functions:
 
 ```{r}
 y <- c(1, 2, 4)
+
 x + y
+
 x * y
 ```
 
@@ -55,7 +58,9 @@ This works well when applied to single values:
 
 ```{r}
 recommendation_1(92)
+
 recommendation_1(34)
+
 recommendation_1(-15)
 ```
 
@@ -63,6 +68,7 @@ but fails when applied to a vector with more than one element:
 
 ```{r}
 temps <- c(1, 55, 101)
+
 recommendation_1(temps)
 ```
 
