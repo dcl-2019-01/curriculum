@@ -6,7 +6,7 @@ title: Function basics
 
 # Function basics <small class='program'>[program]</small>
 <small>(Builds on: [Exploratory data analysis (1D)](eda-1d.md), [Data structure basics](data-structure-basics.md))</small>  
-<small>(Leads to: [purrr basics](purrr-basics.md), [Tidy evaluation](tidy-eval.md))</small>
+<small>(Leads to: [purrr basics](purrr-basics.md), [Tidy evaluation](tidy-eval.md), [Vector functions](vector-functions.md))</small>
 
 Functions are powerful tool for reducing the amount of duplication in your
 code. Reducing duplication is a good principle because it means that

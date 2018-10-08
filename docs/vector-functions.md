@@ -5,31 +5,57 @@ title: Vector functions
 <!-- Generated automatically from vector-functions.yml. Do not edit by hand -->
 
 # Vector functions <small class='program'>[program]</small>
-<small>(Builds on: [Manipulation basics](manip-basics.md))</small>
+<small>(Builds on: [Manipulation basics](manip-basics.md), [Function basics](function-basics.md))</small>
 
 
 Vector functions
-----------------
+================
 
-It's often easy to create a **scalar function**, that is a function, that takes a length-one input and produces a length-one output. You can always apply a scalar function to a vector of values by using the appropriate purrr `map_` function, but you can often find a more efficient approach by relying on an existing vectorized function. It's also easy to accidentally use a vectorized function as if it's a scalar function; doing so makes life harder for yourself than it needs to be. This reading illustrates each problem with an example.
-
-Letter grades
--------------
-
-A common way to create a scalar function is by using a if-else statement. For example, you might write the following function that converts a numeric grade to a letter grade:
+**Vector functions** take a vector as input and produce a vector of the same length as output. This is very helpful when working with vectors. For example, instead of taking the log of each element of the vector `x`, you can just call `log10()` once:
 
 ``` r
-grade_1 <- function(x) {
+x <- c(5, 2, 1)
+log10(x)
+```
+
+    ## [1] 0.69897 0.30103 0.00000
+
+The simple mathematical operators are also vector functions:
+
+``` r
+y <- c(1, 2, 4)
+x + y
+```
+
+    ## [1] 6 4 5
+
+``` r
+x * y
+```
+
+    ## [1] 5 4 4
+
+In contrast, functions that can only take a length one input and produce a length one output are called **scalar functions**.
+
+As you'll see in the next section, the distinction between scalar and vector functions is important when working with data frames.
+
+Temperature recommendations
+---------------------------
+
+A common way to create a scalar function is by using an if-else statement. For example, you might write the following function that tells you what to do based on the temperature outside:
+
+``` r
+recommendation_1 <- function(x) {
   if (x >= 90) {
-    "A"
-  } else if (x >= 80) {
-    "B"
-  } else if (x >= 70) {
-    "C"
+    "locate air conditioning"
   } else if (x >= 60) {
-    "D"
+    "go outside"
+  } else if (x >= 30) {
+    "wear a jacket"
+  } else if (x >= 0) {
+    "wear multiple jackets"
   } else {
-    "F"
+    "move"
   }
 }
 ```
@@ -37,138 +63,219 @@ grade_1 <- function(x) {
 This works well when applied to single values:
 
 ``` r
-grade_1(92)
-#> [1] "A"
-grade_1(76)
-#> [1] "C"
-grade_1(60)
-#> [1] "D"
+recommendation_1(92)
 ```
 
-But it fails if you attempt to apply it to an entire column of a data frame:
+    ## [1] "locate air conditioning"
+
+``` r
+recommendation_1(34)
+```
+
+    ## [1] "wear a jacket"
+
+``` r
+recommendation_1(-15)
+```
+
+    ## [1] "move"
+
+but fails when applied to a vector with more than one element:
+
+``` r
+temps <- c(1, 55, 101)
+recommendation_1(temps)
+```
+
+    ## Warning in if (x >= 90) {: the condition has length > 1 and only the first
+    ## element will be used
+
+    ## Warning in if (x >= 60) {: the condition has length > 1 and only the first
+    ## element will be used
+
+    ## Warning in if (x >= 30) {: the condition has length > 1 and only the first
+    ## element will be used
+
+    ## Warning in if (x >= 0) {: the condition has length > 1 and only the first
+    ## element will be used
+
+    ## [1] "wear multiple jackets"
+
+`if` only works with one element at a time and can't handle an entire vector. When you give `recommendation_1()` a vector, it only processes the first element of that vector, which is why `recommendation_1()` only tells us what to do if it's 1 degree outside.
+
+Vector functions and `mutate()`
+-------------------------------
+
+`mutate()` creates a value for each row in a tibble. If you want, you can manually give `mutate()` a vector with a value for each row:
 
 ``` r
 set.seed(523)
 df <- tibble(
-  score = sample(100, 10, replace = TRUE)
+  temperature = sample(x = -15:110, size = 10, replace = TRUE)
 )
 
-df %>%
-  mutate(grade = grade_1(score))
-#> Warning in if (x >= 90) {: the condition has length > 1 and only the first
-#> element will be used
-#> Warning in if (x >= 80) {: the condition has length > 1 and only the first
-#> element will be used
-#> Warning in if (x >= 70) {: the condition has length > 1 and only the first
-#> element will be used
-#> Warning in if (x >= 60) {: the condition has length > 1 and only the first
-#> element will be used
-#> # A tibble: 10 x 2
-#>   score grade
-#>   <int> <chr>
-#> 1    17 F    
-#> 2    97 F    
-#> 3    76 F    
-#> 4    87 F    
-#> 5    51 F    
-#> # ... with 5 more rows
+df %>% 
+  mutate(new_column = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10))
 ```
 
-`if` can only work with a single element at a time, so if `grade_1()` is given a vector it will only use the first element. You can always work around this problem by using one of the `map_` functions from purrr. In this case, `grade_1()` returns a character vector so we'd use `map_chr()`:
+    ## # A tibble: 10 x 2
+    ##    temperature new_column
+    ##          <int>      <dbl>
+    ##  1           6          1
+    ##  2         106          2
+    ##  3          80          3
+    ##  4          93          4
+    ##  5          48          5
+    ##  6           4          6
+    ##  7          35          7
+    ##  8          33          8
+    ##  9          57          9
+    ## 10          -7         10
+
+You can also give `mutate()` a single value:
 
 ``` r
-df %>%
-  mutate(grade = map_chr(score, grade_1))
-#> # A tibble: 10 x 2
-#>   score grade
-#>   <int> <chr>
-#> 1    17 F    
-#> 2    97 A    
-#> 3    76 C    
-#> 4    87 B    
-#> 5    51 F    
-#> # ... with 5 more rows
+df %>% 
+  mutate(one_value = 1)
 ```
 
-However, there is often an alternative, more elegant, approach by relying on an existing vector function. For example, you can always rewrite a set of nested if-else statements to use `case_when()`:
+    ## # A tibble: 10 x 2
+    ##    temperature one_value
+    ##          <int>     <dbl>
+    ##  1           6         1
+    ##  2         106         1
+    ##  3          80         1
+    ##  4          93         1
+    ##  5          48         1
+    ##  6           4         1
+    ##  7          35         1
+    ##  8          33         1
+    ##  9          57         1
+    ## 10          -7         1
+
+and it will repeat that value for each row in the tibble. However, if you try to give `mutate()` a vector with a length other than 1 or `nrow(df)`, you'll get an error:
 
 ``` r
-grade_2 <- function(x) {
+df %>% 
+  mutate(two_values = c(1, 2))
+```
+
+    ## Error in mutate_impl(.data, dots): Column `two_values` must be length 10 (the number of rows) or one, not 2
+
+As you know well by now, you'll often create new columns by applying functions to existing ones:
+
+``` r
+fahrenheit_to_celcius <- function(degrees_fahrenheit) {
+  (degrees_fahrenheit - 32) * (5 / 9)
+}
+
+df %>% 
+  mutate(temperature_celcius = fahrenheit_to_celcius(temperature))
+```
+
+    ## # A tibble: 10 x 2
+    ##    temperature temperature_celcius
+    ##          <int>               <dbl>
+    ##  1           6             -14.4  
+    ##  2         106              41.1  
+    ##  3          80              26.7  
+    ##  4          93              33.9  
+    ##  5          48               8.89 
+    ##  6           4             -15.6  
+    ##  7          35               1.67 
+    ##  8          33               0.556
+    ##  9          57              13.9  
+    ## 10          -7             -21.7
+
+When you pass `temperature` to `fahrenheit_to_celcius()`, you pass the entire `temperature` column, which, as you learned earlier, is a vector. Because mathematical operations are vectorized, `fahrenheit_to_celcius()` returns a vector of the same length and `mutate()` successfully creates a new column.
+
+You can probably predict now what will happen if we try to use our scalar function, `recommendation_1()`, in the same way:
+
+``` r
+df %>% 
+  mutate(recommendation = recommendation_1(temperature))
+```
+
+    ## Warning in if (x >= 90) {: the condition has length > 1 and only the first
+    ## element will be used
+
+    ## Warning in if (x >= 60) {: the condition has length > 1 and only the first
+    ## element will be used
+
+    ## Warning in if (x >= 30) {: the condition has length > 1 and only the first
+    ## element will be used
+
+    ## Warning in if (x >= 0) {: the condition has length > 1 and only the first
+    ## element will be used
+
+    ## # A tibble: 10 x 2
+    ##    temperature recommendation       
+    ##          <int> <chr>                
+    ##  1           6 wear multiple jackets
+    ##  2         106 wear multiple jackets
+    ##  3          80 wear multiple jackets
+    ##  4          93 wear multiple jackets
+    ##  5          48 wear multiple jackets
+    ##  6           4 wear multiple jackets
+    ##  7          35 wear multiple jackets
+    ##  8          33 wear multiple jackets
+    ##  9          57 wear multiple jackets
+    ## 10          -7 wear multiple jackets
+
+`mutate()` passes the entire `temperature` vector to `recommendation_1()`, which can't handle a vector and so only processes the first element of `temperature`. However, because of how `mutate()` behaves when given a single value, the recommendation for the first temperature is copied for every single row, which isn't very helpful.
+
+Vectorizing if-else statements
+------------------------------
+
+There are several ways to vectorize `recommendation_1()` so that it gives an accurate recommendation for each temperature in `df`.
+
+First, there's a vectorized if-else function called `if_else()`:
+
+``` r
+x <- c(1, 3, 4)
+
+if_else(x == 4, true = "four", false = "not four")
+```
+
+    ## [1] "not four" "not four" "four"
+
+However, in order to rewrite `recommendation_1()` using `if_else()`, we'd need to nest `if_else()` repeatedly and the function would become difficult to read. Another vector function, `case_when()`, is a better option:
+
+``` r
+recommendation_2 <- function(x) {
   case_when(
-    x >= 90 ~ "A",
-    x >= 80 ~ "B",
-    x >= 70 ~ "C",
-    x >= 60 ~ "D",
-    TRUE    ~ "F"
+    x >= 90 ~ "locate air conditioning",
+    x >= 60 ~ "go outside",
+    x >= 30 ~ "wear a jacket",
+    x >= 0  ~ "wear multiple jackets",
+    TRUE    ~ "move"
   )
 }
 
-grade_2(seq(0, 100, by = 10))
-#>  [1] "F" "F" "F" "F" "F" "F" "D" "C" "B" "A" "A"
-
-df %>%
-  mutate(grade = grade_2(score))
-#> # A tibble: 10 x 2
-#>   score grade
-#>   <int> <chr>
-#> 1    17 F    
-#> 2    97 A    
-#> 3    76 C    
-#> 4    87 B    
-#> 5    51 F    
-#> # ... with 5 more rows
+recommendation_2(temps)
 ```
 
-And for this particular case, there's an even more targeted function from base R: `cut()`. Its job is to divide a numeric range into named intervals. You give it a vector of breaks and a vector of labels, and it produces a factor for you. You use the `right` argument to tell it whether to include numbers on the right or left end of the range:
+    ## [1] "wear multiple jackets"   "wear a jacket"          
+    ## [3] "locate air conditioning"
 
 ``` r
-grade_3 <- function(x) {
-  cut(x, 
-    breaks = c(-Inf, 60, 70, 80, 90, Inf), 
-    labels = c("F", "D", "C", "B", "A"),
-    right = FALSE
-  )
-}
-
-grade_3(seq(0, 100, by = 10))
-#>  [1] F F F F F F D C B A A
-#> Levels: F D C B A
+df %>% 
+  mutate(recommendation = recommendation_2(temperature))
 ```
 
-(Note that you supply it one less `label` than `breaks`; if this is confusing, try drawing a picture.)
+    ## # A tibble: 10 x 2
+    ##    temperature recommendation         
+    ##          <int> <chr>                  
+    ##  1           6 wear multiple jackets  
+    ##  2         106 locate air conditioning
+    ##  3          80 go outside             
+    ##  4          93 locate air conditioning
+    ##  5          48 wear a jacket          
+    ##  6           4 wear multiple jackets  
+    ##  7          35 wear a jacket          
+    ##  8          33 wear a jacket          
+    ##  9          57 wear a jacket          
+    ## 10          -7 move
 
-In general, there's no easy way to find out that there's an existing function that will make your life much easier. The best technique is to continually expand your knowledge of R by reading widely; a good place to start are the weekly highlights on <http://rweekly.org/>.
-
-Matching many patterns
-----------------------
-
-A similar problem is accidentally using a vectorized function as if it's a scalar function, making life harder for yourself. I'll illustrate the problem with a function that you'll already familiar with `stringr::str_detect()`. So far when you've used stringr, we've always used a single `pattern`. But imagine you have a new challenge: you have a single string and you want see which of a possible set of patterns it matches:
-
-``` r
-private <- tribble(
-  ~ name,  ~ pattern,
-  "ssn",   "\\d{3}-\\d{2}-\\d{4}",
-  "email", "[a-z]+@[a-z]+\\.[a-z]{2,4}",
-  "phone", "\\d{3}[- ]?\\d{3}[- ]?\\d{4}"
-)
-
-string <- "My social security number is 231-57-7340 and my phone number is 712-458-2189"
-```
-
-You might be tempted to use `map_lgl()`:
-
-``` r
-match <- map_lgl(private$pattern, ~ str_detect(string, pattern = .))
-private$name[match]
-#> [1] "ssn"   "phone"
-```
-
-But if you carefully read the documentation for `str_detect()` you'll discover that this is unnecessary because `str_detect()` is vectored oven `pattern`. That means you don't need `map_lgl()`!
-
-``` r
-private$name[str_detect(string, private$pattern)]
-#> [1] "ssn"   "phone"
-```
-
-It's sometimes hard to tell from the documentation whether or not an argument is vectored. If reading the docs doesn't help, just try it with a vector; if it works, you'll have learned something new and saved yourself a little typing.
+For other helpful vector functions, take a look at the "Vector Functions" section of the [dplyr cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf).
 

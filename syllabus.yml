@@ -30,7 +30,7 @@ weeks:
 
   week-04:
   - string-basics
-  - purrr-map
+  - purrr-basics
   - vis-position
   - missing-values
   - datetime-basics
