@@ -6,6 +6,7 @@ theme: program
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+options(tibble.print_min = 5, tibble.print_max = 5)
 library(tidyverse)
 ```
 

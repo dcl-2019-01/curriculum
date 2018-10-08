@@ -37,53 +37,46 @@ desc: "\nVector functions\n================\n\n**Vector functions** take a vecto
   creates a value for each row in a tibble. If you want, you can manually give `mutate()`
   a vector with a value for each row:\n\n``` r\nset.seed(523)\ndf <- tibble(\n  temperature
   = sample(x = -15:110, size = 10, replace = TRUE)\n)\n\ndf %>% \n  mutate(new_column
-  = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10))\n```\n\n    ## # A tibble: 10 x 2\n    ##    temperature
-  new_column\n    ##          <int>      <dbl>\n    ##  1           6          1\n
-  \   ##  2         106          2\n    ##  3          80          3\n    ##  4          93
-  \         4\n    ##  5          48          5\n    ##  6           4          6\n
-  \   ##  7          35          7\n    ##  8          33          8\n    ##  9          57
-  \         9\n    ## 10          -7         10\n\nYou can also give `mutate()` a
-  single value:\n\n``` r\ndf %>% \n  mutate(one_value = 1)\n```\n\n    ## # A tibble:
-  10 x 2\n    ##    temperature one_value\n    ##          <int>     <dbl>\n    ##
-  \ 1           6         1\n    ##  2         106         1\n    ##  3          80
-  \        1\n    ##  4          93         1\n    ##  5          48         1\n    ##
-  \ 6           4         1\n    ##  7          35         1\n    ##  8          33
-  \        1\n    ##  9          57         1\n    ## 10          -7         1\n\nand
-  it will repeat that value for each row in the tibble. However, if you try to give
-  `mutate()` a vector with a length other than 1 or `nrow(df)`, you'll get an error:\n\n```
-  r\ndf %>% \n  mutate(two_values = c(1, 2))\n```\n\n    ## Error in mutate_impl(.data,
-  dots): Column `two_values` must be length 10 (the number of rows) or one, not 2\n\nAs
-  you know well by now, you'll often create new columns by applying functions to existing
-  ones:\n\n``` r\nfahrenheit_to_celcius <- function(degrees_fahrenheit) {\n  (degrees_fahrenheit
-  - 32) * (5 / 9)\n}\n\ndf %>% \n  mutate(temperature_celcius = fahrenheit_to_celcius(temperature))\n```\n\n
-  \   ## # A tibble: 10 x 2\n    ##    temperature temperature_celcius\n    ##          <int>
-  \              <dbl>\n    ##  1           6             -14.4  \n    ##  2         106
-  \             41.1  \n    ##  3          80              26.7  \n    ##  4          93
-  \             33.9  \n    ##  5          48               8.89 \n    ##  6           4
-  \            -15.6  \n    ##  7          35               1.67 \n    ##  8          33
-  \              0.556\n    ##  9          57              13.9  \n    ## 10          -7
-  \            -21.7\n\nWhen you pass `temperature` to `fahrenheit_to_celcius()`,
-  you pass the entire `temperature` column, which, as you learned earlier, is a vector.
-  Because mathematical operations are vectorized, `fahrenheit_to_celcius()` returns
-  a vector of the same length and `mutate()` successfully creates a new column.\n\nYou
-  can probably predict now what will happen if we try to use our scalar function,
-  `recommendation_1()`, in the same way:\n\n``` r\ndf %>% \n  mutate(recommendation
-  = recommendation_1(temperature))\n```\n\n    ## Warning in if (x >= 90) {: the condition
-  has length > 1 and only the first\n    ## element will be used\n\n    ## Warning
-  in if (x >= 60) {: the condition has length > 1 and only the first\n    ## element
-  will be used\n\n    ## Warning in if (x >= 30) {: the condition has length > 1 and
-  only the first\n    ## element will be used\n\n    ## Warning in if (x >= 0) {:
-  the condition has length > 1 and only the first\n    ## element will be used\n\n
-  \   ## # A tibble: 10 x 2\n    ##    temperature recommendation       \n    ##          <int>
-  <chr>                \n    ##  1           6 wear multiple jackets\n    ##  2         106
-  wear multiple jackets\n    ##  3          80 wear multiple jackets\n    ##  4          93
-  wear multiple jackets\n    ##  5          48 wear multiple jackets\n    ##  6           4
-  wear multiple jackets\n    ##  7          35 wear multiple jackets\n    ##  8          33
-  wear multiple jackets\n    ##  9          57 wear multiple jackets\n    ## 10          -7
-  wear multiple jackets\n\n`mutate()` passes the entire `temperature` vector to `recommendation_1()`,
-  which can't handle a vector and so only processes the first element of `temperature`.
-  However, because of how `mutate()` behaves when given a single value, the recommendation
-  for the first temperature is copied for every single row, which isn't very helpful.\n\nVectorizing
+  = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10))\n```\n\n    ## # A tibble: 10 x 2\n    ##   temperature
+  new_column\n    ##         <int>      <dbl>\n    ## 1           6          1\n    ##
+  2         106          2\n    ## 3          80          3\n    ## 4          93
+  \         4\n    ## 5          48          5\n    ## # ... with 5 more rows\n\nYou
+  can also give `mutate()` a single value:\n\n``` r\ndf %>% \n  mutate(one_value =
+  1)\n```\n\n    ## # A tibble: 10 x 2\n    ##   temperature one_value\n    ##         <int>
+  \    <dbl>\n    ## 1           6         1\n    ## 2         106         1\n    ##
+  3          80         1\n    ## 4          93         1\n    ## 5          48         1\n
+  \   ## # ... with 5 more rows\n\nand it will repeat that value for each row in the
+  tibble. However, if you try to give `mutate()` a vector with a length other than
+  1 or `nrow(df)`, you'll get an error:\n\n``` r\ndf %>% \n  mutate(two_values = c(1,
+  2))\n```\n\n    ## Error in mutate_impl(.data, dots): Column `two_values` must be
+  length 10 (the number of rows) or one, not 2\n\nAs you know well by now, you'll
+  often create new columns by applying functions to existing ones:\n\n``` r\nfahrenheit_to_celcius
+  <- function(degrees_fahrenheit) {\n  (degrees_fahrenheit - 32) * (5 / 9)\n}\n\ndf
+  %>% \n  mutate(temperature_celcius = fahrenheit_to_celcius(temperature))\n```\n\n
+  \   ## # A tibble: 10 x 2\n    ##   temperature temperature_celcius\n    ##         <int>
+  \              <dbl>\n    ## 1           6              -14.4 \n    ## 2         106
+  \              41.1 \n    ## 3          80               26.7 \n    ## 4          93
+  \              33.9 \n    ## 5          48                8.89\n    ## # ... with
+  5 more rows\n\nWhen you pass `temperature` to `fahrenheit_to_celcius()`, you pass
+  the entire `temperature` column, which, as you learned earlier, is a vector. Because
+  mathematical operations are vectorized, `fahrenheit_to_celcius()` returns a vector
+  of the same length and `mutate()` successfully creates a new column.\n\nYou can
+  probably predict now what will happen if we try to use our scalar function, `recommendation_1()`,
+  in the same way:\n\n``` r\ndf %>% \n  mutate(recommendation = recommendation_1(temperature))\n```\n\n
+  \   ## Warning in if (x >= 90) {: the condition has length > 1 and only the first\n
+  \   ## element will be used\n\n    ## Warning in if (x >= 60) {: the condition has
+  length > 1 and only the first\n    ## element will be used\n\n    ## Warning in
+  if (x >= 30) {: the condition has length > 1 and only the first\n    ## element
+  will be used\n\n    ## Warning in if (x >= 0) {: the condition has length > 1 and
+  only the first\n    ## element will be used\n\n    ## # A tibble: 10 x 2\n    ##
+  \  temperature recommendation       \n    ##         <int> <chr>                \n
+  \   ## 1           6 wear multiple jackets\n    ## 2         106 wear multiple jackets\n
+  \   ## 3          80 wear multiple jackets\n    ## 4          93 wear multiple jackets\n
+  \   ## 5          48 wear multiple jackets\n    ## # ... with 5 more rows\n\n`mutate()`
+  passes the entire `temperature` vector to `recommendation_1()`, which can't handle
+  a vector and so only processes the first element of `temperature`. However, because
+  of how `mutate()` behaves when given a single value, the recommendation for the
+  first temperature is copied for every single row, which isn't very helpful.\n\nVectorizing
   if-else statements\n------------------------------\n\nThere are several ways to
   vectorize `recommendation_1()` so that it gives an accurate recommendation for each
   temperature in `df`.\n\nFirst, there's a vectorized if-else function called `if_else()`:\n\n```
@@ -96,12 +89,9 @@ desc: "\nVector functions\n================\n\n**Vector functions** take a vecto
   multiple jackets\",\n    TRUE    ~ \"move\"\n  )\n}\n\nrecommendation_2(temps)\n```\n\n
   \   ## [1] \"wear multiple jackets\"   \"wear a jacket\"          \n    ## [3] \"locate
   air conditioning\"\n\n``` r\ndf %>% \n  mutate(recommendation = recommendation_2(temperature))\n```\n\n
-  \   ## # A tibble: 10 x 2\n    ##    temperature recommendation         \n    ##
-  \         <int> <chr>                  \n    ##  1           6 wear multiple jackets
-  \ \n    ##  2         106 locate air conditioning\n    ##  3          80 go outside
-  \            \n    ##  4          93 locate air conditioning\n    ##  5          48
-  wear a jacket          \n    ##  6           4 wear multiple jackets  \n    ##  7
-  \         35 wear a jacket          \n    ##  8          33 wear a jacket          \n
-  \   ##  9          57 wear a jacket          \n    ## 10          -7 move\n\nFor
-  other helpful vector functions, take a look at the \"Vector Functions\" section
-  of the [dplyr cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf).\n"
+  \   ## # A tibble: 10 x 2\n    ##   temperature recommendation         \n    ##
+  \        <int> <chr>                  \n    ## 1           6 wear multiple jackets
+  \ \n    ## 2         106 locate air conditioning\n    ## 3          80 go outside
+  \            \n    ## 4          93 locate air conditioning\n    ## 5          48
+  wear a jacket          \n    ## # ... with 5 more rows\n\nFor other helpful vector
+  functions, take a look at the \"Vector Functions\" section of the [dplyr cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf).\n"

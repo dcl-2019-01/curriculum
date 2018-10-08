@@ -119,18 +119,14 @@ df %>%
 ```
 
     ## # A tibble: 10 x 2
-    ##    temperature new_column
-    ##          <int>      <dbl>
-    ##  1           6          1
-    ##  2         106          2
-    ##  3          80          3
-    ##  4          93          4
-    ##  5          48          5
-    ##  6           4          6
-    ##  7          35          7
-    ##  8          33          8
-    ##  9          57          9
-    ## 10          -7         10
+    ##   temperature new_column
+    ##         <int>      <dbl>
+    ## 1           6          1
+    ## 2         106          2
+    ## 3          80          3
+    ## 4          93          4
+    ## 5          48          5
+    ## # ... with 5 more rows
 
 You can also give `mutate()` a single value:
 
@@ -140,18 +136,14 @@ df %>%
 ```
 
     ## # A tibble: 10 x 2
-    ##    temperature one_value
-    ##          <int>     <dbl>
-    ##  1           6         1
-    ##  2         106         1
-    ##  3          80         1
-    ##  4          93         1
-    ##  5          48         1
-    ##  6           4         1
-    ##  7          35         1
-    ##  8          33         1
-    ##  9          57         1
-    ## 10          -7         1
+    ##   temperature one_value
+    ##         <int>     <dbl>
+    ## 1           6         1
+    ## 2         106         1
+    ## 3          80         1
+    ## 4          93         1
+    ## 5          48         1
+    ## # ... with 5 more rows
 
 and it will repeat that value for each row in the tibble. However, if you try to give `mutate()` a vector with a length other than 1 or `nrow(df)`, you'll get an error:
 
@@ -174,18 +166,14 @@ df %>%
 ```
 
     ## # A tibble: 10 x 2
-    ##    temperature temperature_celcius
-    ##          <int>               <dbl>
-    ##  1           6             -14.4  
-    ##  2         106              41.1  
-    ##  3          80              26.7  
-    ##  4          93              33.9  
-    ##  5          48               8.89 
-    ##  6           4             -15.6  
-    ##  7          35               1.67 
-    ##  8          33               0.556
-    ##  9          57              13.9  
-    ## 10          -7             -21.7
+    ##   temperature temperature_celcius
+    ##         <int>               <dbl>
+    ## 1           6              -14.4 
+    ## 2         106               41.1 
+    ## 3          80               26.7 
+    ## 4          93               33.9 
+    ## 5          48                8.89
+    ## # ... with 5 more rows
 
 When you pass `temperature` to `fahrenheit_to_celcius()`, you pass the entire `temperature` column, which, as you learned earlier, is a vector. Because mathematical operations are vectorized, `fahrenheit_to_celcius()` returns a vector of the same length and `mutate()` successfully creates a new column.
 
@@ -209,18 +197,14 @@ df %>%
     ## element will be used
 
     ## # A tibble: 10 x 2
-    ##    temperature recommendation       
-    ##          <int> <chr>                
-    ##  1           6 wear multiple jackets
-    ##  2         106 wear multiple jackets
-    ##  3          80 wear multiple jackets
-    ##  4          93 wear multiple jackets
-    ##  5          48 wear multiple jackets
-    ##  6           4 wear multiple jackets
-    ##  7          35 wear multiple jackets
-    ##  8          33 wear multiple jackets
-    ##  9          57 wear multiple jackets
-    ## 10          -7 wear multiple jackets
+    ##   temperature recommendation       
+    ##         <int> <chr>                
+    ## 1           6 wear multiple jackets
+    ## 2         106 wear multiple jackets
+    ## 3          80 wear multiple jackets
+    ## 4          93 wear multiple jackets
+    ## 5          48 wear multiple jackets
+    ## # ... with 5 more rows
 
 `mutate()` passes the entire `temperature` vector to `recommendation_1()`, which can't handle a vector and so only processes the first element of `temperature`. However, because of how `mutate()` behaves when given a single value, the recommendation for the first temperature is copied for every single row, which isn't very helpful.
 
@@ -264,18 +248,14 @@ df %>%
 ```
 
     ## # A tibble: 10 x 2
-    ##    temperature recommendation         
-    ##          <int> <chr>                  
-    ##  1           6 wear multiple jackets  
-    ##  2         106 locate air conditioning
-    ##  3          80 go outside             
-    ##  4          93 locate air conditioning
-    ##  5          48 wear a jacket          
-    ##  6           4 wear multiple jackets  
-    ##  7          35 wear a jacket          
-    ##  8          33 wear a jacket          
-    ##  9          57 wear a jacket          
-    ## 10          -7 move
+    ##   temperature recommendation         
+    ##         <int> <chr>                  
+    ## 1           6 wear multiple jackets  
+    ## 2         106 locate air conditioning
+    ## 3          80 go outside             
+    ## 4          93 locate air conditioning
+    ## 5          48 wear a jacket          
+    ## # ... with 5 more rows
 
 For other helpful vector functions, take a look at the "Vector Functions" section of the [dplyr cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf).
 
