@@ -54,6 +54,7 @@ weeks:
   week-07:
   - timespans
   - vis-annotation
+  - purrr-mutate
   - workflow-rmarkdown
   - model-multivariate
   - purrr-map-variants

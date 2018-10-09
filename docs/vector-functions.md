@@ -5,11 +5,9 @@ title: Vector functions
 <!-- Generated automatically from vector-functions.yml. Do not edit by hand -->
 
 # Vector functions <small class='program'>[program]</small>
-<small>(Builds on: [Manipulation basics](manip-basics.md), [Function basics](function-basics.md))</small>
+<small>(Builds on: [Manipulation basics](manip-basics.md), [Function basics](function-basics.md))</small>  
+<small>(Leads to: [purrr inside mutate](purrr-mutate.md))</small>
 
-
-Vector functions
-================
 
 **Vector functions** take a vector as input and produce a vector of the same length as output. This is very helpful when working with vectors. For example, instead of taking the log of each element of the vector `x`, you can just call `log10()` once:
 

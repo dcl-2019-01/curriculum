@@ -272,6 +272,12 @@ title: Theme index
 </tr>
 <tr>
 <td></td>
+  <td colspan="2"></td>
+  <td colspan="4"><a class="program" href="purrr-mutate.html">purrr inside mutate</a></td>
+  <td colspan="3"></td>
+</tr>
+<tr>
+<td></td>
   <td colspan="5"></td>
   <td colspan="4"><a class="workflow" href="workflow-rmarkdown.html">R Markdown workflow</a></td>
 </tr>

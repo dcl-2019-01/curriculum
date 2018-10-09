@@ -5,7 +5,8 @@ title: purrr basics
 <!-- Generated automatically from purrr-basics.yml. Do not edit by hand -->
 
 # purrr basics <small class='program'>[program]</small>
-<small>(Builds on: [Function basics](function-basics.md))</small>
+<small>(Builds on: [Function basics](function-basics.md))</small>  
+<small>(Leads to: [purrr inside mutate](purrr-mutate.md))</small>
 
 
 ``` r

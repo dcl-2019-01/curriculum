@@ -10,8 +10,6 @@ options(tibble.print_min = 5, tibble.print_max = 5)
 library(tidyverse)
 ```
 
-# Vector functions
-
 **Vector functions** take a vector as input and produce a vector of the same length as output. This is very helpful when working with vectors. For example, instead of taking the log of each element of the vector `x`, you can just call `log10()` once:
 
 ```{r}

@@ -5,31 +5,30 @@ needs:
 - function-basics
 readings: ~
 updated: ~
-desc: "\nVector functions\n================\n\n**Vector functions** take a vector
-  as input and produce a vector of the same length as output. This is very helpful
-  when working with vectors. For example, instead of taking the log of each element
-  of the vector `x`, you can just call `log10()` once:\n\n``` r\nx <- c(5, 2, 1)\n\nlog10(x)\n#>
-  [1] 0.69897 0.30103 0.00000\n```\n\nThe simple mathematical operators are also vector
-  functions:\n\n``` r\ny <- c(1, 2, 4)\n\nx + y\n#> [1] 6 4 5\n\nx * y\n#> [1] 5 4
-  4\n```\n\nIn contrast, functions that can only take a length one input and produce
-  a length one output are called **scalar functions**.\n\nAs you'll see in the next
-  section, the distinction between scalar and vector functions is important when working
-  with data frames.\n\nTemperature recommendations\n---------------------------\n\nA
-  common way to create a scalar function is by using an if-else statement. For example,
-  you might write the following function that tells you what to do based on the temperature
-  outside:\n\n``` r\nrecommendation_1 <- function(x) {\n  if (x >= 90) {\n    \"locate
-  air conditioning\"\n  } else if (x >= 60) {\n    \"go outside\"\n  } else if (x
-  >= 30) {\n    \"wear a jacket\"\n  } else if (x >= 0) {\n    \"wear multiple jackets\"\n
-  \ } else {\n    \"move\"\n  }\n}\n```\n\nThis works well when applied to single
-  values:\n\n``` r\nrecommendation_1(92)\n#> [1] \"locate air conditioning\"\n\nrecommendation_1(34)\n#>
-  [1] \"wear a jacket\"\n\nrecommendation_1(-15)\n#> [1] \"move\"\n```\n\nbut fails
-  when applied to a vector with more than one element:\n\n``` r\ntemps <- c(1, 55,
-  101)\n\nrecommendation_1(temps)\n#> Warning in if (x >= 90) {: the condition has
-  length > 1 and only the first\n#> element will be used\n#> Warning in if (x >= 60)
+desc: "\n**Vector functions** take a vector as input and produce a vector of the same
+  length as output. This is very helpful when working with vectors. For example, instead
+  of taking the log of each element of the vector `x`, you can just call `log10()`
+  once:\n\n``` r\nx <- c(5, 2, 1)\n\nlog10(x)\n#> [1] 0.69897 0.30103 0.00000\n```\n\nThe
+  simple mathematical operators are also vector functions:\n\n``` r\ny <- c(1, 2,
+  4)\n\nx + y\n#> [1] 6 4 5\n\nx * y\n#> [1] 5 4 4\n```\n\nIn contrast, functions
+  that can only take a length one input and produce a length one output are called
+  **scalar functions**.\n\nAs you'll see in the next section, the distinction between
+  scalar and vector functions is important when working with data frames.\n\nTemperature
+  recommendations\n---------------------------\n\nA common way to create a scalar
+  function is by using an if-else statement. For example, you might write the following
+  function that tells you what to do based on the temperature outside:\n\n``` r\nrecommendation_1
+  <- function(x) {\n  if (x >= 90) {\n    \"locate air conditioning\"\n  } else if
+  (x >= 60) {\n    \"go outside\"\n  } else if (x >= 30) {\n    \"wear a jacket\"\n
+  \ } else if (x >= 0) {\n    \"wear multiple jackets\"\n  } else {\n    \"move\"\n
+  \ }\n}\n```\n\nThis works well when applied to single values:\n\n``` r\nrecommendation_1(92)\n#>
+  [1] \"locate air conditioning\"\n\nrecommendation_1(34)\n#> [1] \"wear a jacket\"\n\nrecommendation_1(-15)\n#>
+  [1] \"move\"\n```\n\nbut fails when applied to a vector with more than one element:\n\n```
+  r\ntemps <- c(1, 55, 101)\n\nrecommendation_1(temps)\n#> Warning in if (x >= 90)
   {: the condition has length > 1 and only the first\n#> element will be used\n#>
-  Warning in if (x >= 30) {: the condition has length > 1 and only the first\n#> element
-  will be used\n#> Warning in if (x >= 0) {: the condition has length > 1 and only
-  the first\n#> element will be used\n#> [1] \"wear multiple jackets\"\n```\n\n`if`
+  Warning in if (x >= 60) {: the condition has length > 1 and only the first\n#> element
+  will be used\n#> Warning in if (x >= 30) {: the condition has length > 1 and only
+  the first\n#> element will be used\n#> Warning in if (x >= 0) {: the condition has
+  length > 1 and only the first\n#> element will be used\n#> [1] \"wear multiple jackets\"\n```\n\n`if`
   only works with one element at a time and can't handle an entire vector. When you
   give `recommendation_1()` a vector, it only processes the first element of that
   vector, which is why `recommendation_1()` only tells us what to do if it's 1 degree
