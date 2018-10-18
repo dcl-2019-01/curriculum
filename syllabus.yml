@@ -61,6 +61,7 @@ weeks:
 
   week-08:
   - list-cols
+  - purrr-parallel
   - model-many
   - separate-unite
   - spatial-vis

@@ -5,7 +5,8 @@ title: purrr inside mutate
 <!-- Generated automatically from purrr-mutate.yml. Do not edit by hand -->
 
 # purrr inside mutate <small class='program'>[program]</small>
-<small>(Builds on: [purrr basics](purrr-basics.md), [Vector functions](vector-functions.md))</small>
+<small>(Builds on: [purrr basics](purrr-basics.md), [Vector functions](vector-functions.md))</small>  
+<small>(Leads to: [purrr map with multiple inputs](purrr-parallel.md))</small>
 
 
 In the vector functions unit, you learned to add new variables to tibbles by giving `mutate()` a vector with an element for each row in the tibble. You saw that you can do any of the following to create this vector:

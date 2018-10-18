@@ -303,6 +303,12 @@ title: Theme index
 </tr>
 <tr>
 <td></td>
+  <td colspan="2"></td>
+  <td colspan="4"><a class="program" href="purrr-parallel.html">purrr map with multiple inputs</a></td>
+  <td colspan="3"></td>
+</tr>
+<tr>
+<td></td>
   <td colspan="3"></td>
   <td colspan="4"><a class="model" href="model-many.html">Many models</a></td>
   <td colspan="2"></td>

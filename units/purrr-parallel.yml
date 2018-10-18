@@ -1,0 +1,71 @@
+title: purrr map with multiple inputs
+theme: program
+needs: purrr-mutate
+readings: ~
+updated: ~
+desc: "\nIn the previous purrr units, you learned how to use the `map()` functions
+  to iterate over a single vector and apply a function to each element. `purrr` also
+  contains functions that can iterate over several vectors in parallel, supplying
+  the first elements of each vector to a given function, then the second, then the
+  third, etc.\n\n`purrr`'s parallel mapping functions allow the assembly line to have
+  multiple, syncronized input conveyor belts. Our factory worker uses the nth item
+  from each input conveyor belt to create a new object that becomes the nth item on
+  the output conveyor belt.\n\nBelow, you'll learn about the `map2()` functions, which
+  can handle two input vectors, and the `pmap()` functions, which can handle any number
+  of input vectors.\n\n`map2()`\n--------\n\nThe `map2()` functions are very similar
+  to the `map()` functions you learned about previously, but they take two input vectors
+  instead of one.\n\n``` r\nx <- c(1, 2, 4)\ny <- c(6, 5, 3)\n\nmap2_dbl(x, y, min)\n```\n\n
+  \   ## [1] 1 2 3\n\nSince the `map2()` functions iterate along the two vectors in
+  parallel, they need to be the same length.\n\n``` r\nx2 <- c(1, 2, 4)\ny2 <- c(6,
+  5)\n\nmap2_dbl(x2, y2, min)\n```\n\n    ## Error: `.x` (3) and `.y` (2) are different
+  lengths\n\nInside anonymous functions in the `map()` functions, you refer to each
+  element of the input vector as `.`. In the `map2()` functions, you refer to elements
+  of the first vector as `.x` and elements of the second as `.y`.\n\n``` r\nmap2_chr(x,
+  y, ~ str_glue(\"The minimum of {.x} and {.y} is {min(.x, .y)}.\"))\n```\n\n    ##
+  [1] \"The minimum of 1 and 6 is 1.\" \"The minimum of 2 and 5 is 2.\"\n    ## [3]
+  \"The minimum of 4 and 3 is 3.\"\n\nIf you don't create an anonymous function and
+  use a named function instead, the first vector will be supplied as the first argument
+  to the function and the second vector will be supplied as the second argument.\n\n`pmap()`\n--------\n\nThere
+  are no `map3()` or `map4()` functions. Instead, you can use a `pmap()` (\"p\" for
+  parallel) function to map over more than two vectors.\n\nThe `pmap()` functions
+  work slightly differently than the `map()` and `map2()` functions. In `map()` and
+  `map2()` functions, you specify the vector(s) to supply to the function. In `pmap()`
+  functions, however, you specify a single list that contains all the vectors you
+  want to supply to your function.\n\n``` r\nlist(\n  a = c(50, 60, 70),\n  b = c(10,
+  90, 40),\n  c = c(1, 105, 2000)\n) %>% \n  pmap_dbl(min)\n```\n\n    ## [1]  1 60
+  40\n\n`pmap_dbl()` takes the nth elements of `a`, `b`, and `c` and calls `min()`
+  with these three values to obtain the nth output value.\n\nTibbles are lists, so
+  they work in exactly the same way.\n\n``` r\ntibble(\n  a = c(50, 60, 70),\n  b
+  = c(10, 90, 40),\n  c = c(1, 105, 2000)\n) %>% \n  pmap_dbl(min)\n```\n\n    ##
+  [1]  1 60 40\n\n### Anonymous functions\n\nWhen using an anonymous function in `pmap()`,
+  use `..1`, `..2`, `..3`, etc. to refer to the different vectors.\n\n``` r\nstate_animals
+  <- \n  tribble(\n    ~state, ~type, ~animal, ~binomial,\n    \"Alaska\", \"land
+  mammal\", \"Moose\", \"Alces alces\",\n    \"Delaware\", \"bug\", \"7-spotted ladybug\",
+  \"Coccinella septempunctata\",\n    \"Hawaii\", \"fish\", \"Humuhumunukunukuāpuaʻa\",
+  \"Rhinecanthus rectangulus\",\n    \"Maine\", \"crustacean\", \"lobster\", \"Homarus
+  americanus\" \n  )\n\nstate_animals %>% \n  pmap_chr(~ str_glue(\"The {..1} state
+  {..2} is the {..3}.\"))\n```\n\n    ## [1] \"The Alaska state land mammal is the
+  Moose.\"          \n    ## [2] \"The Delaware state bug is the 7-spotted ladybug.\"
+  \   \n    ## [3] \"The Hawaii state fish is the Humuhumunukunukuāpuaʻa.\"\n    ##
+  [4] \"The Maine state crustacean is the lobster.\"\n\n`..1` refers to the first
+  variable (here, `state`), `..2` to the second, and so on.\n\n### Named functions\n\nFor
+  named functions, `pmap()` will match the names of the input list or tibble with
+  the names of the function arguments. This can result in elegant code. But for this
+  to work, it's important that:\n\n-   The list or tibble input variable names match
+  those of the function arguments.\n-   You must have **the same number of input variables
+  as function arguments**.\n\nLet's start with an example of what doesn't work. First,
+  we'll create a named function.\n\n``` r\nstate_sentence <- function(animal, type,
+  state) {\n  str_glue(\"The {state} state {type} is the {animal}.\")\n}\n```\n\nThis
+  does not work:\n\n``` r\nstate_animals %>% \n  pmap_chr(state_sentence)\n```\n\n
+  \   ## Error in .f(state = .l[[c(1L, i)]], type = .l[[c(2L, i)]], animal = .l[[c(3L,
+  : unused argument (binomial = .l[[c(4, i)]])\n\n`state_animals` has four variables,
+  but `state_sentence` is expecting three. The number of input variables must match
+  the number of function arguments.\n\nYou can fix the problem by simply getting rid
+  of the unused variable.\n\n``` r\nstate_animals %>% \n  select(-binomial) %>% \n
+  \ pmap_chr(state_sentence)\n```\n\n    ## [1] \"The Alaska state land mammal is
+  the Moose.\"          \n    ## [2] \"The Delaware state bug is the 7-spotted ladybug.\"
+  \   \n    ## [3] \"The Hawaii state fish is the Humuhumunukunukuāpuaʻa.\"\n    ##
+  [4] \"The Maine state crustacean is the lobster.\"\n\nNote that the order of the
+  variables in `state_animals` is different than the order of the arguments in `state_sentence`.
+  `pmap()` matches input variables with function arguments by name, so the orderings
+  don't matter. However, this means that the two sets of names must be identical.\n"
