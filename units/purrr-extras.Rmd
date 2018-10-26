@@ -2,8 +2,6 @@
 unit_title: Other purrr functions
 needs: [purrr-basics]
 theme: program
-output: 
-    toc: true
 ---
 
 ```{r setup, include = FALSE}
