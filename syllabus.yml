@@ -68,6 +68,7 @@ weeks:
 
   week-09:
   - tidy-eval
+  - purrr-extras
   - window-functions
   - model-eval
   - rectangling

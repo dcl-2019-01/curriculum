@@ -334,6 +334,12 @@ title: Theme index
 </tr>
 <tr>
 <td></td>
+  <td colspan="2"></td>
+  <td colspan="4"><a class="program" href="purrr-extras.html">Other purrr functions</a></td>
+  <td colspan="3"></td>
+</tr>
+<tr>
+<td></td>
   <td colspan="1"></td>
   <td colspan="4"><a class="wrangle" href="window-functions.html">Window functions</a></td>
   <td colspan="4"></td>
