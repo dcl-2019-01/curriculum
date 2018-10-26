@@ -1,7 +1,7 @@
 title: List columns
 theme: program
 
-needs: [purrr-map-variants]
+needs: [purrr-basics]
 
 desc: |
   List columns are a powerful way to extend data frames to contain arbitrary

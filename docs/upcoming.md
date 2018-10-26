@@ -287,12 +287,6 @@ title: Theme index
   <td colspan="4"><a class="model" href="model-multivariate.html">Models with multiple variables</a></td>
   <td colspan="2"></td>
 </tr>
-<tr>
-<td></td>
-  <td colspan="1"></td>
-  <td colspan="4"><a class="wrangle" href="purrr-map-variants.html">Purrr map variants</a></td>
-  <td colspan="4"></td>
-</tr>
 </tbody>
 <tbody>
 <tr>

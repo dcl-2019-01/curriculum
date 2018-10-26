@@ -5,8 +5,7 @@ title: Iteration basics
 <!-- Generated automatically from purrr-map.yml. Do not edit by hand -->
 
 # Iteration basics <small class='program'>[program]</small>
-<small>(Builds on: [Data structure basics](data-structure-basics.md))</small>  
-<small>(Leads to: [Purrr map variants](purrr-map-variants.md))</small>
+<small>(Builds on: [Data structure basics](data-structure-basics.md))</small>
 
 
 ## Introduction
