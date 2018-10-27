@@ -8,6 +8,10 @@ title: Other purrr functions
 <small>(Builds on: [purrr basics](purrr-basics.md))</small>
 
 
+-   [map functions that output tibbles](#map-functions-that-output-tibbles)
+-   [Walk](#walk)
+-   [Predicate functions](#predicate-functions)
+
 In this reading, you'll learn about two more map variants, `map_dfr()` and `map_dfc()`. Then, you'll learn about `walk()`, as well as some useful purrr functions that work with functions that return either `TRUE` or `FALSE`.
 
 The purrr package contains more functions that we can cover. The [purrr cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/purrr.pdf) is a great way to see an overview of the package or find a helpful function when you encounter a new type of iteration problem.
