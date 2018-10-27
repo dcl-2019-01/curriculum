@@ -8,9 +8,9 @@ title: Other purrr functions
 <small>(Builds on: [purrr basics](purrr-basics.md))</small>
 
 
--   [map functions that output tibbles](#map-functions-that-output-tibbles)
--   [Walk](#walk)
--   [Predicate functions](#predicate-functions)
+[map functions that output tibbles](#map-functions-that-output-tibbles)
+[Walk](#walk)
+[Predicate functions](#predicate-functions)
 
 In this reading, you'll learn about two more map variants, `map_dfr()` and `map_dfc()`. Then, you'll learn about `walk()`, as well as some useful purrr functions that work with functions that return either `TRUE` or `FALSE`.
 
