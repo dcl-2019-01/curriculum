@@ -292,7 +292,7 @@ title: Theme index
 <tr>
 <td id='week-8'>8</td>
   <td colspan="2"></td>
-  <td colspan="4"><a class="program" href="list-cols.html">List columns</a></td>
+  <td colspan="4"><a class="program" href="list-cols.html">List-columns</a></td>
   <td colspan="3"></td>
 </tr>
 <tr>

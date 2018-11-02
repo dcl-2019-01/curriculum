@@ -6,7 +6,7 @@ title: purrr basics
 
 # purrr basics <small class='program'>[program]</small>
 <small>(Builds on: [Function basics](function-basics.md))</small>  
-<small>(Leads to: [List columns](list-cols.md), [Other purrr functions](purrr-extras.md), [purrr inside mutate](purrr-mutate.md))</small>
+<small>(Leads to: [Other purrr functions](purrr-extras.md), [purrr inside mutate](purrr-mutate.md))</small>
 
 
 ``` r

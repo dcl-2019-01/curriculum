@@ -5,7 +5,7 @@ title: Spatial basics
 <!-- Generated automatically from spatial-basics.yml. Do not edit by hand -->
 
 # Spatial basics <small class='wrangle'>[wrangle]</small>
-<small>(Builds on: [List columns](list-cols.md))</small>  
+<small>(Builds on: [List-columns](list-cols.md))</small>  
 <small>(Leads to: [Spatial visualisation](spatial-vis.md))</small>
 
 

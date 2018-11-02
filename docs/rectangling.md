@@ -5,7 +5,7 @@ title: Data rectangling
 <!-- Generated automatically from rectangling.yml. Do not edit by hand -->
 
 # Data rectangling <small class='wrangle'>[wrangle]</small>
-<small>(Builds on: [List columns](list-cols.md))</small>
+<small>(Builds on: [List-columns](list-cols.md))</small>
 
 
 Data rectangling is the process of turning non-rectangular data into

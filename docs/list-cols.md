@@ -1,19 +1,18 @@
 ---
-title: List columns
+title: List-columns
 ---
 
 <!-- Generated automatically from list-cols.yml. Do not edit by hand -->
 
-# List columns <small class='program'>[program]</small>
-<small>(Builds on: [purrr basics](purrr-basics.md))</small>  
+# List-columns <small class='program'>[program]</small>
+<small>(Builds on: [purrr inside mutate](purrr-mutate.md))</small>  
 <small>(Leads to: [Many models](model-many.md), [Data rectangling](rectangling.md), [Generating multiple reports](report-generation.md), [Spatial basics](spatial-basics.md))</small>
 
-List columns are a powerful way to extend data frames to contain arbitrary
-data types: you've seen them with spatial data, and you'll find them useful
-when you start working with many models.
+**List-columns** are a powerful way to extend data frames to contain arbitrary
+data types, such as a column of functions or spatial data or models.
 
-Data frames are useful because they keep together related vectors;
-list-columns allow you to continue to use data frames even as you data
+Data frames are useful because they keep together related vectors.
+List-columns allow you to continue to use data frames even as your data
 structures get more complicated.
 
 ## Readings

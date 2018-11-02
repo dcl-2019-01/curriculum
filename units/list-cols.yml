@@ -1,15 +1,14 @@
-title: List columns
+title: List-columns
 theme: program
 
-needs: [purrr-basics]
+needs: [purrr-mutate]
 
 desc: |
-  List columns are a powerful way to extend data frames to contain arbitrary
-  data types: you've seen them with spatial data, and you'll find them useful
-  when you start working with many models.
-
-  Data frames are useful because they keep together related vectors;
-  list-columns allow you to continue to use data frames even as you data
+  **List-columns** are a powerful way to extend data frames to contain arbitrary
+  data types, such as a column of functions or spatial data or models.
+  
+  Data frames are useful because they keep together related vectors.
+  List-columns allow you to continue to use data frames even as your data
   structures get more complicated.
 
 readings:
