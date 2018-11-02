@@ -8,8 +8,8 @@ title: List-columns
 <small>(Builds on: [purrr inside mutate](purrr-mutate.md))</small>  
 <small>(Leads to: [Many models](model-many.md), [Data rectangling](rectangling.md), [Generating multiple reports](report-generation.md), [Spatial basics](spatial-basics.md))</small>
 
-**List-columns** are a powerful way to extend data frames to contain arbitrary
-data types, such as a column of spatial data or models.
+**List-columns** are a powerful way to extend data frames to contain any
+data type, such as a column of spatial data or models.
 
 Data frames are useful because they keep together related vectors.
 List-columns allow you to continue to use data frames even as your data
