@@ -9,7 +9,7 @@ title: List-columns
 <small>(Leads to: [Many models](model-many.md), [Data rectangling](rectangling.md), [Generating multiple reports](report-generation.md), [Spatial basics](spatial-basics.md))</small>
 
 **List-columns** are a powerful way to extend data frames to contain arbitrary
-data types, such as a column of functions or spatial data or models.
+data types, such as a column of spatial data or models.
 
 Data frames are useful because they keep together related vectors.
 List-columns allow you to continue to use data frames even as your data
