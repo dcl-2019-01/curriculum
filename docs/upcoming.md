@@ -160,6 +160,12 @@ title: Theme index
 <tr>
 <td></td>
   <td colspan="2"></td>
+  <td colspan="4"><a class="program" href="function-anonymous.html">Anonymous functions</a></td>
+  <td colspan="3"></td>
+</tr>
+<tr>
+<td></td>
+  <td colspan="2"></td>
   <td colspan="4"><a class="program" href="purrr-basics.html">purrr basics</a></td>
   <td colspan="3"></td>
 </tr>

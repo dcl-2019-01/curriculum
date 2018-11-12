@@ -30,6 +30,7 @@ weeks:
 
   week-04:
   - string-basics
+  - function-anonymous
   - purrr-basics
   - vis-position
   - missing-values
