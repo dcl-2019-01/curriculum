@@ -15,8 +15,7 @@ Scoped verbs are powerful. They allow you to quickly carry out complex wrangling
 
 Each dplyr verb comes in three scoped variants. The name of each variant consists of the dplyr verb plus one of three suffixes: `_at`, `_all`, or `_if`. In this reading, you'll learn about the `_all` and `_at` scoped verbs.
 
-`_all` and `_at` scoped verbs
------------------------------
+### \_all and \_at scoped verbs
 
 `x` is a simple tibble.
 
@@ -61,7 +60,7 @@ Each scoped verb has a suffix and a prefix. The prefix specifies the dplyr verb 
 -   `_all`: applies the dplyr verb to all variables
 -   `_at`: applies the dplyr verb to selected variables
 
-### `_all`
+#### \_all
 
 To summarize all the variables in `x` as we did above, we'll use the scoped verb `summarize_all()`.
 
@@ -79,7 +78,7 @@ x %>%
 
 Notice that we wrote `n_distinct`, and not `n_distinct()`. Recall that `n_distinct` is the name of the function, while `n_distinct()` calls the function.
 
-### `_at`
+#### \_at
 
 To summarize just variables `number_1` and `number_2`, we'll use `summarize_at().` The `_at` verbs take an additional argument: a list of columns specified inside the function `vars()`.
 
@@ -105,8 +104,7 @@ x %>%
     ##      <int>    <int>
     ## 1        2        3
 
-Scoped `mutate()`
------------------
+### Scoped `mutate()`
 
 If you want to apply `mutate()` to multiple columns, the same logic applies. `mutate_all()` will apply the same function to each column, changing all of them in the same way.
 
@@ -136,8 +134,7 @@ x %>%
     ## 2        1        3 x     
     ## 3        1       42 w
 
-Anonymous functions
--------------------
+### Anonymous functions
 
 `n_distinct()` and `lag()` are both named functions. However, scoped verbs can also take anonymous functions.
 
@@ -157,8 +154,7 @@ x %>%
 
 The `.` is a placeholder. It refers to each column specified in the scoped verb in turn. In this case, it refers to `number_1`, then `number_2`, then `letter`.
 
-`...`
------
+### `...`
 
 The scoped verbs all take `...` as a final argument. You can use `...` to specify arguments to a named function without having to write an anonymous function.
 
@@ -188,8 +184,7 @@ x %>%
 
 The `...` functionality makes the code easier to read, avoiding the extra syntax involved in anonymous functions. You can use it to add any number of arguments.
 
-Multiple functions
-------------------
+### Multiple functions
 
 You can also use `funs()` to supply the scoped variants of `mutate()`, `summarize()`, and `transmute()` with multiple functions.
 
@@ -205,8 +200,7 @@ x %>%
 
 The scoped verb will create identifying column names.
 
-Scoped `select()` and `rename()`
---------------------------------
+### Scoped `select()` and `rename()`
 
 The scoped variants of `select()` and `rename()` work very similarly to those of `mutate()`, `transmute()`, and `summarize()`. However, they apply the specified function(s) to *column names*, instead of to column values.
 
