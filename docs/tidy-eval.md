@@ -5,7 +5,7 @@ title: Tidy evaluation
 <!-- Generated automatically from tidy-eval.yml. Do not edit by hand -->
 
 # Tidy evaluation <small class='program'>[program]</small>
-<small>(Builds on: [Scoped verbs](manip-scoped.md), [Function basics](function-basics.md))</small>
+<small>(Builds on: [Scoped verb basics](manip-scoped.md), [Function basics](function-basics.md))</small>
 
 
 ## Introduction

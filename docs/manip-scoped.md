@@ -1,305 +1,228 @@
 ---
-title: Scoped verbs
+title: Scoped verb basics
 ---
 
 <!-- Generated automatically from manip-scoped.yml. Do not edit by hand -->
 
-# Scoped verbs <small class='wrangle'>[wrangle]</small>
+# Scoped verb basics <small class='wrangle'>[wrangle]</small>
 <small>(Builds on: [Manipulation basics](manip-basics.md))</small>  
 <small>(Leads to: [Programming with dplyr](manip-programming.md), [Tidy evaluation](tidy-eval.md))</small>
 
 
-Introduction
-------------
+You'll often want to operate on multiple columns at the same time. Luckily, there are **scoped** versions of dplyr verbs that allow you to apply that verb to multiple columns at once.
 
-Each of the single table verbs comes in three additional forms with the suffixes `_if`, `_at`, and `_all`. These **scoped** variants allow you to work with multiple variables with a single call:
+Scoped verbs are powerful. They allow you to quickly carry out complex wrangling that would otherwise be much more difficult.
 
--   `_if` allows you to pick variables based on a predicate function like `is.numeric()` or `is.character()`.
+Each dplyr verb comes in three scoped variants. The name of each variant consists of the dplyr verb plus one of three suffixes: `_at`, `_all`, or `_if`. In this reading, you'll learn about the `_all` and `_at` scoped verbs.
 
--   `_at` allows you to pick variables using the same syntax as `select()`.
+### `_all` and `_at` scoped verbs
 
--   `_all` operates on all variables.
-
-These variants are coupled with `funs()` and `vars()` helpers that let you describe which functions you want to apply to which variables.
-
-The scoped verbs are useful because they can allow you to save a lot of typing. For example, imagine that you want to group `nycflights13::flights` by destination, then compute the mean the delay variables, the distance, and the time in the air. That's a lot of typing!
+`x` is a simple tibble.
 
 ``` r
-library(nycflights13)
+x <-
+  tibble(
+    number_1 = c(1, 1, 51),
+    number_2 = c(3, 42, NA),
+    letter = c("w", "x", "w")
+  )
 
-flights %>%
-  group_by(dest) %>%
-  summarise(
-    dep_delay = mean(dep_delay, na.rm = TRUE),
-    arr_delay = mean(arr_delay, na.rm = TRUE),
-    distance = mean(distance, na.rm = TRUE),
-    air_time = mean(air_time, na.rm = TRUE)
+x
+```
+
+    ## # A tibble: 3 x 3
+    ##   number_1 number_2 letter
+    ##      <dbl>    <dbl> <chr> 
+    ## 1        1        3 w     
+    ## 2        1       42 x     
+    ## 3       51       NA w
+
+We can use `summarize()` to find the number of distinct values for each variable.
+
+``` r
+x %>% 
+  summarize(
+    number_1 = n_distinct(number_1),
+    number_2 = n_distinct(number_2),
+    letter = n_distinct(letter)
   )
 ```
 
-We can save a bunch of typing by using `summarise_at()` instead:
+    ## # A tibble: 1 x 3
+    ##   number_1 number_2 letter
+    ##      <int>    <int>  <int>
+    ## 1        2        3      2
+
+There are only three variables in `x`. If `x` had more columns, however, writing out each `n_distinct()` call would be a hassle. Instead, we can use a scoped verb to succinctly summarize all columns at once. This will save time and reduce code duplication.
+
+Each scoped verb has a suffix and a prefix. The prefix specifies the dplyr verb and the suffix specifies the scoped variant. There are two suffixes you'll learn about in this reading:
+
+-   `_all`: applies the dplyr verb to all variables
+-   `_at`: applies the dplyr verb to selected variables
+
+#### `_all`
+
+To summarize all the variables in `x` as we did above, we'll use the scoped verb `summarize_all()`.
+
+Each scoped verb takes a tibble and a function as arguments. In this case, the function is `n_distinct()`.
 
 ``` r
-flights %>%
-  group_by(dest) %>%
-  summarise_at(
-    vars(dep_delay, arr_delay, distance, air_time),
-    funs(mean(., na.rm = TRUE))
+x %>% 
+  summarize_all(n_distinct)
+```
+
+    ## # A tibble: 1 x 3
+    ##   number_1 number_2 letter
+    ##      <int>    <int>  <int>
+    ## 1        2        3      2
+
+Notice that we wrote `n_distinct`, and not `n_distinct()`. Recall that `n_distinct` is the name of the function, while `n_distinct()` calls the function.
+
+#### `_at`
+
+To summarize just variables `number_1` and `number_2`, we'll use `summarize_at().` The `_at` verbs take an additional argument: a list of columns specified inside the function `vars()`.
+
+``` r
+x %>% 
+  summarize_at(vars(number_1, number_2), n_distinct)
+```
+
+    ## # A tibble: 1 x 2
+    ##   number_1 number_2
+    ##      <int>    <int>
+    ## 1        2        3
+
+Inside `vars()`, you can specify variables using the same syntax as `select()`. You can give their full names, use `contains()`, remove some with `-`, etc.
+
+``` r
+x %>% 
+  summarize_at(vars(contains("number")), n_distinct)
+```
+
+    ## # A tibble: 1 x 2
+    ##   number_1 number_2
+    ##      <int>    <int>
+    ## 1        2        3
+
+### Scoped `mutate()`
+
+If you want to apply `mutate()` to multiple columns, the same logic applies. `mutate_all()` will apply the same function to each column, changing all of them in the same way.
+
+``` r
+x %>% 
+  mutate_all(lag)
+```
+
+    ## # A tibble: 3 x 3
+    ##   number_1 number_2 letter
+    ##      <dbl>    <dbl> <chr> 
+    ## 1       NA       NA <NA>  
+    ## 2        1        3 w     
+    ## 3        1       42 x
+
+And `mutate_at()` changes just the variables specified inside `vars()`.
+
+``` r
+x %>% 
+  mutate_at(vars(starts_with("number")), lag)
+```
+
+    ## # A tibble: 3 x 3
+    ##   number_1 number_2 letter
+    ##      <dbl>    <dbl> <chr> 
+    ## 1       NA       NA w     
+    ## 2        1        3 x     
+    ## 3        1       42 w
+
+### Anonymous functions
+
+`n_distinct()` and `lag()` are both named functions. However, scoped verbs can also take anonymous functions.
+
+To declare an anonymous function in a scoped verb, you use the helper function `funs()` with `.` to refer to the function's argument.
+
+For example, the following code tells us which variables have more than two distinct values.
+
+``` r
+x %>% 
+  summarise_all(funs(n_distinct(.) > 2))
+```
+
+    ## # A tibble: 1 x 3
+    ##   number_1 number_2 letter
+    ##   <lgl>    <lgl>    <lgl> 
+    ## 1 FALSE    TRUE     FALSE
+
+The `.` is a placeholder. It refers to each column specified in the scoped verb in turn. In this case, it refers to `number_1`, then `number_2`, then `letter`.
+
+### `...`
+
+The scoped verbs all take `...` as a final argument. You can use `...` to specify arguments to a named function without having to write an anonymous function.
+
+For example, you might not want to count `NA`s as distinct values. We could write an anonymous function that doesn't count `NA`s.
+
+``` r
+x %>% 
+  summarize_all(funs(n_distinct(., na.rm = TRUE)))
+```
+
+    ## # A tibble: 1 x 3
+    ##   number_1 number_2 letter
+    ##      <int>    <int>  <int>
+    ## 1        2        2      2
+
+It's simpler, however, to just specify the additional argument after the function name.
+
+``` r
+x %>% 
+  summarize_all(n_distinct, na.rm = TRUE)
+```
+
+    ## # A tibble: 1 x 3
+    ##   number_1 number_2 letter
+    ##      <int>    <int>  <int>
+    ## 1        2        2      2
+
+The `...` functionality makes the code easier to read, avoiding the extra syntax involved in anonymous functions. You can use it to add any number of arguments.
+
+### Multiple functions
+
+You can also use `funs()` to supply the scoped variants of `mutate()`, `summarize()`, and `transmute()` with multiple functions.
+
+``` r
+x %>% 
+  summarise_at(vars(number_1, number_2), funs(mean, median), na.rm = TRUE)
+```
+
+    ## # A tibble: 1 x 4
+    ##   number_1_mean number_2_mean number_1_median number_2_median
+    ##           <dbl>         <dbl>           <dbl>           <dbl>
+    ## 1          17.7          22.5               1            22.5
+
+The scoped verb will create identifying column names.
+
+### Scoped `select()` and `rename()`
+
+The scoped variants of `select()` and `rename()` work very similarly to those of `mutate()`, `transmute()`, and `summarize()`. However, they apply the specified function(s) to *column names*, instead of to column values.
+
+The following code changes all column names to lowercase.
+
+``` r
+capitals <-
+  tribble(
+    ~Country, ~Capital,
+    "Namibia", "Windhoek",
+    "Georgia", "Tbilisi"
   )
-#> # A tibble: 105 x 5
-#>   dest  dep_delay arr_delay distance air_time
-#>   <chr>     <dbl>     <dbl>    <dbl>    <dbl>
-#> 1 ABQ       13.7       4.38    1826     249. 
-#> 2 ACK        6.46      4.85     199      42.1
-#> 3 ALB       23.6      14.4      143      31.8
-#> 4 ANC       12.9      -2.5     3370     413. 
-#> 5 ATL       12.5      11.3      757.    113. 
-#> # ... with 100 more rows
+
+capitals %>% 
+  rename_all(str_to_lower)
 ```
 
-You can imagine that this gets even more helpful as the number of variables increases.
+    ## # A tibble: 2 x 2
+    ##   country capital 
+    ##   <chr>   <chr>   
+    ## 1 Namibia Windhoek
+    ## 2 Georgia Tbilisi
 
-I'll illustrate the three variants in detail for `summarise()`, then show how you can use the same ideas with `mutate()` and `filter()`. You'll need the scoped variants of the other verbs less frequently, but when you do, it should be straightforward to generalise what you've learn here.
-
-Summarise
----------
-
-### `summarise_all()`
-
-The simplest variant to understand is `summarise_all()`. The first argument is a tibble. The second argument is one of more functions wrapped inside of the `funs()` helper:
-
-``` r
-df <- tibble(
-  x = runif(100),
-  y = runif(100),
-  z = runif(100)
-)
-summarise_all(df, funs(mean))
-#> # A tibble: 1 x 3
-#>       x     y     z
-#>   <dbl> <dbl> <dbl>
-#> 1 0.496 0.521 0.508
-summarise_all(df, funs(min, max))
-#> # A tibble: 1 x 6
-#>     x_min  y_min  z_min x_max y_max z_max
-#>     <dbl>  <dbl>  <dbl> <dbl> <dbl> <dbl>
-#> 1 0.00123 0.0138 0.0187 0.993 0.991 0.990
-```
-
-You might wonder why we need `funs()`. You don't actually need it if you have a single function, but it's necessary for technical reasons for more than one function, and always using it makes your code more consistent.
-
-You can also use `funs()` with custom expressions: just use a `.` as a pronoun to denote the "current" column:
-
-``` r
-summarise_all(df, funs(mean(., na.rm = TRUE)))
-#> # A tibble: 1 x 3
-#>       x     y     z
-#>   <dbl> <dbl> <dbl>
-#> 1 0.496 0.521 0.508
-```
-
-NB: unfortunately `funs()` does not use the same syntax as purrr - you don't need the `~` in front of a custom function like you do in purrr. This is an unfortunate oversight that is relatively hard to fix, but will hopefully be resolved in dplyr one day.
-
-### `summarise_at()`
-
-`summarise_at()` allows you to pick columns to summarise in the same way as `select()`. There is one small difference: you need to wrap the complete selection with the `vars()` helper:
-
-``` r
-summarise_at(df, vars(-z), funs(mean))
-#> # A tibble: 1 x 2
-#>       x     y
-#>   <dbl> <dbl>
-#> 1 0.496 0.521
-```
-
-You can put anything inside `vars()` that you can put inside a call to `select()`:
-
-``` r
-library(nycflights13)
-summarise_at(flights, vars(contains("delay")), funs(mean), na.rm = TRUE)
-#> # A tibble: 1 x 2
-#>   dep_delay arr_delay
-#>       <dbl>     <dbl>
-#> 1      12.6      6.90
-summarise_at(flights, vars(starts_with("arr")), funs(mean), na.rm = TRUE)
-#> # A tibble: 1 x 2
-#>   arr_time arr_delay
-#>      <dbl>     <dbl>
-#> 1    1502.      6.90
-```
-
-(Note that `na.rm = TRUE` is passed on to `mean()` in the same way as in `purrr::map()`.)
-
-If the function doesn't fit on one line, put each argument on a new line:
-
-``` r
-flights %>%
-  group_by(dest) %>% 
-  summarise_at(
-    vars(contains("delay"), distance, air_time), 
-    funs(mean), 
-    na.rm = TRUE
-  )
-#> # A tibble: 105 x 5
-#>   dest  dep_delay arr_delay distance air_time
-#>   <chr>     <dbl>     <dbl>    <dbl>    <dbl>
-#> 1 ABQ       13.7       4.38    1826     249. 
-#> 2 ACK        6.46      4.85     199      42.1
-#> 3 ALB       23.6      14.4      143      31.8
-#> 4 ANC       12.9      -2.5     3370     413. 
-#> 5 ATL       12.5      11.3      757.    113. 
-#> # ... with 100 more rows
-```
-
-By default, the newly created columns have the shortest names needed to uniquely identify the output. See the examples in the documentation if you want to force names when they're not otherwise needed.
-
-``` r
-# Note the use of extra spaces to make the 3rd argument line
-# up - this makes it easy to scan the code and see what's different
-summarise_at(df, vars(x),    funs(mean))
-#> # A tibble: 1 x 1
-#>       x
-#>   <dbl>
-#> 1 0.496
-summarise_at(df, vars(x),    funs(min, max))
-#> # A tibble: 1 x 2
-#>       min   max
-#>     <dbl> <dbl>
-#> 1 0.00123 0.993
-summarise_at(df, vars(x, y), funs(mean))
-#> # A tibble: 1 x 2
-#>       x     y
-#>   <dbl> <dbl>
-#> 1 0.496 0.521
-summarise_at(df, vars(x, y), funs(min, max))
-#> # A tibble: 1 x 4
-#>     x_min  y_min x_max y_max
-#>     <dbl>  <dbl> <dbl> <dbl>
-#> 1 0.00123 0.0138 0.993 0.991
-```
-
-### `summarise_if()`
-
-`summarise_if()` allows you to pick variables to summarise based on some property of the column, specified by a **predicate** function. A predicate function is a function that takes a whole column and returns either a single `TRUE` or a single `FALSE`. Commonly this a function that tells you if a variable is a specific type like `is.numeric()`, `is.character()`, or `is.logical()`.
-
-This makes it easier to summarise only numeric columns:
-
-``` r
-starwars %>%
-  group_by(species) %>%
-  summarise_if(is.numeric, funs(mean), na.rm = TRUE)
-#> # A tibble: 38 x 4
-#>   species  height  mass birth_year
-#>   <chr>     <dbl> <dbl>      <dbl>
-#> 1 Aleena       79    15        NaN
-#> 2 Besalisk    198   102        NaN
-#> 3 Cerean      198    82         92
-#> 4 Chagrian    196   NaN        NaN
-#> 5 Clawdite    168    55        NaN
-#> # ... with 33 more rows
-```
-
-Mutate
-------
-
-`mutate_all()`, `mutate_if()` and `mutate_at()` work in a similar way to their summarise equivalents.
-
-``` r
-mutate_all(df, funs(log10))
-#> # A tibble: 100 x 3
-#>         x       y       z
-#>     <dbl>   <dbl>   <dbl>
-#> 1 -0.514  -0.0141 -0.537 
-#> 2 -0.463  -0.0420 -0.712 
-#> 3 -0.0205 -0.681  -0.257 
-#> 4 -2.91   -0.473  -0.0337
-#> 5 -0.738  -0.314  -0.866 
-#> # ... with 95 more rows
-```
-
-If you need a transformation that is not already a function, it's easiest to create your own function:
-
-``` r
-double <- function(x) x * 2
-half <- function(x) x / 2
-
-mutate_all(df, funs(half, double))
-#> # A tibble: 100 x 9
-#>         x     y     z   x_half y_half z_half x_double y_double z_double
-#>     <dbl> <dbl> <dbl>    <dbl>  <dbl>  <dbl>    <dbl>    <dbl>    <dbl>
-#> 1 0.306   0.968 0.290 0.153     0.484 0.145   0.612      1.94     0.581
-#> 2 0.344   0.908 0.194 0.172     0.454 0.0970  0.688      1.82     0.388
-#> 3 0.954   0.209 0.554 0.477     0.104 0.277   1.91       0.417    1.11 
-#> 4 0.00123 0.336 0.925 0.000617  0.168 0.463   0.00247    0.672    1.85 
-#> 5 0.183   0.485 0.136 0.0915    0.243 0.0681  0.366      0.971    0.272
-#> # ... with 95 more rows
-```
-
-The default names are generated in the same way as `summarise()`. That means that you may want to use a `transmute()` variant if you want to apply multiple transformations and don't want the original values:
-
-``` r
-transmute_all(df, funs(half, double))
-#> # A tibble: 100 x 6
-#>     x_half y_half z_half x_double y_double z_double
-#>      <dbl>  <dbl>  <dbl>    <dbl>    <dbl>    <dbl>
-#> 1 0.153     0.484 0.145   0.612      1.94     0.581
-#> 2 0.172     0.454 0.0970  0.688      1.82     0.388
-#> 3 0.477     0.104 0.277   1.91       0.417    1.11 
-#> 4 0.000617  0.168 0.463   0.00247    0.672    1.85 
-#> 5 0.0915    0.243 0.0681  0.366      0.971    0.272
-#> # ... with 95 more rows
-```
-
-Filter
-------
-
-The `filter()` variants work a little differently to `summarise()` and `mutate()`. Like `summarise()` and `mutate()` you must choose between either all variables (`_all`), selecting variables by name (`_at`), or selecting by some property of the variable (`_if`). However, the `funs()` is no longer enough because you need to say whether the filtering functions should be combined with "and" (`&`) or "or" (`|`). That means that `funs()` is not enough:
-
-``` r
-diamonds %>% filter_all(funs(. == 0))
-#> Error: `.vars_predicate` must be a call to `all_vars()` or `any_vars()`, not list
-```
-
-You have to be explicit and say you either want the rows where the all of the variables equal 0:
-
-``` r
-diamonds %>% filter_if(is.numeric, all_vars(. == 0))
-#> # A tibble: 0 x 10
-#> # ... with 10 variables: carat <dbl>, cut <ord>, color <ord>,
-#> #   clarity <ord>, depth <dbl>, table <dbl>, price <int>, x <dbl>,
-#> #   y <dbl>, z <dbl>
-```
-
-Or the rows where any of the variables equals zero:
-
-``` r
-diamonds %>% filter_if(is.numeric, any_vars(. == 0))
-#> # A tibble: 20 x 10
-#>   carat cut     color clarity depth table price     x     y     z
-#>   <dbl> <ord>   <ord> <ord>   <dbl> <dbl> <int> <dbl> <dbl> <dbl>
-#> 1  1    Premium G     SI2      59.1    59  3142  6.55  6.48     0
-#> 2  1.01 Premium H     I1       58.1    59  3167  6.66  6.6      0
-#> 3  1.1  Premium G     SI2      63      59  3696  6.5   6.47     0
-#> 4  1.01 Premium F     SI2      59.2    58  3837  6.5   6.47     0
-#> 5  1.5  Good    G     I1       64      61  4731  7.15  7.04     0
-#> # ... with 15 more rows
-```
-
-This is particularly useful if you're looking for missing values:
-
-``` r
-flights %>% filter_all(any_vars(is.na(.)))
-#> # A tibble: 9,430 x 19
-#>    year month   day dep_time sched_dep_time dep_delay arr_time
-#>   <int> <int> <int>    <int>          <int>     <dbl>    <int>
-#> 1  2013     1     1     1525           1530        -5     1934
-#> 2  2013     1     1     1528           1459        29     2002
-#> 3  2013     1     1     1740           1745        -5     2158
-#> 4  2013     1     1     1807           1738        29     2251
-#> 5  2013     1     1     1939           1840        59       29
-#> # ... with 9,425 more rows, and 12 more variables: sched_arr_time <int>,
-#> #   arr_delay <dbl>, carrier <chr>, flight <int>, tailnum <chr>,
-#> #   origin <chr>, dest <chr>, air_time <dbl>, distance <dbl>, hour <dbl>,
-#> #   minute <dbl>, time_hour <dttm>
-```
+The scoped variants of `rename()` will generally be more helpful than those of `select()`.
 

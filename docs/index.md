@@ -197,7 +197,7 @@ title: Theme index
 <tr>
 <td id='week-5'>5</td>
   <td colspan="1"></td>
-  <td colspan="4"><a class="wrangle" href="manip-scoped.html">Scoped verbs</a></td>
+  <td colspan="4"><a class="wrangle" href="manip-scoped.html">Scoped verb basics</a></td>
   <td colspan="4"></td>
 </tr>
 <tr>

@@ -5,7 +5,7 @@ title: Programming with dplyr
 <!-- Generated automatically from manip-programming.yml. Do not edit by hand -->
 
 # Programming with dplyr <small class='program'>[program]</small>
-<small>(Builds on: [Scoped verbs](manip-scoped.md))</small>
+<small>(Builds on: [Scoped verb basics](manip-scoped.md))</small>
 
 At some point during the quarter, you may have noticed that you were
 copy-and-pasting the same dplyr snippets again and again. You then might
