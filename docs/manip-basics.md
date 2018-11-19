@@ -6,7 +6,7 @@ title: Manipulation basics
 
 # Manipulation basics <small class='wrangle'>[wrangle]</small>
 <small>(Builds on: [Data basics](data-basics.md))</small>  
-<small>(Leads to: [Data structure basics](data-structure-basics.md), [Exploratory data analysis (1D)](eda-1d.md), [Other single table verbs](manip-one-table.md), [Scoped verb basics](manip-scoped.md), [Parsing basics](parse-basics.md), [Pipes](pipes.md), [Vector functions](vector-functions.md), [Vector and summary functions](vector-summary-functions.md), [Window functions](window-functions.md))</small>
+<small>(Leads to: [Data structure basics](data-structure-basics.md), [Exploratory data analysis (1D)](eda-1d.md), [Vector functions](function-vector.md), [Other single table verbs](manip-one-table.md), [Scoped verb basics](manip-scoped.md), [Parsing basics](parse-basics.md), [Pipes](pipes.md), [Vector and summary functions](vector-summary-functions.md), [Window functions](window-functions.md))</small>
 
 
 ``` r

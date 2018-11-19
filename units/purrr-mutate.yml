@@ -2,7 +2,7 @@ title: purrr inside mutate
 theme: program
 needs:
 - purrr-basics
-- vector-functions
+- function-vector
 readings: ~
 updated: ~
 desc: "\nIn the vector functions unit, you learned to add new variables to tibbles

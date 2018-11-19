@@ -1,6 +1,6 @@
 ---
 unit_title: purrr inside mutate
-needs: [purrr-basics, vector-functions]
+needs: [purrr-basics, function-vector]
 theme: program
 ---
 

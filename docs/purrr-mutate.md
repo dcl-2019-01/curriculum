@@ -5,7 +5,7 @@ title: purrr inside mutate
 <!-- Generated automatically from purrr-mutate.yml. Do not edit by hand -->
 
 # purrr inside mutate <small class='program'>[program]</small>
-<small>(Builds on: [purrr basics](purrr-basics.md), [Vector functions](vector-functions.md))</small>  
+<small>(Builds on: [purrr basics](purrr-basics.md), [Vector functions](function-vector.md))</small>  
 <small>(Leads to: [List-columns](list-cols.md), [purrr map with multiple inputs](purrr-parallel.md))</small>
 
 

@@ -49,7 +49,7 @@ weeks:
   - manip-scoped-2
   - regexps
   - spatial-basics
-  - vector-functions
+  - function-vector
   - vis-themes
   - model-vis
   - parse-details
