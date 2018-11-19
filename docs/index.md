@@ -228,6 +228,18 @@ title: Theme index
 <tbody>
 <tr>
 <td id='week-6'>6</td>
+  <td colspan="2"></td>
+  <td colspan="4"><a class="program" href="function-predicate.html">Predicate functions</a></td>
+  <td colspan="3"></td>
+</tr>
+<tr>
+<td></td>
+  <td colspan="1"></td>
+  <td colspan="4"><a class="wrangle" href="manip-scoped-2.html">Scoped verbs with predicates</a></td>
+  <td colspan="4"></td>
+</tr>
+<tr>
+<td></td>
   <td colspan="1"></td>
   <td colspan="4"><a class="wrangle" href="regexps.html">Regular expressions</a></td>
   <td colspan="4"></td>

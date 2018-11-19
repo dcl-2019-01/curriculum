@@ -45,6 +45,8 @@ weeks:
   - model-basics
 
   week-06:
+  - function-predicate
+  - manip-scoped-2
   - regexps
   - spatial-basics
   - vector-functions
