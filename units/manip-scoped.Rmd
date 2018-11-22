@@ -126,7 +126,21 @@ x %>%
   summarize_all(n_distinct, na.rm = TRUE)
 ```
 
-The `...` functionality makes the code easier to read, avoiding the extra syntax involved in anonymous functions. You can use it to add any number of arguments. 
+The `...` functionality makes the code easier to read, avoiding the extra syntax involved in anonymous functions. You can use it to add any number of arguments.
+
+Unfortunately, you cannot use `...` to supply columns of the original tibble as function arguments. For example, the following code tries to combine `number_1` and `number_2` with `letter` to create strings. However, `mutate_at()` says it can't find `letter`. 
+
+```{r, error = TRUE}
+x %>% 
+  mutate_at(vars(contains("number")), str_c, letter)
+```
+
+You have to use `funs()` and an anonymous function if you want to reference any of the tibble's columns in the function.
+
+```{r}
+x %>% 
+  mutate_at(vars(contains("number")), funs(str_c(., letter)))
+```
 
 ### Multiple functions
 

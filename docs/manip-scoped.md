@@ -184,6 +184,29 @@ x %>%
 
 The `...` functionality makes the code easier to read, avoiding the extra syntax involved in anonymous functions. You can use it to add any number of arguments.
 
+Unfortunately, you cannot use `...` to supply columns of the original tibble as function arguments. For example, the following code tries to combine `number_1` and `number_2` with `letter` to create strings. However, `mutate_at()` says it can't find `letter`.
+
+``` r
+x %>% 
+  mutate_at(vars(contains("number")), str_c, letter)
+```
+
+    ## Error in list2(...): object 'letter' not found
+
+You have to use `funs()` and an anonymous function if you want to reference any of the tibble's columns in the function.
+
+``` r
+x %>% 
+  mutate_at(vars(contains("number")), funs(str_c(., letter)))
+```
+
+    ## # A tibble: 3 x 3
+    ##   number_1 number_2 letter
+    ##   <chr>    <chr>    <chr> 
+    ## 1 1w       3w       w     
+    ## 2 1x       42x      x     
+    ## 3 51w      <NA>     w
+
 ### Multiple functions
 
 You can also use `funs()` to supply the scoped variants of `mutate()`, `summarize()`, and `transmute()` with multiple functions.
