@@ -4,7 +4,7 @@ title: ggplot2 themes
 
 <!-- Generated automatically from vis-themes.yml. Do not edit by hand -->
 
-# ggplot2 themes <small class='communicate'>[communicate]</small>
+# ggplot2 themes <small class='visualize'>[visualize]</small>
 <small>(Builds on: [The grammar of graphics](vis-theory.md))</small>
 
 ggplot2 themes control the appearance of all non-data elements of the plot.

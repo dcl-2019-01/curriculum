@@ -1,5 +1,5 @@
 title: ggplot2 calls
-theme: explore
+theme: visualize
 needs: [vis-basics-2]
 
 desc: |

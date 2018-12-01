@@ -137,12 +137,13 @@ table.syllabus a {
   color: #000;
 }
 
-.workflow {background-color: #66C2A5;}
-.explore {background-color: #FC8D62;}
-.wrangle {background-color: #8DA0CB;}
-.program {background-color: #E78AC3;}
-.model {background-color: #A6D854;}
-.communicate {background-color: #FFD92F;}
+.explore {background-color: #F8766D;}
+.wrangle {background-color: #C49A00;}
+.visualize {background-color: #53B400;}
+.model {background-color: #00C094;}
+.program {background-color: #00B6EB;}
+.communicate {background-color: #A58AFF;}
+.workflow {background-color: #FB61D7;}
 
 col.week {width: 5%;}
 col.theme {width: 11.85%;}

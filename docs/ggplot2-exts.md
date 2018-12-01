@@ -5,7 +5,7 @@ title: ggplot2 extensions
 <!-- Generated automatically from ggplot2-exts.yml. Do not edit by hand -->
 
 # ggplot2 extensions <small class='communicate'>[communicate]</small>
-<small>(Builds on: [Visualisation basics (2)](vis-basics-2.md))</small>
+<small>(Builds on: [Visualization basics (2)](vis-basics-2.md))</small>
 
 ggplot2 is not an island; it also has a rich ecosystem of extensions that
 solve a wide range of problems that base ggplot2 does not. In this reading

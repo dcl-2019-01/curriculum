@@ -1,12 +1,12 @@
 ---
-title: Visualisation basics (1)
+title: Visualization basics (1)
 ---
 
 <!-- Generated automatically from vis-basics.yml. Do not edit by hand -->
 
-# Visualisation basics (1) <small class='explore'>[explore]</small>
+# Visualization basics (1) <small class='visualize'>[visualize]</small>
 <small>(Builds on: [Data basics](data-basics.md))</small>  
-<small>(Leads to: [Exploratory data analysis (1D)](eda-1d.md), [Visualisation basics (2)](vis-basics-2.md))</small>
+<small>(Leads to: [Exploratory data analysis (1D)](eda-1d.md), [Visualization basics (2)](vis-basics-2.md))</small>
 
 Data visualisation is one of the most important tools of data science.
 It's also a great place to start learning a programming language because

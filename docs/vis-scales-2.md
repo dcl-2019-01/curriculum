@@ -4,7 +4,7 @@ title: Advanced scales
 
 <!-- Generated automatically from vis-scales-2.yml. Do not edit by hand -->
 
-# Advanced scales <small class='communicate'>[communicate]</small>
+# Advanced scales <small class='visualize'>[visualize]</small>
 <small>(Builds on: [Scales](vis-scales.md), [Date/time basics](datetime-basics.md))</small>  
 <small>(Leads to: [Positioning](vis-position.md))</small>
 

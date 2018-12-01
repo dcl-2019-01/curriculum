@@ -1,4 +1,4 @@
-themes <- c("Explore", "Wrangle", "Program", "Model", "Communicate", "Workflow")
+themes <- c("Explore", "Wrangle", "Visualize", "Model", "Program", "Communicate", "Workflow")
 
 unit_row <- function(unit, title, updated, theme, week = "", n = 3) {
   ncol <- length(themes) + n
@@ -65,6 +65,7 @@ theme_index <- function(weeks, unit_index = load_units(), reverse = FALSE) {
     <table class="syllabus">
     <colgroup>
       <col class="week" />
+      <col class="theme" />
       <col class="theme" />
       <col class="theme" />
       <col class="theme" />

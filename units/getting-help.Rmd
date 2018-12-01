@@ -1,6 +1,6 @@
 ---
 unit_title: Getting help
-theme: workflow
+theme: communicate
 needs: [documentation]
 author: Jenny Bryan and Hadley Wickham
 ---
