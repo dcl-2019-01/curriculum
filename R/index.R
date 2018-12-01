@@ -76,12 +76,14 @@ theme_index <- function(weeks, unit_index = load_units(), reverse = FALSE) {
       <col class="theme" />
       <col class="theme" />
       <col class="theme" />
+      <col class="theme" />
     </colgroup>
 
     <thead>
     <tr>
       <th></th>
     {theme_headers}
+      <th></th>
       <th></th>
       <th></th>
       <th></th>

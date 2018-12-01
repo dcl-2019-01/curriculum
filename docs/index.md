@@ -16,6 +16,7 @@ title: Theme index
   <col class="theme" />
   <col class="theme" />
   <col class="theme" />
+  <col class="theme" />
 </colgroup>
 
 <thead>
@@ -28,6 +29,7 @@ title: Theme index
     <th>Program</th>
     <th>Communicate</th>
     <th>Workflow</th>
+  <th></th>
   <th></th>
   <th></th>
   <th></th>
