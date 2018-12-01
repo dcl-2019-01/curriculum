@@ -1,6 +1,6 @@
 themes <- c("Explore", "Wrangle", "Visualize", "Model", "Program", "Communicate", "Workflow")
 
-unit_row <- function(unit, title, updated, theme, week = "", n = 4) {
+unit_row <- function(unit, title, updated, theme, week = "", n = 5) {
   ncol <- length(themes) + n
   start_col <- match(theme, tolower(themes))
   end_col <- start_col + n
@@ -76,12 +76,14 @@ theme_index <- function(weeks, unit_index = load_units(), reverse = FALSE) {
       <col class="theme" />
       <col class="theme" />
       <col class="theme" />
+      <col class="theme" />
     </colgroup>
 
     <thead>
     <tr>
       <th></th>
     {theme_headers}
+      <th></th>
       <th></th>
       <th></th>
       <th></th>
