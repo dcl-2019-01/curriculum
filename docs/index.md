@@ -309,7 +309,7 @@ title: Theme index
 <tr>
 <td></td>
   <td colspan="6"></td>
-  <td colspan="5"><a class="workflow" href="workflow-rmarkdown.html">R Markdown work</a></td>
+  <td colspan="5"><a class="workflow" href="workflow-rmarkdown.html">R Markdown workflow</a></td>
 </tr>
 <tr>
 <td></td>
