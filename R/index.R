@@ -88,7 +88,6 @@ theme_index <- function(weeks, unit_index = load_units(), reverse = FALSE) {
       <th></th>
       <th></th>
       <th></th>
-      <th></th>
     </tr>
     </thead>
     '
