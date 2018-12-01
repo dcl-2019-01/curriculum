@@ -25,9 +25,9 @@ build_units <- function() {
     theme_index(units) %>%
     write_if_different(here::here("docs/index.md"))
 
-  weeks %>%
-    theme_index(units) %>%
-    write_if_different(here::here("docs/upcoming.md"))
+  # weeks %>%
+  #   theme_index(units) %>%
+  #   write_if_different(here::here("docs/upcoming.md"))
 
   supplements %>%
     supplements_index() %>%
