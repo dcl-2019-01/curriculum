@@ -1,4 +1,4 @@
-themes <- c("Explore", "Wrangle", "Visualize", "Model", "Program", "Communicate", "Workflow")
+themes <- c("Explore", "Wrangle", "Visualize", "Model", "Program", "Communicate", "Workflow", "          ")
 
 unit_row <- function(unit, title, updated, theme, week = "", n = 3) {
   ncol <- length(themes) + n
