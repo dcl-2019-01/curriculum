@@ -16,6 +16,7 @@ title: Theme index
   <col class="theme" />
   <col class="theme" />
   <col class="theme" />
+  <col class="theme" />
 </colgroup>
 
 <thead>
@@ -28,6 +29,7 @@ title: Theme index
     <th>Program</th>
     <th>Communicate</th>
     <th>Workflow</th>
+  <th></th>
   <th></th>
   <th></th>
   <th></th>
@@ -309,7 +311,7 @@ title: Theme index
 <tr>
 <td></td>
   <td colspan="6"></td>
-  <td colspan="5"><a class="workflow" href="workflow-rmarkdown.html">R Markdown workflow</a></td>
+  <td colspan="6"><a class="workflow" href="workflow-rmarkdown.html">R Markdown workflow</a></td>
 </tr>
 <tr>
 <td></td>
