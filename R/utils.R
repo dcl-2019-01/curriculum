@@ -26,9 +26,6 @@ load_supplements <- function() {
   set_names(x, map_chr(x, "slug"))
 }
 
-#themes <- c("Explore", "Wrangle", "Program", "Model", "Communicate", "Workflow")
-
-
 has_name <- function(x, nm) {
   if (is.null(names(x)))
     return(FALSE)
