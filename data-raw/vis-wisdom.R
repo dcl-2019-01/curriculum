@@ -18,11 +18,12 @@ href <- toc %>%
   str_c(vis_wisdom_url, .)
 
 title <- toc %>%
-  map_chr(. %>%
-            html_nodes(xpath = "./a/node()[not(self::b)]") %>%
-            html_text() %>%
-            str_c(collapse = "") %>%
-            str_trim()
+  map_chr(
+    . %>%
+      html_nodes(xpath = "./a/node()[not(self::b)]") %>%
+      html_text() %>%
+      str_c(collapse = "") %>%
+      str_trim()
   )
 
 chapters <- tibble(id, title, depth, href)
