@@ -1,0 +1,14 @@
+title: Discrete-continuous relationships
+theme: visualize
+
+desc: |
+  Now that you know the basics of ggplot2, you can begin diving into specific 
+  visualization situations. In this reading, you'll learn about visualizing 
+  numbers and amounts across different categories. You'll also learn about 
+  coordinate systems in ggplot2.
+
+needs: [vis-basics]
+
+readings:
+- book: vis-wisdom-2
+
