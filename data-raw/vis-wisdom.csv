@@ -1,0 +1,17 @@
+id,title,depth,href
+1,ggplot2 basics,1,https://bookdown.org/content/2138/ggplot2-basics.html
+1.1,Additional information,2,https://bookdown.org/content/2138/ggplot2-basics.html#additional-information
+1.1.1,Pipes and aesthetics,3,https://bookdown.org/content/2138/ggplot2-basics.html#pipes-and-aesthetics
+1.1.2,Facet syntax,3,https://bookdown.org/content/2138/ggplot2-basics.html#facet-syntax
+2,Discrete-continuous relationships,1,https://bookdown.org/content/2138/discrete-continuous.html
+2.1,Introduction,2,https://bookdown.org/content/2138/discrete-continuous.html#introduction
+2.2,Coordinate systems,2,https://bookdown.org/content/2138/discrete-continuous.html#coordinate-systems
+2.2.1,coord_fixed(),3,https://bookdown.org/content/2138/discrete-continuous.html#coord_fixed
+2.2.2,Zooming,3,https://bookdown.org/content/2138/discrete-continuous.html#zooming
+2.2.3,coord_flip(),3,https://bookdown.org/content/2138/discrete-continuous.html#coord_flip
+2.3,One discrete category,2,https://bookdown.org/content/2138/discrete-continuous.html#one-discrete-category
+2.3.1,Effective bar plots,3,https://bookdown.org/content/2138/discrete-continuous.html#effective-bar-plots
+2.3.2,geom_bar(),3,https://bookdown.org/content/2138/discrete-continuous.html#geom_bar
+2.3.3,Bars vs. dots,3,https://bookdown.org/content/2138/discrete-continuous.html#bars-vs.dots
+2.4,Two discrete categories,2,https://bookdown.org/content/2138/discrete-continuous.html#two-discrete-categories
+2.4.1,Color and facets,3,https://bookdown.org/content/2138/discrete-continuous.html#color-and-facets
