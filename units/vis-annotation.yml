@@ -7,7 +7,7 @@ desc: |
   few helpful tools for adding strings to a plot without generating a
   giant hairball.
 
-needs: [vis-basics-2]
+needs: []
 
 readings:
 - book: r4ds-28.3

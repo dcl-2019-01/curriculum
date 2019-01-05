@@ -1,6 +1,6 @@
 title: ggplot2 calls
 theme: visualize
-needs: [vis-basics-2]
+needs: []
 
 desc: |
   As you get more familiar with ggplot2, you can start to rely more
