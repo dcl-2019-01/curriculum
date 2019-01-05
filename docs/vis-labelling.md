@@ -5,7 +5,7 @@ title: Labels
 <!-- Generated automatically from vis-labelling.yml. Do not edit by hand -->
 
 # Labels <small class='visualize'>[visualize]</small>
-<small>(Builds on: [Visualization basics (2)](vis-basics-2.md))</small>
+
 
 Good labels make visualisations much easier to understand for newcomers to
 the data. They are not so important while you're doing an analysis

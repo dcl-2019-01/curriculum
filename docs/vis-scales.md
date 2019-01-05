@@ -5,7 +5,6 @@ title: Scales
 <!-- Generated automatically from vis-scales.yml. Do not edit by hand -->
 
 # Scales <small class='visualize'>[visualize]</small>
-<small>(Builds on: [Visualization basics (2)](vis-basics-2.md))</small>  
 <small>(Leads to: [Advanced scales](vis-scales-2.md))</small>
 
 You've already learned about transformation functions that you use with

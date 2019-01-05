@@ -5,7 +5,7 @@ title: Annotations
 <!-- Generated automatically from vis-annotation.yml. Do not edit by hand -->
 
 # Annotations <small class='visualize'>[visualize]</small>
-<small>(Builds on: [Visualization basics (2)](vis-basics-2.md))</small>
+
 
 Adding strings to a plot is challenging because they almost invariably
 seem to end up plotted on top of each other. This section gives you a

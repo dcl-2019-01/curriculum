@@ -5,7 +5,7 @@ title: ggplot2 calls
 <!-- Generated automatically from vis-calls.yml. Do not edit by hand -->
 
 # ggplot2 calls <small class='visualize'>[visualize]</small>
-<small>(Builds on: [Visualization basics (2)](vis-basics-2.md))</small>
+
 
 As you get more familiar with ggplot2, you can start to rely more
 on the position of arguments and less on explicit names. This allows
