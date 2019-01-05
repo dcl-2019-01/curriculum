@@ -7,7 +7,7 @@ desc: |
   solve a wide range of problems that base ggplot2 does not. In this reading
   you'll learn about the most important site for finding ggplot2 extensions.
 
-needs: [vis-basics-2]
+needs: []
 
 readings:
 - href: http://www.ggplot2-exts.org/gallery/
