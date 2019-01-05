@@ -1,4 +1,4 @@
-title: Visualization basics
+title: Visualisation basics
 theme: visualize
 
 desc: |
@@ -11,17 +11,6 @@ needs: [data-basics]
 
 readings:
 - text: >
-    These sections will give you the basics of ggplot2, allowing to create
+    This chapter will give you the basics of ggplot2, allowing to create
     simple, but informative, plots.
-- book: r4ds-3.3
-- book: r4ds-3.4
-- book: r4ds-3.5
-- book: r4ds-3.6
-
-- text: >
-    Skim the following resources so you're aware of the most important ggplot2
-    geoms. Come back and read in detail when you actually need to use them.
-- book: ggplot2-3
-- book: cheatsheets-data-visualization-2.1
-- href: http://ggplot2.tidyverse.org/reference/index.html#section-layer-geoms
-  text: ggplot2 documentation
+- book: vis-wisdom-1
