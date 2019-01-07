@@ -1,11 +1,16 @@
 title: Code style
 theme: communicate
-updated: 2018-01
+updated: 2019-01
 
 desc: |
   Code style is simultaneously incredibly important and utterly trivial.
   It'slikepunctuation: sureyoucanmakedowithoutit, but proper punctuation
   can sure make things easier to read!
+  
+  The specific style you follow is not as important as picking a consistent
+  style and sticking to it. When you're working with others, it's a really
+  good idea to share a common style so that everyone can easily read and
+  write the code. These readings will introduce you to a common style.
 
   Install styler with `install.packages("styler")` and make sure you can
   locate the RStudio addin command for restyling selected code. This will
@@ -14,12 +19,13 @@ desc: |
 needs: [setup]
 
 readings:
+- href: https://github.com/dcl-docs/style-guide/blob/master/style-guide.md
+  text: DCL style guide
+
 - href: http://style.tidyverse.org
   text: Style guide
   desc: >
-    Read Chapters 1-4.
+    The official tidyverse style guide includes more information than the DCL 
+    style guide. Take a look at chapters 1-4. 
+    
 
-    The specific style you follow is not as important as picking a consistent
-    style and sticking to it. When you're working with others, it's a really
-    good idea to share a common style so that everyone can easily read and
-    write the code. In this class, we'll use the tidyverse style guide.
