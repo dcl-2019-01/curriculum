@@ -1,4 +1,4 @@
-cur-week: 1
+cur-week: 2
 
 weeks:
   week-01:
@@ -11,13 +11,13 @@ weeks:
   - rmarkdown-basics
 
   week-02:
-  - vis-basics-2
-  - vis-labelling
-  - data-structure-basics
+  - vis-discrete-continuous
   - manip-one-table
-  - eda-1d
   - getting-help
+  - data-structure-basics
+  - eda-1d
   - tidy-data
+  - vis-strategy
   - vis-calls
 
   week-03:

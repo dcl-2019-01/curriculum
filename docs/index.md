@@ -77,4 +77,53 @@ title: Theme index
   <td colspan="1"></td>
 </tr>
 </tbody>
+<tbody>
+<tr>
+<td id='week-2'>2</td>
+  <td colspan="2"></td>
+  <td colspan="6"><a class="visualize" href="vis-discrete-continuous.html">Discrete-continuous relationships</a></td>
+  <td colspan="4"></td>
+</tr>
+<tr>
+<td></td>
+  <td colspan="1"></td>
+  <td colspan="6"><a class="wrangle" href="manip-one-table.html">Other single table verbs</a></td>
+  <td colspan="5"></td>
+</tr>
+<tr>
+<td></td>
+  <td colspan="5"></td>
+  <td colspan="6"><a class="communicate" href="getting-help.html">Getting help</a></td>
+  <td colspan="1"></td>
+</tr>
+<tr>
+<td></td>
+  <td colspan="4"></td>
+  <td colspan="6"><a class="program" href="data-structure-basics.html">Data structure basics</a></td>
+  <td colspan="2"></td>
+</tr>
+<tr>
+<td></td>
+  <td colspan="6"><a class="explore" href="eda-1d.html">Exploratory data analysis (1D)</a></td>
+  <td colspan="6"></td>
+</tr>
+<tr>
+<td></td>
+  <td colspan="1"></td>
+  <td colspan="6"><a class="wrangle" href="tidy-data.html">Tidy data</a></td>
+  <td colspan="5"></td>
+</tr>
+<tr>
+<td></td>
+  <td colspan="2"></td>
+  <td colspan="6"><a class="visualize" href="vis-strategy.html">General strategy</a></td>
+  <td colspan="4"></td>
+</tr>
+<tr>
+<td></td>
+  <td colspan="2"></td>
+  <td colspan="6"><a class="visualize" href="vis-calls.html">ggplot2 calls</a></td>
+  <td colspan="4"></td>
+</tr>
+</tbody>
 </table>
