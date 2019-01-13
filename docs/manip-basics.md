@@ -75,7 +75,7 @@ jan1 <-
 R either prints out the results, or saves them to a variable. If you want to do both, you can wrap the assignment in parentheses:
 
 ``` r
-(dec25 <- filter(flights, month == 12, day == 25))
+(dec25 <- flights %>% filter(month == 12, day == 25))
 #> # A tibble: 719 x 19
 #>     year month   day dep_time sched_dep_time dep_delay arr_time
 #>    <int> <int> <int>    <int>          <int>     <dbl>    <int>
@@ -102,7 +102,8 @@ To use filtering effectively, you have to know how to select the observations th
 When you're starting out with R, the easiest mistake to make is to use `=` instead of `==` when testing for equality. When this happens you'll get an informative error:
 
 ``` r
-filter(flights, month = 1)
+flights %>% 
+  filter(month = 1)
 #> Error: `month` (`month = 1`) must not be named, do you need `==`?
 ```
 
@@ -239,7 +240,7 @@ Together `group_by()` and `summarize()` provide one of the tools that you'll use
 Combining multiple operations with the pipe
 -------------------------------------------
 
-Imagine that we want to explore the relationship between the distance and average delay for each location. Using what you know about dplyr, you might write code like this:
+Imagine that we want to explore the relationship between the distance and average delay for each location. Using what you know about dplyr and not using pipes, you might write code like this:
 
 ``` r
 by_dest <- group_by(flights, dest)
@@ -273,7 +274,7 @@ There are three steps to prepare this data:
 
 This code is a little frustrating to write because we have to give each intermediate data frame a name, even though we don't care about it. Naming things is hard, so this slows down our analysis.
 
-There's another way to tackle the same problem with the pipe, `%>%`:
+It's better to tackle the same problem with the pipe, `%>%`:
 
 ``` r
 delays <- 
