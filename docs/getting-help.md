@@ -34,7 +34,7 @@ If you need help getting unstuck, the first step is to create a **reprex**, or r
 
 There are two parts to creating a reprex:
 
--   First, you need to make your code reproducible. This means that you need to capture everything, i.e., include any `library()` calls and create all necessary objects. The easiest way to make sure you've done this is to use the [reprex package](/getting-help#reprex-pkg).
+-   First, you need to make your code reproducible. This means that you need to capture everything, i.e., include any `library()` calls and create all necessary objects. The easiest way to make sure you've done this is to use the **reprex package** (see below).
 
 -   Second, you need to make it minimal. Strip away everything that is not directly related to your problem until removing any remaining code will either remove your problem or cause a new error. This usually involves creating a much smaller and simpler R object than the one you’re facing in real life or even using built-in data.
 
