@@ -9,5 +9,5 @@ title: General strategy
 
 You've already gotten some practical experience visualizing discrete-continuous
 relationships. Now, we'll take a step back and discuss general strategies for
-creating effective visualizations.
+creating effective visualizations. (Reading coming soon.)
 
