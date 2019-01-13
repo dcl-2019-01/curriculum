@@ -21,7 +21,8 @@ Whenever you start working with a new variable, it's a really good idea to first
 `df %>% count(grp)` is shorthand for `df %>% group_by(grp) %>% summarise(n = n())`.
 
 ``` r
-flights %>% count(carrier)
+flights %>% 
+  count(carrier)
 #> # A tibble: 16 x 2
 #>    carrier     n
 #>    <chr>   <int>
@@ -48,7 +49,8 @@ It has two convenient arguments:
 -   `sort = TRUE` automatically arranges the result so the most common values are at the top
 
     ``` r
-    flights %>% count(dest, sort = TRUE)
+    flights %>% 
+      count(dest, sort = TRUE)
     #> # A tibble: 105 x 2
     #>    dest      n
     #>    <chr> <int>
@@ -62,48 +64,51 @@ It has two convenient arguments:
     #>  8 FLL   12055
     #>  9 MIA   11728
     #> 10 DCA    9705
-    #> # ... with 95 more rows
+    #> # … with 95 more rows
     ```
 
 -   `wt = my_variable` switches from a count to a weighted sum of `my_variable`. For example, the following code gives the total distance traveled by each carrier. It is particularly useful if you have data that has already been aggregated.
 
     ``` r
-    flights %>% count(carrier, wt = distance)
+    flights %>% 
+      count(carrier, wt = distance)
     #> # A tibble: 16 x 2
-    #>    carrier         n
-    #>    <chr>       <dbl>
-    #>  1 9E       9788152.
-    #>  2 AA      43864584.
-    #>  3 AS       1715028.
-    #>  4 B6      58384137.
-    #>  5 DL      59507317.
-    #>  6 EV      30498951.
-    #>  7 F9       1109700.
-    #>  8 FL       2167344.
-    #>  9 HA       1704186.
-    #> 10 MQ      15033955.
-    #> 11 OO         16026.
-    #> 12 UA      89705524.
-    #> 13 US      11365778.
-    #> 14 VX      12902327.
-    #> 15 WN      12229203.
-    #> 16 YV        225395.
+    #>    carrier        n
+    #>    <chr>      <dbl>
+    #>  1 9E       9788152
+    #>  2 AA      43864584
+    #>  3 AS       1715028
+    #>  4 B6      58384137
+    #>  5 DL      59507317
+    #>  6 EV      30498951
+    #>  7 F9       1109700
+    #>  8 FL       2167344
+    #>  9 HA       1704186
+    #> 10 MQ      15033955
+    #> 11 OO         16026
+    #> 12 UA      89705524
+    #> 13 US      11365778
+    #> 14 VX      12902327
+    #> 15 WN      12229203
+    #> 16 YV        225395
     ```
 
 You can also `count()` the value of expression. This is a useful technique to get a quick count of how many missing values there are:
 
 ``` r
-flights %>% count(is.na(dep_delay))
+flights %>% 
+  count(is.na(dep_delay))
 #> # A tibble: 2 x 2
 #>   `is.na(dep_delay)`      n
 #>   <lgl>               <int>
 #> 1 FALSE              328521
 #> 2 TRUE                 8255
 
-flights %>% count(
-  dep_missing = is.na(dep_time), 
-  arr_missing = is.na(arr_time)
-)
+flights %>% 
+  count(
+    dep_missing = is.na(dep_time), 
+    arr_missing = is.na(arr_time)
+  )
 #> # A tibble: 3 x 3
 #>   dep_missing arr_missing      n
 #>   <lgl>       <lgl>        <int>
@@ -116,7 +121,8 @@ You can combine `count()` with the `cut_*` functions from ggplot2 to compute his
 
 ``` r
 # five bins of equal widths
-flights %>% count(cut_interval(arr_delay, 5))
+flights %>% 
+  count(cut_interval(arr_delay, 5))
 #> # A tibble: 6 x 2
 #>   `cut_interval(arr_delay, 5)`      n
 #>   <fct>                         <int>
@@ -128,7 +134,8 @@ flights %>% count(cut_interval(arr_delay, 5))
 #> 6 <NA>                           9430
 
 # five bins with approximately equal numbers of points
-flights %>% count(cut_number(arr_delay, 5))
+flights %>% 
+  count(cut_number(arr_delay, 5))
 #> # A tibble: 6 x 2
 #>   `cut_number(arr_delay, 5)`     n
 #>   <fct>                      <int>
@@ -140,7 +147,8 @@ flights %>% count(cut_number(arr_delay, 5))
 #> 6 <NA>                        9430
 
 # hourly bins
-flights %>% count(cut_width(arr_delay, 60, boundary = 0))
+flights %>% 
+  count(cut_width(arr_delay, 60, boundary = 0))
 #> # A tibble: 22 x 2
 #>    `cut_width(arr_delay, 60, boundary = 0)`      n
 #>    <fct>                                     <int>
@@ -154,7 +162,7 @@ flights %>% count(cut_width(arr_delay, 60, boundary = 0))
 #>  8 (300,360]                                   365
 #>  9 (360,420]                                   144
 #> 10 (420,480]                                    37
-#> # ... with 12 more rows
+#> # … with 12 more rows
 ```
 
 ## Readings

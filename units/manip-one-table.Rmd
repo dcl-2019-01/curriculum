@@ -8,7 +8,7 @@ needs: [manip-basics]
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
 
-You've learned the most important verbs for data analysis: `filter()`, `mutate()`, `group_by()` and `summarise()`. There are a number of other verbs that are not quite as important but still come in handy from time-to-time. The goal of this document is to familiarise you with their purpose and basic operation
+You've learned the most important verbs for data analysis: `filter()`, `mutate()`, `group_by()` and `summarize()`. There are a number of other verbs that are not quite as important but still come in handy from time-to-time. The goal of this document is to familiarise you with their purpose and basic operation
 
 ```{r setup, message = FALSE}
 library(tidyverse)
@@ -33,19 +33,22 @@ Most of the datasets you'll work with in this class only have a relatively small
 You can also select a single varible just by using its name directly.
 
 ```{r}
-flights %>% select(year:day, ends_with("delay"))
+flights %>% 
+  select(year:day, ends_with("delay"))
 ```
 
 To remove variables from selection, put a `-` in front of the expression.
 
 ```{r}
-flights %>% select(-starts_with("dep"))
+flights %>% 
+  select(-starts_with("dep"))
 ```
 
 There's one last helper that's useful if you just want to move a few variables to the start: `everything()`.
 
 ```{r}
-flights %>% select(dep_delay, arr_delay, everything())
+flights %>% 
+  select(dep_delay, arr_delay, everything())
 ```
 
 ## Rename
@@ -53,13 +56,15 @@ flights %>% select(dep_delay, arr_delay, everything())
 To change the name of a variable use `df %>% rename(new_name = old_name)`. If you have trouble remembering which sides old and new go on, remember it's the same order as `mutate()`.
 
 ```{r}
-flights %>% rename(tail_num = tailnum)
+flights %>% 
+  rename(tail_num = tailnum)
 ```
 
 If you're selecting and renaming, note that you can also use `select()` to rename. This sometimes allows you to save a step.
 
 ```{r}
-flights %>% select(year:day, tail_num = tailnum)
+flights %>% 
+  select(year:day, tail_num = tailnum)
 ```
 
 
@@ -71,10 +76,12 @@ Transmute is a minor variation of `mutate()`. The main difference is that it dro
 df <- tibble(x = 1:3, y = 3:1)
 
 # mutate() keeps all the variables
-df %>% mutate(z = x + y)
+df %>% 
+  mutate(z = x + y)
 
 # transmute() drops all the variables
-df %>% transmute(z = x + y)
+df %>% 
+  transmute(z = x + y)
 ```
 
 ## Arrange
@@ -82,8 +89,11 @@ df %>% transmute(z = x + y)
 `arrange()` lets you change the order of the rows. To put a column in descending order, use `desc()`.
 
 ```{r}
-flights %>% arrange(desc(dep_delay))
-flights %>% arrange(year, month, day)
+flights %>% 
+  arrange(desc(dep_delay))
+
+flights %>% 
+  arrange(year, month, day)
 ```
 
 ## Distinct
@@ -91,7 +101,8 @@ flights %>% arrange(year, month, day)
 `distinct()` removes duplicates from a dataset. The result is ordered by first occurence in original dataset.
 
 ```{r}
-flights %>% distinct(carrier, flight)
+flights %>% 
+  distinct(carrier, flight)
 ```
 
 
@@ -100,15 +111,18 @@ flights %>% distinct(carrier, flight)
 When working with very large datasets, sometimes it's convenient to reduce to a smaller dataset, just by taking a random sample. That's the job of `sample_n()` and `sample_frac()`. `sample_n()` selects the same number of observations from each group, `sample_frac()` selects the same proportion.
 
 ```{r}
-popular_dest <- flights %>%
+popular_dest <- 
+  flights %>%
   group_by(dest) %>%
   filter(n() > 1000)
 
 # Creates a dataset with the same number of flights to each dest
-popular_dest %>% sample_n(100)
+popular_dest %>% 
+  sample_n(100)
 
 # Creates a dataset with proportion number of flights to each dest
-popular_dest %>% sample_frac(0.01)
+popular_dest %>% 
+  sample_frac(0.01)
 ```
 
 ## Slice rows
@@ -117,12 +131,16 @@ popular_dest %>% sample_frac(0.01)
 
 ```{r}
 # first flights to each dest
-flights %>% group_by(dest) %>% slice(1:5)
+flights %>% 
+  group_by(dest) %>%
+  slice(1:5)
 
 # first flights overall
-flights %>% head()
+flights %>% 
+  head()
 
 # last flights overall
-flights %>% tail()
+flights %>% 
+  tail()
 ```
 

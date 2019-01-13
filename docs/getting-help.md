@@ -34,7 +34,7 @@ If you need help getting unstuck, the first step is to create a **reprex**, or r
 
 There are two parts to creating a reprex:
 
--   First, you need to make your code reproducible. This means that you need to capture everything, i.e., include any `library()` calls and create all necessary objects. The easiest way to make sure you've done this is to use the [reprex package](/help#reprex-pkg).
+-   First, you need to make your code reproducible. This means that you need to capture everything, i.e., include any `library()` calls and create all necessary objects. The easiest way to make sure you've done this is to use the [reprex package](/getting-help#reprex-pkg).
 
 -   Second, you need to make it minimal. Strip away everything that is not directly related to your problem until removing any remaining code will either remove your problem or cause a new error. This usually involves creating a much smaller and simpler R object than the one you’re facing in real life or even using built-in data.
 
@@ -46,13 +46,9 @@ That sounds like a lot of work! And it can be, but it has a great payoff:
 
 ### The reprex package
 
-When creating a reprex by hand, it's easy to accidentally miss something that means your code can't be run on someone else's computer. Avoid this problem by using the [reprex package](http://reprex.tidyverse.org). It's installed as part of the tidyverse *(will be true soon)* or you can install it by itself. Go ahead and load it.
+When creating a reprex by hand, it's easy to accidentally miss something that means your code can't be run on someone else's computer. Avoid this problem by using the [reprex package](http://reprex.tidyverse.org). It's installed as part of the tidyverse. Go ahead and load it.
 
 ``` r
-## pick one:
-##   install.packages("tidyverse") <-- will work soon
-##   install.packages("reprex")    <-- works today
-
 library(reprex)
 ```
 

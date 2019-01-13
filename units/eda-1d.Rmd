@@ -24,7 +24,8 @@ Whenever you start working with a new variable, it's a really good idea to first
 `df %>% count(grp)` is shorthand for `df %>% group_by(grp) %>% summarise(n = n())`. 
 
 ```{r}
-flights %>% count(carrier)
+flights %>% 
+  count(carrier)
 ```
 
 It has two convenient arguments: 
@@ -33,7 +34,8 @@ It has two convenient arguments:
     at the top
 
     ```{r}
-    flights %>% count(dest, sort = TRUE)
+    flights %>% 
+      count(dest, sort = TRUE)
     ```
 
 *  `wt = my_variable` switches from a count to a weighted sum of `my_variable`.
@@ -42,30 +44,36 @@ It has two convenient arguments:
    been aggregated.
 
     ```{r}
-    flights %>% count(carrier, wt = distance)
+    flights %>% 
+      count(carrier, wt = distance)
     ```
 
 You can also `count()` the value of expression. This is a useful technique to get a quick count of how many missing values there are:
 
 ```{r}
-flights %>% count(is.na(dep_delay))
+flights %>% 
+  count(is.na(dep_delay))
 
-flights %>% count(
-  dep_missing = is.na(dep_time), 
-  arr_missing = is.na(arr_time)
-)
+flights %>% 
+  count(
+    dep_missing = is.na(dep_time), 
+    arr_missing = is.na(arr_time)
+  )
 ```
 
 You can combine `count()` with the `cut_*` functions from ggplot2 to compute histograms "by hand":
 
 ```{r}
 # five bins of equal widths
-flights %>% count(cut_interval(arr_delay, 5))
+flights %>% 
+  count(cut_interval(arr_delay, 5))
 
 # five bins with approximately equal numbers of points
-flights %>% count(cut_number(arr_delay, 5))
+flights %>% 
+  count(cut_number(arr_delay, 5))
 
 # hourly bins
-flights %>% count(cut_width(arr_delay, 60, boundary = 0))
+flights %>% 
+  count(cut_width(arr_delay, 60, boundary = 0))
 ```
 
