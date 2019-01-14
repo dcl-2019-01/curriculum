@@ -3,6 +3,7 @@ id,title,depth,href
 1.1,Additional information,2,https://bookdown.org/content/2138/ggplot2-basics.html#additional-information
 1.1.1,Pipes and aesthetics,3,https://bookdown.org/content/2138/ggplot2-basics.html#pipes-and-aesthetics
 1.1.2,Facet syntax,3,https://bookdown.org/content/2138/ggplot2-basics.html#facet-syntax
+1.1.3,The grammar of graphics,3,https://bookdown.org/content/2138/ggplot2-basics.html#the-grammar-of-graphics
 2,Discrete-continuous relationships,1,https://bookdown.org/content/2138/discrete-continuous.html
 2.1,Introduction,2,https://bookdown.org/content/2138/discrete-continuous.html#introduction
 2.2,Coordinate systems,2,https://bookdown.org/content/2138/discrete-continuous.html#coordinate-systems
@@ -15,3 +16,14 @@ id,title,depth,href
 2.3.3,Bars vs. dots,3,https://bookdown.org/content/2138/discrete-continuous.html#bars-vs.dots
 2.4,Two discrete categories,2,https://bookdown.org/content/2138/discrete-continuous.html#two-discrete-categories
 2.4.1,Color and facets,3,https://bookdown.org/content/2138/discrete-continuous.html#color-and-facets
+3,General strategy,1,https://bookdown.org/content/2138/general-strategy.html
+3.1,The goals of visualization,2,https://bookdown.org/content/2138/general-strategy.html#the-goals-of-visualization
+3.1.1,Two types of plots,3,https://bookdown.org/content/2138/general-strategy.html#two-types-of-plots
+3.1.2,Encoding and decoding,3,https://bookdown.org/content/2138/general-strategy.html#encoding-and-decoding
+3.2,Perception,2,https://bookdown.org/content/2138/general-strategy.html#perception
+3.2.1,Encodings,3,https://bookdown.org/content/2138/general-strategy.html#encodings
+3.3,Strategies,2,https://bookdown.org/content/2138/general-strategy.html#strategies
+3.3.1,Set goals,3,https://bookdown.org/content/2138/general-strategy.html#set-goals
+3.3.2,Go for quantity,3,https://bookdown.org/content/2138/general-strategy.html#go-for-quantity
+3.3.3,Look at your plots,3,https://bookdown.org/content/2138/general-strategy.html#look-at-your-plots
+3.3.4,Iterate,3,https://bookdown.org/content/2138/general-strategy.html#iterate
