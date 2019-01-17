@@ -8,7 +8,7 @@ needs: [manip-basics]
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
 
-It's helpful to know a little bit about how data structures are organised in R. The simplest data structure in R is the vector, which can be broken up in to atomic vectors and augmented vectors. Vectors of related data are organised together in tibbles and data.frames.
+It's helpful to know a little bit about how data structures are organised in R. In this reading, you'll learn about vectors, lists, and tibbles. 
 
 ```{r setup, message = FALSE}
 library(tidyverse)
@@ -18,10 +18,12 @@ library(tidyverse)
 
 The atomic vectors are the "atoms" of R, the simple building blocks upon which all else is built.  There are four types of atomic vector that are important for data analysis:
 
-* __logical__ vectors `<lgl>` contain `TRUE` or `FALSE`.
 * __integer__ vectors `<int>` contain integers.
 * __double__ vectors `<dbl>` contain real numbers. 
 * __character__ vector `<chr>` contain strings made with `""`.
+* __logical__ vectors `<lgl>` contain `TRUE` or `FALSE`.
+
+Integer atomic vectors only contain integers, double atomic vectors only contain doubles, and so on.
 
 All vectors can also contain the missing value `NA`. You'll learn more about missing values later on. Collectively integer and double vectors are known as __numeric__ vectors. The difference is rarely important in R.
 
@@ -80,11 +82,17 @@ Augmented vectors are atomic vectors with additional metadata. There are four im
 * __date-times__ `<dttm>`, which are also known as POSIXct, record a date
   and a time.
 
-For now, you just need to recognise these when you encounter them. You'll learn how to create each type of augmented vector later in the course.
+For now, you just need to recognize these when you encounter them. You'll learn how to create each type of augmented vector later in the course.
 
-## Data frames/tibbles
+## Lists
 
-Related vectors (both atomic and augmented) are collected together into data frames or tibbles. You can think of them as a list of vectors, where every vector has the same length. Later you'll learn the precise different between data.frames and tibbles, but don't worry about it for now. There are two ways to create tibbles by hand:
+Unlike atomic vectors, which can only contain a single type, lists can contain any collection of R objects. The following reading will introduce you to lists.
+
+* [Recursive vectors (lists)](https://r4ds.had.co.nz/vectors.html#lists)[r4ds-20.5]
+
+## Tibbles
+
+You can think of tibbles as lists of vectors, where every vector has the same length. There are two ways to create tibbles by hand:
 
 1.  From individual vectors, each representing a column:
   
