@@ -9,4 +9,10 @@ desc: |
 needs: [vis-discrete-continuous]
 
 readings:
+- href: https://github.com/GraphicsPrinciples/CheatSheet/blob/master/NVSCheatSheet.pdf
+  text: Graphic principles cheat sheet
+  desc: >
+    This cheat sheet is centered around principles for effective visualizations. 
+    The most helpful sections for this reading are _Planning_, _Effectivness rating_,
+    and _Good graph checklist_.
 - book: vis-wisdom-3
