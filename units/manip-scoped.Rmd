@@ -97,13 +97,13 @@ x %>%
 
 `n_distinct()` and `lag()` are both named functions. However, scoped verbs can also take anonymous functions.
 
-To declare an anonymous function in a scoped verb, you use the helper function `funs()` with `.` to refer to the function's argument.
+In a scoped verb, you start an anonymous function with `~`, and use `.` to refer to the function's argument.
 
 For example, the following code tells us which variables have more than two distinct values.
 
 ```{r}
 x %>% 
-  summarise_all(funs(n_distinct(.) > 2))
+  summarise_all(~ n_distinct(.) > 2)
 ```
 
 The `.` is a placeholder. It refers to each column specified in the scoped verb in turn. In this case, it refers to `number_1`, then `number_2`, then `letter`.
@@ -116,7 +116,7 @@ For example, you might not want to count `NA`s as distinct values. We could writ
 
 ```{r}
 x %>% 
-  summarize_all(funs(n_distinct(., na.rm = TRUE)))
+  summarize_all(~ n_distinct(., na.rm = TRUE))
 ```
 
 It's simpler, however, to just specify the additional argument after the function name.
@@ -135,20 +135,20 @@ x %>%
   mutate_at(vars(contains("number")), str_c, letter)
 ```
 
-You have to use `funs()` and an anonymous function if you want to reference any of the tibble's columns in the function.
+You have to use an anonymous function if you want to reference any of the tibble's columns in the function.
 
 ```{r}
 x %>% 
-  mutate_at(vars(contains("number")), funs(str_c(., letter)))
+  mutate_at(vars(contains("number")), ~ str_c(., letter))
 ```
 
 ### Multiple functions
 
-You can also use `funs()` to supply the scoped variants of `mutate()`, `summarize()`, and `transmute()` with multiple functions. 
+You can use `list()` to supply the scoped variants of `mutate()`, `summarize()`, and `transmute()` with multiple functions. 
 
 ```{r}
 x %>% 
-  summarise_at(vars(number_1, number_2), funs(mean, median), na.rm = TRUE)
+  summarise_at(vars(number_1, number_2), list(mean, median), na.rm = TRUE)
 ```
 
 The scoped verb will create identifying column names.
