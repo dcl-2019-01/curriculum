@@ -10,7 +10,7 @@ title: Essentials of relational data
 
 It is extremely rare to only require a single table of data for an analysis.
 Far more often you will need to combine together multiple sources of
-information. Interconnected datasets is often called __relational__ because
+information. Interconnected datasets are often called __relational__ because
 you need to care about the relationships between the datasets.
 
 Here you'll learn about the __keys__ which define the relationship, and

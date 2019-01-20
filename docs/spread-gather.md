@@ -25,7 +25,7 @@ possible for missing values to be simply absent from the data.
 
   * [Missing values](http://r4ds.had.co.nz/tidy-data.html#missing-values-3) [r4ds-12.5].
     (explicit vs implicit). We haven't covered the vocabulary of "tidy data"
-    yet, but be aware that different ways of organisation the same data may
+    yet, but be aware that different ways of organization the same data may
     make explicit missing values that were previously implicit in the data.
 
 

@@ -8,7 +8,7 @@ title: Function basics
 <small>(Builds on: [Exploratory data analysis (1D)](eda-1d.md), [Data structure basics](data-structure-basics.md))</small>  
 <small>(Leads to: [Anonymous functions](function-anonymous.md), [Predicate functions](function-predicate.md), [Vector functions](function-vector.md), [purrr basics](purrr-basics.md), [Tidy evaluation](tidy-eval.md))</small>
 
-Functions are powerful tool for reducing the amount of duplication in your
+Functions are powerful tools for reducing the amount of duplication in your
 code. Reducing duplication is a good principle because it means that
 each "fact" in your code is only stored in one place. When the requirements
 of your code change (as they invariably do), you only need to make the

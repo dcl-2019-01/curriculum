@@ -1,4 +1,4 @@
-cur-week: 2
+cur-week: 3
 
 weeks:
   week-01:
@@ -21,12 +21,11 @@ weeks:
   - vis-calls
 
   week-03:
-  - parse-basics
-  - function-basics
-  - vis-scales
   - relational-basics
+  - vis-scales
+  - parse-basics
   - spread-gather
-  - vis-perception
+  - function-basics
 
   week-04:
   - string-basics

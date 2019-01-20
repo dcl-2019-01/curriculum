@@ -126,4 +126,36 @@ title: Theme index
   <td colspan="4"></td>
 </tr>
 </tbody>
+<tbody>
+<tr>
+<td id='week-3'>3</td>
+  <td colspan="1"></td>
+  <td colspan="6"><a class="wrangle" href="relational-basics.html">Essentials of relational data</a></td>
+  <td colspan="5"></td>
+</tr>
+<tr>
+<td></td>
+  <td colspan="2"></td>
+  <td colspan="6"><a class="visualize" href="vis-scales.html">Scales</a></td>
+  <td colspan="4"></td>
+</tr>
+<tr>
+<td></td>
+  <td colspan="1"></td>
+  <td colspan="6"><a class="wrangle" href="parse-basics.html">Parsing basics</a></td>
+  <td colspan="5"></td>
+</tr>
+<tr>
+<td></td>
+  <td colspan="1"></td>
+  <td colspan="6"><a class="wrangle" href="spread-gather.html">Spreading and gathering</a></td>
+  <td colspan="5"></td>
+</tr>
+<tr>
+<td></td>
+  <td colspan="4"></td>
+  <td colspan="6"><a class="program" href="function-basics.html">Function basics</a></td>
+  <td colspan="2"></td>
+</tr>
+</tbody>
 </table>
