@@ -85,7 +85,6 @@ weeks:
 # - export
 # - vector-summary-functions
 # - report-generation
-# - filter-joins
 # - reprexes # included in getting-help
 # Next
 # - analysis-workflow

@@ -7,9 +7,11 @@ desc: |
   information. Interconnected datasets are often called __relational__ because
   you need to care about the relationships between the datasets.
 
-  Here you'll learn about the __keys__ which define the relationship, and
-  the __mutating joins__, the first set of tools for working with related
-  dataset.
+  Here you'll first learn about the __keys__ that define the relationship.
+  You'll then learn about __mutating__ joins, so called because their primary
+  impact is to add new columns, like a `mutate()`. It’s also useful to learn
+  about the __filtering__ joins, `semi_join()` and `anti_join()`, which work
+  primarily like a `filter()`, restricting the rows.
 
 needs: [eda-1d]
 
@@ -18,3 +20,4 @@ readings:
 - book: r4ds-13.2
 - book: r4ds-13.3
 - book: r4ds-13.4
+- book: r4ds-13.5

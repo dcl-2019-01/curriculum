@@ -5,8 +5,7 @@ title: Semi- and anti-joins
 <!-- Generated automatically from filter-joins.yml. Do not edit by hand -->
 
 # Semi- and anti-joins <small class='wrangle'>[wrangle]</small>
-<small>(Builds on: [Essentials of relational data](relational-basics.md))</small>  
-<small>(Leads to: [Debugging joins](joins-debugging.md))</small>
+
 
 So far you've learned about the "mutating" joins, so called because their
 primary impact is to add new columns, like a `mutate()`. It's also

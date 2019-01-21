@@ -6,7 +6,5 @@ desc: |
   that you don't find with nycflights13. It's a good idea to check your
   keys as a first step, just after you've tidied the data.
 
-needs: [filter-joins]
-
 readings:
 - book: r4ds-13.6

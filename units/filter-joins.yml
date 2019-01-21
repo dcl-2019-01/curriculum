@@ -8,7 +8,6 @@ desc: |
   `anti_join()`, which work primarily like a `filter()`, restricting the
   rows.
 
-needs: [relational-basics]
-
 readings:
 - book: r4ds-13.5
+
