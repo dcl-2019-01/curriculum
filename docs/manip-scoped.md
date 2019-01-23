@@ -138,13 +138,13 @@ x %>%
 
 `n_distinct()` and `lag()` are both named functions. However, scoped verbs can also take anonymous functions.
 
-To declare an anonymous function in a scoped verb, you use the helper function `funs()` with `.` to refer to the function's argument.
+In a scoped verb, you start an anonymous function with `~`, and use `.` to refer to the function's argument.
 
 For example, the following code tells us which variables have more than two distinct values.
 
 ``` r
 x %>% 
-  summarise_all(funs(n_distinct(.) > 2))
+  summarise_all(~ n_distinct(.) > 2)
 ```
 
     ## # A tibble: 1 x 3
@@ -162,7 +162,7 @@ For example, you might not want to count `NA`s as distinct values. We could writ
 
 ``` r
 x %>% 
-  summarize_all(funs(n_distinct(., na.rm = TRUE)))
+  summarize_all(~ n_distinct(., na.rm = TRUE))
 ```
 
     ## # A tibble: 1 x 3
@@ -193,11 +193,11 @@ x %>%
 
     ## Error in list2(...): object 'letter' not found
 
-You have to use `funs()` and an anonymous function if you want to reference any of the tibble's columns in the function.
+You have to use an anonymous function if you want to reference any of the tibble's columns in the function.
 
 ``` r
 x %>% 
-  mutate_at(vars(contains("number")), funs(str_c(., letter)))
+  mutate_at(vars(contains("number")), ~ str_c(., letter))
 ```
 
     ## # A tibble: 3 x 3
@@ -209,17 +209,17 @@ x %>%
 
 ### Multiple functions
 
-You can also use `funs()` to supply the scoped variants of `mutate()`, `summarize()`, and `transmute()` with multiple functions.
+You can use `list()` to supply the scoped variants of `mutate()`, `summarize()`, and `transmute()` with multiple functions.
 
 ``` r
 x %>% 
-  summarise_at(vars(number_1, number_2), funs(mean, median), na.rm = TRUE)
+  summarise_at(vars(number_1, number_2), list(mean, median), na.rm = TRUE)
 ```
 
-    ## # A tibble: 1 x 4
-    ##   number_1_mean number_2_mean number_1_median number_2_median
-    ##           <dbl>         <dbl>           <dbl>           <dbl>
-    ## 1          17.7          22.5               1            22.5
+    ## # A tibble: 1 x 2
+    ##   `number_1_<fn>` `number_2_<fn>`
+    ##             <dbl>           <dbl>
+    ## 1               1            22.5
 
 The scoped verb will create identifying column names.
 

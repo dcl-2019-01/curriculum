@@ -126,13 +126,13 @@ all(!is.na(y))
 
     ## [1] FALSE
 
-`all(!is.na())` is an anonymous function. Recall that, in scoped verbs, you declare anonymous functions inside `funs()` and use `.` to refer to the argument.
+`all(!is.na())` is an anonymous function. Recall that, in scoped verbs, you declare anonymous functions with a `~` and use `.` to refer to the argument.
 
 The following code selects only the columns with no `NA`s.
 
 ``` r
 small_towns %>% 
-  select_if(funs(all(!is.na(.))))
+  select_if(~ all(!is.na(.)))
 ```
 
     ## # A tibble: 4 x 1
@@ -152,7 +152,7 @@ Each value in `small_towns` is either missing or not, and so `!is.na()` will eit
 
 ``` r
 small_towns %>% 
-  mutate_all(funs(!is.na(.)))
+  mutate_all(~ !is.na(.))
 ```
 
     ## # A tibble: 4 x 4
@@ -220,7 +220,7 @@ small_towns %>%
 
 Bettles, Alaska and Ruso, North Dakota both have non-missing values for `town` and `population`. The rest of the rows had missing values in `town` or `population`, or both.
 
-Unlike `funs()`, you can't just supply `all_vars()` and `any_vars()` with the name of a function.
+You can't just supply `all_vars()` and `any_vars()` with the name of a function.
 
 ``` r
 small_towns %>% 
