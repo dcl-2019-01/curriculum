@@ -158,4 +158,35 @@ title: Theme index
   <td colspan="2"></td>
 </tr>
 </tbody>
+<tbody>
+<tr>
+<td id='week-4'>4</td>
+  <td colspan="4"></td>
+  <td colspan="6"><a class="program" href="function-anonymous.html">Anonymous functions</a></td>
+  <td colspan="2"></td>
+</tr>
+<tr>
+<td></td>
+  <td colspan="4"></td>
+  <td colspan="6"><a class="program" href="purrr-basics.html">purrr basics</a></td>
+  <td colspan="2"></td>
+</tr>
+<tr>
+<td></td>
+  <td colspan="6"><a class="explore" href="eda-2d.html">Exploratory data analysis (2D)</a></td>
+  <td colspan="6"></td>
+</tr>
+<tr>
+<td></td>
+  <td colspan="1"></td>
+  <td colspan="6"><a class="wrangle" href="string-basics.html">String basics</a></td>
+  <td colspan="5"></td>
+</tr>
+<tr>
+<td></td>
+  <td colspan="1"></td>
+  <td colspan="6"><a class="wrangle" href="manip-scoped.html">Scoped verb basics</a></td>
+  <td colspan="5"></td>
+</tr>
+</tbody>
 </table>

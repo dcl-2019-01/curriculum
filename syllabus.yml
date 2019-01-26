@@ -1,4 +1,4 @@
-cur-week: 3
+cur-week: 4
 
 weeks:
   week-01:
@@ -28,16 +28,16 @@ weeks:
   - function-basics
 
   week-04:
-  - string-basics
   - function-anonymous
   - purrr-basics
-  - vis-position
-  - missing-values
-  - datetime-basics
   - eda-2d
+  - string-basics
+  - vis-distributions
+  - manip-scoped
 
   week-05:
-  - manip-scoped
+  - missing-values
+  - datetime-basics
   - factor-basics
   - vis-scales-2
   - lists
