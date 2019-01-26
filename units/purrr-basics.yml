@@ -8,7 +8,7 @@ desc: "\n``` r\nlibrary(tidyverse)\n```\n\nIteration as an assembly line\n------
   The purrr package supplies a variety of functions that allow you to easily iterate
   through a vector and do the same thing to each element. In this reading, you'll
   learn about the most basic purrr functions: the map functions.\n\n(Take a look at
-  the [purrr cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/purrr.pdf)
+  the [purrr cheatsheet](https://github.com/rstudio/cheatsheets/blob/master/purrr.pdf)
   for a preview of some other purrr functions.)\n\nTo get a sense of what the map
   functions do, imagine an assembly line in a factory. One conveyor belt, the *input
   belt*, transports various objects to a worker. The worker picks up each object and
@@ -40,8 +40,8 @@ desc: "\n``` r\nlibrary(tidyverse)\n```\n\nIteration as an assembly line\n------
   the conveyor belt and we want the worker to take the length of each vector.\n\nEach
   call to `length()` will return an integer, and so we'll use the map function designed
   to return a vector of integers. As you'll see later, there's a map function for
-  each output type.\n\n``` r\nmap_int(x, length)\n#> a b c \n#> 3 1 4\n```\n\nWe now
-  have a vector of integers representing the length of each element of `x`.\n\n(Notice
+  each output type.\n\n``` r\nx %>% \n  map_int(length)\n#> a b c \n#> 3 1 4\n```\n\nWe
+  now have a vector of integers representing the length of each element of `x`.\n\n(Notice
   that we use `length` as the argument, not `length()`. `length()` calls the function,
   while `length` refers to the function object itself.)\n\n### Anonymous functions\n\n`length`
   is a named function. You can call the function just by calling `length()`. However,
@@ -49,54 +49,55 @@ desc: "\n``` r\nlibrary(tidyverse)\n```\n\nIteration as an assembly line\n------
   it a name. You won't have a name with which to call the anonymous function later,
   but that's okay if you don't plan on using the function again.\n\nFor example, say
   you want to multiply the length of each vector in `x` by 2. There's no named function
-  for that, but you can write an anonymous function within `map_int()`:\n\n``` r\nmap_int(x,
-  ~ length(.) * 2L)\n#> a b c \n#> 6 2 8\n```\n\nNotice the syntax: `~` marks the
-  beginning of the function and `.` refers to each element in `x`. You can think of
-  `.` as a placeholder, referring to `a`, then `b`, and then `c` as the conveyor belt
-  delivers each object to the worker.\n\nYou could also write your own named function
-  to use within `map_int()`:\n\n``` r\ndouble_length <- function(x) {\n  length(x)
-  * 2L\n}\n\nmap_int(x, double_length)\n#> a b c \n#> 6 2 8\n```\n\nYou may want to
-  write your a named function instead of using an anonymous function if you want to
-  use the function again. Otherwise, you can just use an anonymous function.\n\n###
+  for that, but you can write an anonymous function within `map_int()`:\n\n``` r\nx
+  %>% \n  map_int(~ length(.) * 2L)\n#> a b c \n#> 6 2 8\n```\n\nNotice the syntax:
+  `~` marks the beginning of the function and `.` refers to each element in `x`. You
+  can think of `.` as a placeholder, referring to `a`, then `b`, and then `c` as the
+  conveyor belt delivers each object to the worker.\n\nYou could also write your own
+  named function to use within `map_int()`:\n\n``` r\ndouble_length <- function(x)
+  {\n  length(x) * 2L\n}\n\nx %>% \n  map_int(double_length)\n#> a b c \n#> 6 2 8\n```\n\nYou
+  may want to write your a named function instead of using an anonymous function if
+  you want to use the function again. Otherwise, you can just use an anonymous function.\n\n###
   ...\n\nIf you look at the documentation for the map functions, you'll notice that
   they all take a third argument `...`. The `...` allows you to specify additional
   arguments to the function without having to create an anonymous function.\n\nFor
-  example, instead of:\n\n``` r\nmap_int(x, ~ nth(., n = 3))\n#>  a  b  c \n#>  4
-  NA 55\n```\n\nwhich returns the third value of each vector, you can write:\n\n```
-  r\nmap_int(x, nth, n = 3)\n#>  a  b  c \n#>  4 NA 55\n```\n\nYou can also specify
-  more than one argument:\n\n``` r\nmap_int(x, nth, n = 3, default = 0L)\n#>  a  b
-  \ c \n#>  4  0 55\n```\n\n### Output type\n\nSo far, we've only used one map function:
-  `map_int()`.\n\nIn the section above, we had to multiply the length of each vector
-  by an integer (the `L` creates an integer) in order for the code to run. This won't
-  work:\n\n``` r\nmap_int(x, ~ length(.) * 2)\n#> Error: Can't coerce element 1 from
-  a double to a integer\n```\n\nWhy? Because `length(.) * 2` returns a double, and
-  `map_int()` requires that the function create integers.\n\nIf we want a vector of
-  doubles, we need to use `map_dbl()`:\n\n``` r\nmap_dbl(x, ~ length(.) * 2)\n#> a
-  b c \n#> 6 2 8\n```\n\nThe other map functions work similarly.\n\nIf your function
-  creates characters, use `map_chr()` to create a vector of characters:\n\n``` r\nmap_chr(x,
-  typeof)\n#>         a         b         c \n#> \"integer\" \"integer\" \"integer\"\n```\n\nIf
-  your function creates logicals, use `map_lgl()`:\n\n``` r\nmap_lgl(x, is_integer)\n#>
-  \   a    b    c \n#> TRUE TRUE TRUE\n```\n\nYou can also use `map()` to create a
-  list. Remember that a list can contain any type of element. For example, the following
-  code creates a list of integer vectors:\n\n``` r\nmap(x, ~ c(99, .))\n#> $a\n#>
-  [1] 99  1  2  4\n#> \n#> $b\n#> [1] 99 88\n#> \n#> $c\n#> [1] 99  9 10 55  2\n```\n\nIn
-  summary:\n\n-   `map()` makes a list.\n-   `map_lgl()` makes a logical vector.\n-
-  \  `map_int()` makes an integer vector.\n-   `map_dbl()` makes a double vector.\n-
-  \  `map_chr()` makes a character vector.\n\n`map()` is the most general function,
-  since any R data structure can be stored in a list. But if your output is one of
-  the four atomic vector types, it is better to use the corresponding map variant.\n\nThe
-  `.`s can sometimes make anonymous functions look confusing:\n\n``` r\nmap_int(x,
-  ~ sum(.[. %% 2 == 0]))\n#>  a  b  c \n#>  6 88 12\n```\n\nbut you can always plug
-  in a single element of your input vector to help you understand what's going on:\n\n```
-  r\nsum(x$a[x$a %% 2 == 0])\n```\n\n(In this case, the function sums the even elements
-  of each vector.)\n\nSimilarly, when writing an anonymous function, it can be helpful
-  to think about what the function looks like for a single element first. Then, just
-  replace the name of the element with a `.` to create your anonymous function.\n\n###
-  Map functions with tibbles\n\nAll the examples so far have used the map function
-  on `x`, a list of vectors, but the map functions work on any type of vector or list:
-  atomic vectors, lists of lists, lists of lists of vectors, etc. They also work on
-  tibbles:\n\n``` r\nx <- \n  tibble(\n    a = c(1, 2, 6),\n    b = c(3, 5, 3)\n  )\n\nx
-  %>% map_dbl(median)\n#> a b \n#> 2 3\n```\n\nNotice that the function `median()`
-  is applied to each column. The assembly line objects are the *columns* of the tibble,
-  not the rows. Tibbles are actually lists of vectors, where each column is its own
-  vector (the creation of `x` with `tibble()` hints at this structure).\n"
+  example, instead of:\n\n``` r\nx %>% \n  map_int(~ nth(., n = 3))\n#>  a  b  c \n#>
+  \ 4 NA 55\n```\n\nwhich returns the third value of each vector, you can write:\n\n```
+  r\nx %>% \n  map_int(nth, n = 3)\n#>  a  b  c \n#>  4 NA 55\n```\n\nYou can also
+  specify more than one argument:\n\n``` r\nx %>% \n  map_int(nth, n = 3, default
+  = 0L)\n#>  a  b  c \n#>  4  0 55\n```\n\n### Output type\n\nSo far, we've only used
+  one map function: `map_int()`.\n\nIn the section above, we had to multiply the length
+  of each vector by an integer (the `L` creates an integer) in order for the code
+  to run. This won't work:\n\n``` r\nx %>% \n  map_int(~ length(.) * 2)\n#> Error:
+  Can't coerce element 1 from a double to a integer\n```\n\nWhy? Because `length(.)
+  * 2` returns a double, and `map_int()` requires that the function create integers.\n\nIf
+  we want a vector of doubles, we need to use `map_dbl()`:\n\n``` r\nx %>% \n  map_dbl(~
+  length(.) * 2)\n#> a b c \n#> 6 2 8\n```\n\nThe other map functions work similarly.\n\nIf
+  your function creates characters, use `map_chr()` to create a vector of characters:\n\n```
+  r\nx %>% \n  map_chr(typeof)\n#>         a         b         c \n#> \"integer\"
+  \"integer\" \"integer\"\n```\n\nIf your function creates logicals, use `map_lgl()`:\n\n```
+  r\nx %>% \n  map_lgl(is_integer)\n#>    a    b    c \n#> TRUE TRUE TRUE\n```\n\nYou
+  can also use `map()` to create a list. Remember that a list can contain any type
+  of element. For example, the following code creates a list of integer vectors:\n\n```
+  r\nx %>% \n  map(~ c(99, .))\n#> $a\n#> [1] 99  1  2  4\n#> \n#> $b\n#> [1] 99 88\n#>
+  \n#> $c\n#> [1] 99  9 10 55  2\n```\n\nIn summary:\n\n-   `map()` makes a list.\n-
+  \  `map_lgl()` makes a logical vector.\n-   `map_int()` makes an integer vector.\n-
+  \  `map_dbl()` makes a double vector.\n-   `map_chr()` makes a character vector.\n\n`map()`
+  is the most general function, since any R data structure can be stored in a list.
+  But if your output is one of the four atomic vector types, it is better to use the
+  corresponding map variant.\n\nThe `.`s can sometimes make anonymous functions look
+  confusing:\n\n``` r\nx %>% \n  map_int(~ sum(.[. %% 2 == 0]))\n#>  a  b  c \n#>
+  \ 6 88 12\n```\n\nbut you can always plug in a single element of your input vector
+  to help you understand what's going on:\n\n``` r\nsum(x$a[x$a %% 2 == 0])\n```\n\n(In
+  this case, the function sums the even elements of each vector.)\n\nSimilarly, when
+  writing an anonymous function, it can be helpful to think about what the function
+  looks like for a single element first. Then, just replace the name of the element
+  with a `.` to create your anonymous function.\n\n### Map functions with tibbles\n\nAll
+  the examples so far have used the map function on `x`, a list of vectors, but the
+  map functions work on any type of vector or list: atomic vectors, lists of lists,
+  lists of lists of vectors, etc. They also work on tibbles:\n\n``` r\nx <- \n  tibble(\n
+  \   a = c(1, 2, 6),\n    b = c(3, 5, 3)\n  )\n\nx %>% \n  map_dbl(median)\n#> a
+  b \n#> 2 3\n```\n\nNotice that the function `median()` is applied to each column.
+  The assembly line objects are the *columns* of the tibble, not the rows. Tibbles
+  are actually lists of vectors, where each column is its own vector (the creation
+  of `x` with `tibble()` hints at this structure).\n"

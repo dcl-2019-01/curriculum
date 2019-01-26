@@ -18,7 +18,7 @@ Iteration as an assembly line
 
 You'll often need to apply the same function to each element of a list or atomic vector. The purrr package supplies a variety of functions that allow you to easily iterate through a vector and do the same thing to each element. In this reading, you'll learn about the most basic purrr functions: the map functions.
 
-(Take a look at the [purrr cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/purrr.pdf) for a preview of some other purrr functions.)
+(Take a look at the [purrr cheatsheet](https://github.com/rstudio/cheatsheets/blob/master/purrr.pdf) for a preview of some other purrr functions.)
 
 To get a sense of what the map functions do, imagine an assembly line in a factory. One conveyor belt, the *input belt*, transports various objects to a worker. The worker picks up each object and does something with it, but, importantly, never changes the object itself. For example, she might make a mold of the object, or grab a piece of plastic corresponding to the color of the object. Then, she places her new creation (the mold, piece of plastic, etc.) on the *output belt*, and the original object back on the input belt. She does this until there are no new objects to process on the input belt and the conveyor belt stops. The factory then ends up with the same number of objects on the input and output conveyor belts.
 
@@ -59,7 +59,8 @@ In this example, we want to put `a`, `b`, and `c`, the vectors in the list `x`, 
 Each call to `length()` will return an integer, and so we'll use the map function designed to return a vector of integers. As you'll see later, there's a map function for each output type.
 
 ``` r
-map_int(x, length)
+x %>% 
+  map_int(length)
 #> a b c 
 #> 3 1 4
 ```
@@ -75,7 +76,8 @@ We now have a vector of integers representing the length of each element of `x`.
 For example, say you want to multiply the length of each vector in `x` by 2. There's no named function for that, but you can write an anonymous function within `map_int()`:
 
 ``` r
-map_int(x, ~ length(.) * 2L)
+x %>% 
+  map_int(~ length(.) * 2L)
 #> a b c 
 #> 6 2 8
 ```
@@ -89,7 +91,8 @@ double_length <- function(x) {
   length(x) * 2L
 }
 
-map_int(x, double_length)
+x %>% 
+  map_int(double_length)
 #> a b c 
 #> 6 2 8
 ```
@@ -103,7 +106,8 @@ If you look at the documentation for the map functions, you'll notice that they 
 For example, instead of:
 
 ``` r
-map_int(x, ~ nth(., n = 3))
+x %>% 
+  map_int(~ nth(., n = 3))
 #>  a  b  c 
 #>  4 NA 55
 ```
@@ -111,7 +115,8 @@ map_int(x, ~ nth(., n = 3))
 which returns the third value of each vector, you can write:
 
 ``` r
-map_int(x, nth, n = 3)
+x %>% 
+  map_int(nth, n = 3)
 #>  a  b  c 
 #>  4 NA 55
 ```
@@ -119,7 +124,8 @@ map_int(x, nth, n = 3)
 You can also specify more than one argument:
 
 ``` r
-map_int(x, nth, n = 3, default = 0L)
+x %>% 
+  map_int(nth, n = 3, default = 0L)
 #>  a  b  c 
 #>  4  0 55
 ```
@@ -131,7 +137,8 @@ So far, we've only used one map function: `map_int()`.
 In the section above, we had to multiply the length of each vector by an integer (the `L` creates an integer) in order for the code to run. This won't work:
 
 ``` r
-map_int(x, ~ length(.) * 2)
+x %>% 
+  map_int(~ length(.) * 2)
 #> Error: Can't coerce element 1 from a double to a integer
 ```
 
@@ -140,7 +147,8 @@ Why? Because `length(.) * 2` returns a double, and `map_int()` requires that the
 If we want a vector of doubles, we need to use `map_dbl()`:
 
 ``` r
-map_dbl(x, ~ length(.) * 2)
+x %>% 
+  map_dbl(~ length(.) * 2)
 #> a b c 
 #> 6 2 8
 ```
@@ -150,7 +158,8 @@ The other map functions work similarly.
 If your function creates characters, use `map_chr()` to create a vector of characters:
 
 ``` r
-map_chr(x, typeof)
+x %>% 
+  map_chr(typeof)
 #>         a         b         c 
 #> "integer" "integer" "integer"
 ```
@@ -158,7 +167,8 @@ map_chr(x, typeof)
 If your function creates logicals, use `map_lgl()`:
 
 ``` r
-map_lgl(x, is_integer)
+x %>% 
+  map_lgl(is_integer)
 #>    a    b    c 
 #> TRUE TRUE TRUE
 ```
@@ -166,7 +176,8 @@ map_lgl(x, is_integer)
 You can also use `map()` to create a list. Remember that a list can contain any type of element. For example, the following code creates a list of integer vectors:
 
 ``` r
-map(x, ~ c(99, .))
+x %>% 
+  map(~ c(99, .))
 #> $a
 #> [1] 99  1  2  4
 #> 
@@ -190,7 +201,8 @@ In summary:
 The `.`s can sometimes make anonymous functions look confusing:
 
 ``` r
-map_int(x, ~ sum(.[. %% 2 == 0]))
+x %>% 
+  map_int(~ sum(.[. %% 2 == 0]))
 #>  a  b  c 
 #>  6 88 12
 ```
@@ -216,7 +228,8 @@ x <-
     b = c(3, 5, 3)
   )
 
-x %>% map_dbl(median)
+x %>% 
+  map_dbl(median)
 #> a b 
 #> 2 3
 ```
