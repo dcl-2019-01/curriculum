@@ -80,10 +80,10 @@ desc: "\nYou'll often want to operate on multiple columns at the same time. Luck
   \  <chr>    <chr>    <chr> \n    ## 1 1w       3w       w     \n    ## 2 1x       42x
   \     x     \n    ## 3 51w      <NA>     w\n\n### Multiple functions\n\nYou can
   use `list()` to supply the scoped variants of `mutate()`, `summarize()`, and `transmute()`
-  with multiple functions.\n\n``` r\nx %>% \n  summarise_at(vars(number_1, number_2),
-  list(mean = mean, median = median), na.rm = TRUE)\n```\n\n    ## # A tibble: 1 x
-  4\n    ##   number_1_mean number_2_mean number_1_median number_2_median\n    ##
-  \          <dbl>         <dbl>           <dbl>           <dbl>\n    ## 1          17.7
+  with multiple functions.\n\n``` r\nx %>% \n  summarise_at(\n    vars(number_1, number_2),\n
+  \   list(mean = mean, median = median),\n    na.rm = TRUE\n  )\n```\n\n    ## #
+  A tibble: 1 x 4\n    ##   number_1_mean number_2_mean number_1_median number_2_median\n
+  \   ##           <dbl>         <dbl>           <dbl>           <dbl>\n    ## 1          17.7
   \         22.5               1            22.5\n\nThe name given to the function
   in the list, will be appended to each variable (e.g. `var_name`).\n\n### Scoped
   `select()` and `rename()`\n\nThe scoped variants of `select()` and `rename()` work

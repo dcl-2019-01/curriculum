@@ -213,7 +213,11 @@ You can use `list()` to supply the scoped variants of `mutate()`, `summarize()`,
 
 ``` r
 x %>% 
-  summarise_at(vars(number_1, number_2), list(mean = mean, median = median), na.rm = TRUE)
+  summarise_at(
+    vars(number_1, number_2),
+    list(mean = mean, median = median),
+    na.rm = TRUE
+  )
 ```
 
     ## # A tibble: 1 x 4
