@@ -27,3 +27,10 @@ id,title,depth,href
 3.3.2,Go for quantity,3,https://bookdown.org/content/2138/general-strategy.html#go-for-quantity
 3.3.3,Look at your plots,3,https://bookdown.org/content/2138/general-strategy.html#look-at-your-plots
 3.3.4,Iterate,3,https://bookdown.org/content/2138/general-strategy.html#iterate
+4,Distributions,1,https://bookdown.org/content/2138/distributions.html
+4.1,Introduction,2,https://bookdown.org/content/2138/distributions.html#introduction-1
+4.2,Mechanics,2,https://bookdown.org/content/2138/distributions.html#mechanics
+4.2.1,Layering,3,https://bookdown.org/content/2138/distributions.html#layering
+4.2.2,theme(),3,https://bookdown.org/content/2138/distributions.html#theme
+4.3,One distribution,2,https://bookdown.org/content/2138/distributions.html#one-distribution
+4.4,Multiple distributions,2,https://bookdown.org/content/2138/distributions.html#multiple-distributions

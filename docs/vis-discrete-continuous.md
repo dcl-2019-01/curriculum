@@ -6,7 +6,7 @@ title: Discrete-continuous relationships
 
 # Discrete-continuous relationships <small class='visualize'>[visualize]</small>
 <small>(Builds on: [Visualization basics](vis-basics.md))</small>  
-<small>(Leads to: [General strategy](vis-strategy.md))</small>
+<small>(Leads to: [Distributions](vis-distributions.md), [General strategy](vis-strategy.md))</small>
 
 Now that you know the basics of ggplot2, you can begin diving into specific 
 visualization situations. In this reading, you'll learn about visualizing 

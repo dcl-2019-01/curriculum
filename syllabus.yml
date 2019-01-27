@@ -32,7 +32,7 @@ weeks:
   - purrr-basics
   - eda-2d
   - string-basics
-#  - vis-distributions
+  - vis-distributions
   - manip-scoped
 
   week-05:
