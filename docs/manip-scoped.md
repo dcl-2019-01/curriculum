@@ -213,15 +213,15 @@ You can use `list()` to supply the scoped variants of `mutate()`, `summarize()`,
 
 ``` r
 x %>% 
-  summarise_at(vars(number_1, number_2), list(mean, median), na.rm = TRUE)
+  summarise_at(vars(number_1, number_2), list(mean = mean, median = median), na.rm = TRUE)
 ```
 
-    ## # A tibble: 1 x 2
-    ##   `number_1_<fn>` `number_2_<fn>`
-    ##             <dbl>           <dbl>
-    ## 1               1            22.5
+    ## # A tibble: 1 x 4
+    ##   number_1_mean number_2_mean number_1_median number_2_median
+    ##           <dbl>         <dbl>           <dbl>           <dbl>
+    ## 1          17.7          22.5               1            22.5
 
-The scoped verb will create identifying column names.
+The name given to the function in the list, will be appended to each variable (e.g. `var_name`).
 
 ### Scoped `select()` and `rename()`
 
