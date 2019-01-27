@@ -1,0 +1,14 @@
+title: Distributions
+theme: visualize
+
+desc: |
+  Understanding how variables are distributed is one of the first steps in EDA. 
+  In this chapter, you'll learn some common strategies for visualizing 
+  distributions, including the basics of histograms, frequency polygons, and 
+  boxplots. 
+
+needs: [vis-basics, vis-discrete-continuous]
+
+readings:
+- book: vis-wisdom-4
+
