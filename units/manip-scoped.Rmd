@@ -150,12 +150,12 @@ You can use `list()` to supply the scoped variants of `mutate()`, `summarize()`,
 x %>% 
   summarise_at(
     vars(number_1, number_2),
-    list(mean = mean, median = median),
+    list(median = median, distinct = n_distinct),
     na.rm = TRUE
   )
 ```
 
-The name given to the function in the list, will be appended to each variable (e.g. `var_name`).
+You have to supply a named list for this functionality to work. In this example, the names are "median" and "distinct." The scoped verb appends the name given to each function in the list to the end of each variable name. 
 
 ### Scoped `select()` and `rename()` 
 
