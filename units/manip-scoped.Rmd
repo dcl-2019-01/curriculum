@@ -103,7 +103,7 @@ For example, the following code tells us which variables have more than two dist
 
 ```{r}
 x %>% 
-  summarise_all(~ n_distinct(.) > 2)
+  summarize_all(~ n_distinct(.) > 2)
 ```
 
 The `.` is a placeholder. It refers to each column specified in the scoped verb in turn. In this case, it refers to `number_1`, then `number_2`, then `letter`.
@@ -148,14 +148,14 @@ You can use `list()` to supply the scoped variants of `mutate()`, `summarize()`,
 
 ```{r}
 x %>% 
-  summarise_at(
+  summarize_at(
     vars(number_1, number_2),
-    list(mean = mean, median = median),
+    list(median = median, distinct = n_distinct),
     na.rm = TRUE
   )
 ```
 
-The name given to the function in the list, will be appended to each variable (e.g. `var_name`).
+Your list of functions must be _named_ for this functionality to work. In this example, we gave `median()` the name "median" and `n_distinct()` the name "distinct." `summarize_at()` then names the new variables by appending these names ("median" and "distinct") to the end of the existing variable names. 
 
 ### Scoped `select()` and `rename()` 
 
