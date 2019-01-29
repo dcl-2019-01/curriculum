@@ -15,6 +15,8 @@ Scoped verbs are powerful. They allow you to quickly carry out complex wrangling
 
 Each dplyr verb comes in three scoped variants. The name of each variant consists of the dplyr verb plus one of three suffixes: `_at`, `_all`, or `_if`. In this reading, you'll learn about the `_all` and `_at` scoped verbs. 
 
+We've also created a [scoped verbs cheat sheet](https://github.com/dcl-docs/cheat-sheets/blob/master/scoped_verbs.md) to help you organize all the information involved in scoped verbs. 
+
 ### _all and _at scoped verbs
 
 `x` is a simple tibble. 
