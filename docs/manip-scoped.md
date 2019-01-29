@@ -144,7 +144,7 @@ For example, the following code tells us which variables have more than two dist
 
 ``` r
 x %>% 
-  summarise_all(~ n_distinct(.) > 2)
+  summarize_all(~ n_distinct(.) > 2)
 ```
 
     ## # A tibble: 1 x 3
@@ -213,19 +213,19 @@ You can use `list()` to supply the scoped variants of `mutate()`, `summarize()`,
 
 ``` r
 x %>% 
-  summarise_at(
+  summarize_at(
     vars(number_1, number_2),
-    list(mean = mean, median = median),
+    list(median = median, distinct = n_distinct),
     na.rm = TRUE
   )
 ```
 
     ## # A tibble: 1 x 4
-    ##   number_1_mean number_2_mean number_1_median number_2_median
-    ##           <dbl>         <dbl>           <dbl>           <dbl>
-    ## 1          17.7          22.5               1            22.5
+    ##   number_1_median number_2_median number_1_distinct number_2_distinct
+    ##             <dbl>           <dbl>             <int>             <int>
+    ## 1               1            22.5                 2                 2
 
-The name given to the function in the list, will be appended to each variable (e.g. `var_name`).
+Your list of functions must be *named* for this functionality to work. In this example, we gave `median()` the name "median" and `n_distinct()` the name "distinct." `summarize_at()` then names the new variables by appending these names ("median" and "distinct") to the end of the existing variable names.
 
 ### Scoped `select()` and `rename()`
 

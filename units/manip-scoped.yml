@@ -53,7 +53,7 @@ desc: "\nYou'll often want to operate on multiple columns at the same time. Luck
   and `lag()` are both named functions. However, scoped verbs can also take anonymous
   functions.\n\nIn a scoped verb, you start an anonymous function with `~`, and use
   `.` to refer to the function's argument.\n\nFor example, the following code tells
-  us which variables have more than two distinct values.\n\n``` r\nx %>% \n  summarise_all(~
+  us which variables have more than two distinct values.\n\n``` r\nx %>% \n  summarize_all(~
   n_distinct(.) > 2)\n```\n\n    ## # A tibble: 1 x 3\n    ##   number_1 number_2
   letter\n    ##   <lgl>    <lgl>    <lgl> \n    ## 1 FALSE    TRUE     FALSE\n\nThe
   `.` is a placeholder. It refers to each column specified in the scoped verb in turn.
@@ -80,16 +80,19 @@ desc: "\nYou'll often want to operate on multiple columns at the same time. Luck
   \  <chr>    <chr>    <chr> \n    ## 1 1w       3w       w     \n    ## 2 1x       42x
   \     x     \n    ## 3 51w      <NA>     w\n\n### Multiple functions\n\nYou can
   use `list()` to supply the scoped variants of `mutate()`, `summarize()`, and `transmute()`
-  with multiple functions.\n\n``` r\nx %>% \n  summarise_at(\n    vars(number_1, number_2),\n
-  \   list(mean = mean, median = median),\n    na.rm = TRUE\n  )\n```\n\n    ## #
-  A tibble: 1 x 4\n    ##   number_1_mean number_2_mean number_1_median number_2_median\n
-  \   ##           <dbl>         <dbl>           <dbl>           <dbl>\n    ## 1          17.7
-  \         22.5               1            22.5\n\nThe name given to the function
-  in the list, will be appended to each variable (e.g. `var_name`).\n\n### Scoped
-  `select()` and `rename()`\n\nThe scoped variants of `select()` and `rename()` work
-  very similarly to those of `mutate()`, `transmute()`, and `summarize()`. However,
-  they apply the specified function(s) to *column names*, instead of to column values.\n\nThe
-  following code changes all column names to lowercase.\n\n``` r\ncapitals <-\n  tribble(\n
+  with multiple functions.\n\n``` r\nx %>% \n  summarize_at(\n    vars(number_1, number_2),\n
+  \   list(median = median, distinct = n_distinct),\n    na.rm = TRUE\n  )\n```\n\n
+  \   ## # A tibble: 1 x 4\n    ##   number_1_median number_2_median number_1_distinct
+  number_2_distinct\n    ##             <dbl>           <dbl>             <int>             <int>\n
+  \   ## 1               1            22.5                 2                 2\n\nYour
+  list of functions must be *named* for this functionality to work. In this example,
+  we gave `median()` the name \"median\" and `n_distinct()` the name \"distinct.\"
+  `summarize_at()` then names the new variables by appending these names (\"median\"
+  and \"distinct\") to the end of the existing variable names.\n\n### Scoped `select()`
+  and `rename()`\n\nThe scoped variants of `select()` and `rename()` work very similarly
+  to those of `mutate()`, `transmute()`, and `summarize()`. However, they apply the
+  specified function(s) to *column names*, instead of to column values.\n\nThe following
+  code changes all column names to lowercase.\n\n``` r\ncapitals <-\n  tribble(\n
   \   ~Country, ~Capital,\n    \"Namibia\", \"Windhoek\",\n    \"Georgia\", \"Tbilisi\"\n
   \ )\n\ncapitals %>% \n  rename_all(str_to_lower)\n```\n\n    ## # A tibble: 2 x
   2\n    ##   country capital \n    ##   <chr>   <chr>   \n    ## 1 Namibia Windhoek\n
