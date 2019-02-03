@@ -1,4 +1,4 @@
-cur-week: 4
+cur-week: 5
 
 weeks:
   week-01:
@@ -36,19 +36,20 @@ weeks:
   - manip-scoped
 
   week-05:
-  - missing-values
   - datetime-basics
   - factor-basics
-  - vis-scales-2
-  - lists
+  - function-vector
+  - purrr-mutate
   - model-basics
+#  - vis-continuous
+  - missing-values
 
   week-06:
   - function-predicate
   - manip-scoped-2
   - regexps
   - spatial-basics
-  - function-vector
+
   - vis-themes
   - model-vis
   - parse-details
@@ -56,7 +57,7 @@ weeks:
   week-07:
   - timespans
   - vis-annotation
-  - purrr-mutate
+
   - workflow-rmarkdown
   - model-multivariate
 
@@ -86,6 +87,8 @@ weeks:
 # - vector-summary-functions
 # - report-generation
 # - reprexes # included in getting-help
+# - vis-scales-2
+# - lists
 # Next
 # - analysis-workflow
 # - times
