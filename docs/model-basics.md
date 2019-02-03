@@ -8,7 +8,7 @@ title: Model basics
 <small>(Builds on: [Setup](setup.md))</small>  
 <small>(Leads to: [Many models](model-many.md), [Fitting and visualizing models](model-vis.md))</small>
 
-This course approaches modelling a little differently to most statistics
+This course approaches modeling a little differently to most statistics
 courses. We're not going to rigorously covering the mathematical foundation
 of models. Instead, you'll get some intution about what a model does,
 and then learn some computation tools for exploring fitted models.

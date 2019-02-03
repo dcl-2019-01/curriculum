@@ -19,4 +19,6 @@ order is rarely the best order.
 
   * [Modifying factor order](http://r4ds.had.co.nz/factors.html#modifying-factor-order) [r4ds-15.4]
 
+  * [Modifying factor levels](http://r4ds.had.co.nz/factors.html#modifying-factor-levels) [r4ds-15.5]
+
 
