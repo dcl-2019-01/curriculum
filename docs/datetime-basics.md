@@ -10,7 +10,7 @@ title: Date/time basics
 
 Date/time data includes dates, date-times, and times, but we'll mostly
 focus on dates and date-times. This unit gives you the basic tools you'll
-need to filter and summarise temporal data.
+need to filter and summarize temporal data.
 
 ## Readings
 

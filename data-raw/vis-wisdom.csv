@@ -34,3 +34,15 @@ id,title,depth,href
 4.2.2,theme(),3,https://bookdown.org/content/2138/distributions.html#theme
 4.3,One distribution,2,https://bookdown.org/content/2138/distributions.html#one-distribution
 4.4,Multiple distributions,2,https://bookdown.org/content/2138/distributions.html#multiple-distributions
+5,Continuous-continuous relationships,1,https://bookdown.org/content/2138/continuous-continuous.html
+5.1,Introduction,2,https://bookdown.org/content/2138/continuous-continuous.html#introduction-2
+5.2,Mechanics,2,https://bookdown.org/content/2138/continuous-continuous.html#mechanics-1
+5.2.1,Annotations,3,https://bookdown.org/content/2138/continuous-continuous.html#annotations
+5.2.2,Log scales,3,https://bookdown.org/content/2138/continuous-continuous.html#log-scales
+5.2.3,Continuous color scales,3,https://bookdown.org/content/2138/continuous-continuous.html#continuous-color-scales
+5.2.4,Size scales,3,https://bookdown.org/content/2138/continuous-continuous.html#size-scales
+5.3,Two continuous variables,2,https://bookdown.org/content/2138/continuous-continuous.html#two-continuous-variables
+5.3.1,Overplotting,3,https://bookdown.org/content/2138/continuous-continuous.html#overplotting
+5.3.2,Smoothing,3,https://bookdown.org/content/2138/continuous-continuous.html#smoothing
+5.3.3,Paired data,3,https://bookdown.org/content/2138/continuous-continuous.html#paired-data
+5.4,Three continuous variables,2,https://bookdown.org/content/2138/continuous-continuous.html#three-continuous-variables

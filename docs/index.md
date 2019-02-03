@@ -228,6 +228,12 @@ title: Theme index
 </tr>
 <tr>
 <td></td>
+  <td colspan="2"></td>
+  <td colspan="6"><a class="visualize" href="vis-continuous-continuous.html">Continuous-continuous relationships</a></td>
+  <td colspan="4"></td>
+</tr>
+<tr>
+<td></td>
   <td colspan="1"></td>
   <td colspan="6"><a class="wrangle" href="missing-values.html">Missing values</a></td>
   <td colspan="5"></td>

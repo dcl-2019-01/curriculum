@@ -32,7 +32,7 @@ x * y
 
 In contrast, functions that can only take a length one input and produce a length one output are called **scalar functions**.
 
-As you'll see in the next section, the distinction between scalar and vector functions is important when working with data frames.
+As you'll see in the next section, the distinction between scalar and vector functions is important when working with tibbles.
 
 Temperature recommendations
 ---------------------------
@@ -94,6 +94,7 @@ Vector functions and `mutate()`
 
 ``` r
 set.seed(523)
+
 df <- tibble(
   temperature = sample(x = -15:110, size = 10, replace = TRUE)
 )
@@ -108,7 +109,7 @@ df %>%
 #> 3          80          3
 #> 4          93          4
 #> 5          48          5
-#> # ... with 5 more rows
+#> # … with 5 more rows
 ```
 
 You can also give `mutate()` a single value:
@@ -124,7 +125,7 @@ df %>%
 #> 3          80         1
 #> 4          93         1
 #> 5          48         1
-#> # ... with 5 more rows
+#> # … with 5 more rows
 ```
 
 and it will repeat that value for each row in the tibble. However, if you try to give `mutate()` a vector with a length other than 1 or `nrow(df)`, you'll get an error:
@@ -152,7 +153,7 @@ df %>%
 #> 3          80               26.7 
 #> 4          93               33.9 
 #> 5          48                8.89
-#> # ... with 5 more rows
+#> # … with 5 more rows
 ```
 
 When you pass `temperature` to `fahrenheit_to_celcius()`, you pass the entire `temperature` column, which, as you learned earlier, is a vector. Because mathematical operations are vectorized, `fahrenheit_to_celcius()` returns a vector of the same length and `mutate()` successfully creates a new column.
@@ -178,7 +179,7 @@ df %>%
 #> 3          80 wear multiple jackets
 #> 4          93 wear multiple jackets
 #> 5          48 wear multiple jackets
-#> # ... with 5 more rows
+#> # … with 5 more rows
 ```
 
 `mutate()` passes the entire `temperature` vector to `recommendation_1()`, which can't handle a vector and so only processes the first element of `temperature`. However, because of how `mutate()` behaves when given a single value, the recommendation for the first temperature is copied for every single row, which isn't very helpful.
@@ -224,8 +225,8 @@ df %>%
 #> 3          80 go outside             
 #> 4          93 locate air conditioning
 #> 5          48 wear a jacket          
-#> # ... with 5 more rows
+#> # … with 5 more rows
 ```
 
-For other helpful vector functions, take a look at the "Vector Functions" section of the [dplyr cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf).
+For other helpful vector functions, take a look at the "Vector Functions" section of the [dplyr cheat sheet](https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf).
 

@@ -23,7 +23,7 @@ Using `map` functions inside `mutate()`
 Here's a simple scalar function that turns feelings into emoticons:
 
 ``` r
-emoticons <- function(x) {
+emoticons_1 <- function(x) {
   if (x == "happy") {
     ":)"
   } else if (x == "sad") {
@@ -38,7 +38,7 @@ Recall that scalar functions fail if you try to give them vectors of values:
 
 ``` r
 feelings <- c("happy", "befuddled")
-emoticons(feelings)
+emoticons_1(feelings)
 #> Warning in if (x == "happy") {: the condition has length > 1 and only the
 #> first element will be used
 #> [1] ":)"
@@ -47,7 +47,7 @@ emoticons(feelings)
 As you already know, we can turn `emoticons()` into a vector function by rewriting it using `if_else()`, `case_when()`, or `recode()`. Another option, however, is to leave `emoticons()` as a scalar function and apply it to the elements of `feelings` one-by-one using a `map` function:
 
 ``` r
-map_chr(feelings, emoticons)
+map_chr(feelings, emoticons_1)
 #> [1] ":)"                                "Feeling too complex for emoticons"
 ```
 
@@ -62,7 +62,7 @@ df <-
   ) 
 
 df %>% 
-  mutate(emoticon = map_chr(feeling, emoticons))
+  mutate(emoticon = map_chr(feeling, emoticons_1))
 #> # A tibble: 3 x 2
 #>   feeling      emoticon                         
 #>   <chr>        <chr>                            
@@ -77,7 +77,7 @@ This pattern will work with any scalar function, but remember to think about whi
 
 ``` r
 df %>% 
-  mutate(emoticon = map_int(feeling, emoticons))
+  mutate(emoticon = map_int(feeling, emoticons_1))
 #> Error in mutate_impl(.data, dots): Evaluation error: Can't coerce element 1 from a character to a integer.
 ```
 

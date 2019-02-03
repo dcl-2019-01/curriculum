@@ -23,7 +23,7 @@ In this reading, you'll learn about a fourth option: supplying `mutate()` with a
 Here's a simple scalar function that turns feelings into emoticons:
 
 ```{r}
-emoticons <- function(x) {
+emoticons_1 <- function(x) {
   if (x == "happy") {
     ":)"
   } else if (x == "sad") {
@@ -38,13 +38,13 @@ Recall that scalar functions fail if you try to give them vectors of values:
 
 ```{r}
 feelings <- c("happy", "befuddled")
-emoticons(feelings)
+emoticons_1(feelings)
 ```
 
 As you already know, we can turn `emoticons()` into a vector function by rewriting it using `if_else()`, `case_when()`, or `recode()`. Another option, however, is to leave `emoticons()` as a scalar function and apply it to the elements of `feelings` one-by-one using a `map` function:
 
 ```{r}
-map_chr(feelings, emoticons)
+map_chr(feelings, emoticons_1)
 ```
 
 Here, we place each feeling in `feelings` on the conveyor belt. The worker picks each feeling up, finds the appropriate emoticon, and then places the emoticon on the output belt. 
@@ -58,7 +58,7 @@ df <-
   ) 
 
 df %>% 
-  mutate(emoticon = map_chr(feeling, emoticons))
+  mutate(emoticon = map_chr(feeling, emoticons_1))
 ```
 
 Remember that when you reference an existing column inside `mutate()`, you reference the entire vector of values. Therefore, the call to `map_chr()` works inside `mutate()` just as it does outside, applying `emoticons()` to each element of the `feeling` column and producing a vector with an emoticon for each feeling in the tibble.
@@ -67,7 +67,7 @@ This pattern will work with any scalar function, but remember to think about whi
 
 ```{r, error=TRUE}
 df %>% 
-  mutate(emoticon = map_int(feeling, emoticons))
+  mutate(emoticon = map_int(feeling, emoticons_1))
 ```
 
 ## Additional arguments and anonymous values

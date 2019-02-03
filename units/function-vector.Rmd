@@ -30,7 +30,7 @@ x * y
 
 In contrast, functions that can only take a length one input and produce a length one output are called **scalar functions**. 
 
-As you'll see in the next section, the distinction between scalar and vector functions is important when working with data frames.
+As you'll see in the next section, the distinction between scalar and vector functions is important when working with tibbles.
 
 ## Temperature recommendations
 
@@ -78,6 +78,7 @@ recommendation_1(temps)
 
 ```{r}
 set.seed(523)
+
 df <- tibble(
   temperature = sample(x = -15:110, size = 10, replace = TRUE)
 )
@@ -153,4 +154,4 @@ df %>%
   mutate(recommendation = recommendation_2(temperature))
 ```
 
-For other helpful vector functions, take a look at the "Vector Functions" section of the [dplyr cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf).
+For other helpful vector functions, take a look at the "Vector Functions" section of the [dplyr cheat sheet](https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf).

@@ -13,24 +13,24 @@ desc: "\nIn the vector functions unit, you learned to add new variables to tibbl
   a vector using a vector function like `+` or `case_when()`.\n\nIn this reading,
   you'll learn about a fourth option: supplying `mutate()` with a vector created by
   a `map` function.\n\nUsing `map` functions inside `mutate()`\n---------------------------------------\n\nHere's
-  a simple scalar function that turns feelings into emoticons:\n\n``` r\nemoticons
+  a simple scalar function that turns feelings into emoticons:\n\n``` r\nemoticons_1
   <- function(x) {\n  if (x == \"happy\") {\n    \":)\"\n  } else if (x == \"sad\")
   {\n    \":(\"\n  } else {\n    \"Feeling too complex for emoticons\"\n  }\n}\n```\n\nRecall
   that scalar functions fail if you try to give them vectors of values:\n\n``` r\nfeelings
-  <- c(\"happy\", \"befuddled\")\nemoticons(feelings)\n#> Warning in if (x == \"happy\")
+  <- c(\"happy\", \"befuddled\")\nemoticons_1(feelings)\n#> Warning in if (x == \"happy\")
   {: the condition has length > 1 and only the\n#> first element will be used\n#>
   [1] \":)\"\n```\n\nAs you already know, we can turn `emoticons()` into a vector
   function by rewriting it using `if_else()`, `case_when()`, or `recode()`. Another
   option, however, is to leave `emoticons()` as a scalar function and apply it to
   the elements of `feelings` one-by-one using a `map` function:\n\n``` r\nmap_chr(feelings,
-  emoticons)\n#> [1] \":)\"                                \"Feeling too complex for
-  emoticons\"\n```\n\nHere, we place each feeling in `feelings` on the conveyor belt.
-  The worker picks each feeling up, finds the appropriate emoticon, and then places
-  the emoticon on the output belt.\n\nIf we want to use `emoticons()` to add a variable
-  to a tibble, we can place this `map` call inside `mutate()`:\n\n``` r\ndf <- \n
-  \ tibble(\n    feeling = c(\"sad\", \"compunctious\", \"happy\")\n  ) \n\ndf %>%
-  \n  mutate(emoticon = map_chr(feeling, emoticons))\n#> # A tibble: 3 x 2\n#>   feeling
-  \     emoticon                         \n#>   <chr>        <chr>                            \n#>
+  emoticons_1)\n#> [1] \":)\"                                \"Feeling too complex
+  for emoticons\"\n```\n\nHere, we place each feeling in `feelings` on the conveyor
+  belt. The worker picks each feeling up, finds the appropriate emoticon, and then
+  places the emoticon on the output belt.\n\nIf we want to use `emoticons()` to add
+  a variable to a tibble, we can place this `map` call inside `mutate()`:\n\n``` r\ndf
+  <- \n  tibble(\n    feeling = c(\"sad\", \"compunctious\", \"happy\")\n  ) \n\ndf
+  %>% \n  mutate(emoticon = map_chr(feeling, emoticons_1))\n#> # A tibble: 3 x 2\n#>
+  \  feeling      emoticon                         \n#>   <chr>        <chr>                            \n#>
   1 sad          :(                               \n#> 2 compunctious Feeling too
   complex for emoticons\n#> 3 happy        :)\n```\n\nRemember that when you reference
   an existing column inside `mutate()`, you reference the entire vector of values.
@@ -39,7 +39,7 @@ desc: "\nIn the vector functions unit, you learned to add new variables to tibbl
   with an emoticon for each feeling in the tibble.\n\nThis pattern will work with
   any scalar function, but remember to think about which `map` suffix to use. If the
   output type of the scalar function doesn't match the `map` suffix, you'll get an
-  error about coercion:\n\n``` r\ndf %>% \n  mutate(emoticon = map_int(feeling, emoticons))\n#>
+  error about coercion:\n\n``` r\ndf %>% \n  mutate(emoticon = map_int(feeling, emoticons_1))\n#>
   Error in mutate_impl(.data, dots): Evaluation error: Can't coerce element 1 from
   a character to a integer.\n```\n\nAdditional arguments and anonymous values\n-----------------------------------------\n\nYou
   can use the `map` functions inside `mutate()` as you would outside `mutate()`, and

@@ -41,7 +41,7 @@ weeks:
   - function-vector
   - purrr-mutate
   - model-basics
-#  - vis-continuous
+  - vis-continuous-continuous
   - missing-values
 
   week-06:
@@ -49,7 +49,6 @@ weeks:
   - manip-scoped-2
   - regexps
   - spatial-basics
-
   - vis-themes
   - model-vis
   - parse-details
@@ -57,7 +56,6 @@ weeks:
   week-07:
   - timespans
   - vis-annotation
-
   - workflow-rmarkdown
   - model-multivariate
 

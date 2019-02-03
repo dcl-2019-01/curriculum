@@ -8,7 +8,7 @@ title: Factor basics
 <small>(Builds on: [String basics](string-basics.md))</small>
 
 Factors are similar to strings, but they can be put in any order. This
-makes them particularly useful for visualisation because alphabetical
+makes them particularly useful for visualization because alphabetical
 order is rarely the best order.
 
 ## Readings
