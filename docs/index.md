@@ -198,21 +198,15 @@ title: Theme index
 <tbody>
 <tr>
 <td id='week-5'>5</td>
-  <td colspan="1"></td>
-  <td colspan="6"><a class="wrangle" href="datetime-basics.html">Date/time basics</a></td>
-  <td colspan="5"></td>
-</tr>
-<tr>
-<td></td>
-  <td colspan="1"></td>
-  <td colspan="6"><a class="wrangle" href="factor-basics.html">Factor basics</a></td>
-  <td colspan="5"></td>
-</tr>
-<tr>
-<td></td>
   <td colspan="4"></td>
   <td colspan="6"><a class="program" href="function-vector.html">Vector functions</a></td>
   <td colspan="2"></td>
+</tr>
+<tr>
+<td></td>
+  <td colspan="1"></td>
+  <td colspan="6"><a class="wrangle" href="datetime-basics.html">Date/time basics</a></td>
+  <td colspan="5"></td>
 </tr>
 <tr>
 <td></td>
@@ -237,6 +231,38 @@ title: Theme index
   <td colspan="1"></td>
   <td colspan="6"><a class="wrangle" href="missing-values.html">Missing values</a></td>
   <td colspan="5"></td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td id='week-6'>6</td>
+  <td colspan="1"></td>
+  <td colspan="6"><a class="wrangle" href="regexps.html">Regular expressions</a></td>
+  <td colspan="5"></td>
+</tr>
+<tr>
+<td></td>
+  <td colspan="1"></td>
+  <td colspan="6"><a class="wrangle" href="spatial-basics.html">Spatial basics</a></td>
+  <td colspan="5"></td>
+</tr>
+<tr>
+<td></td>
+  <td colspan="1"></td>
+  <td colspan="6"><a class="wrangle" href="factor-basics.html">Factor basics</a></td>
+  <td colspan="5"></td>
+</tr>
+<tr>
+<td></td>
+  <td colspan="4"></td>
+  <td colspan="6"><a class="program" href="list-cols.html">List-columns</a></td>
+  <td colspan="2"></td>
+</tr>
+<tr>
+<td></td>
+  <td colspan="3"></td>
+  <td colspan="6"><a class="model" href="model-vis.html">Fitting and visualizing models</a></td>
+  <td colspan="3"></td>
 </tr>
 </tbody>
 </table>
