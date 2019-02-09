@@ -33,28 +33,27 @@ desc: "\nSpatial packages\n----------------\n\nIn R, there are two main lineages
   Simple feature collection with 6 features and 14 fields\n#> geometry type:  MULTIPOLYGON\n#>
   dimension:      XY\n#> bbox:           xmin: -81.74107 ymin: 36.07282 xmax: -75.77316
   ymax: 36.58965\n#> epsg (SRID):    4267\n#> proj4string:    +proj=longlat +datum=NAD27
-  +no_defs\n#> # A tibble: 6 x 15\n#>     AREA PERIMETER CNTY_ CNTY_ID NAME    FIPS
-  \ FIPSNO CRESS_ID BIR74 SID74\n#>    <dbl>     <dbl> <dbl>   <dbl> <chr>   <chr>
-  \ <dbl>    <int> <dbl> <dbl>\n#> 1 0.114       1.44  1825    1825 Ashe    37009
-  \ 37009        5  1091  1.00\n#> 2 0.0610      1.23  1827    1827 Allegh… 37005
-  \ 37005        3   487  0   \n#> 3 0.143       1.63  1828    1828 Surry   37171
-  \ 37171       86  3188  5.00\n#> 4 0.0700      2.97  1831    1831 Currit… 37053
-  \ 37053       27   508  1.00\n#> 5 0.153       2.21  1832    1832 Northa… 37131
-  \ 37131       66  1421  9.00\n#> 6 0.0970      1.67  1833    1833 Hertfo… 37091
-  \ 37091       46  1452  7.00\n#> # ... with 5 more variables: NWBIR74 <dbl>, BIR79
-  <dbl>, SID79 <dbl>,\n#> #   NWBIR79 <dbl>, geometry <sf_geometry [degree]>\nhead(nz_sf)\n#>
-  Simple feature collection with 6 features and 1 field\n#> geometry type:  POLYGON\n#>
-  dimension:      XY\n#> bbox:           xmin: 166.458 ymin: -46.91705 xmax: 175.552
-  ymax: -36.09273\n#> epsg (SRID):    4326\n#> proj4string:    +proj=longlat +datum=WGS84
-  +no_defs\n#>                      ID                       geometry\n#> 1        Anchor.Island
-  \ POLYGON ((166.458 -45.93695...\n#> 2       Arapawa.Island  POLYGON ((174.2599
-  -41.2092...\n#> 3          Coal.Island  POLYGON ((166.58 -46.31315,...\n#> 4       Codfish.Island
-  \ POLYGON ((167.5798 -46.8738...\n#> 5     D'Urville.Island  POLYGON ((173.9064
-  -40.8492...\n#> 6 Great.Barrier.Island  POLYGON ((175.5359 -36.3915...\n```\n\nThis
+  +no_defs\n#> # A tibble: 6 x 15\n#>    AREA PERIMETER CNTY_ CNTY_ID NAME  FIPS  FIPSNO
+  CRESS_ID BIR74 SID74\n#>   <dbl>     <dbl> <dbl>   <dbl> <chr> <chr>  <dbl>    <int>
+  <dbl> <dbl>\n#> 1 0.114      1.44  1825    1825 Ashe  37009  37009        5  1091
+  \    1\n#> 2 0.061      1.23  1827    1827 Alle… 37005  37005        3   487     0\n#>
+  3 0.143      1.63  1828    1828 Surry 37171  37171       86  3188     5\n#> 4 0.07
+  \      2.97  1831    1831 Curr… 37053  37053       27   508     1\n#> 5 0.153      2.21
+  \ 1832    1832 Nort… 37131  37131       66  1421     9\n#> 6 0.097      1.67  1833
+  \   1833 Hert… 37091  37091       46  1452     7\n#> # … with 5 more variables:
+  NWBIR74 <dbl>, BIR79 <dbl>, SID79 <dbl>,\n#> #   NWBIR79 <dbl>, geometry <MULTIPOLYGON
+  [°]>\nhead(nz_sf)\n#> Simple feature collection with 6 features and 1 field\n#>
+  geometry type:  POLYGON\n#> dimension:      XY\n#> bbox:           xmin: 166.458
+  ymin: -46.91705 xmax: 175.552 ymax: -36.09273\n#> epsg (SRID):    4326\n#> proj4string:
+  \   +proj=longlat +datum=WGS84 +no_defs\n#>                         geometry                    ID\n#>
+  1 POLYGON ((166.458 -45.93695...        Anchor.Island \n#> 2 POLYGON ((174.2599
+  -41.2092...       Arapawa.Island \n#> 3 POLYGON ((166.58 -46.31315,...          Coal.Island
+  \n#> 4 POLYGON ((167.5798 -46.8738...       Codfish.Island \n#> 5 POLYGON ((173.9064
+  -40.8492...     D'Urville.Island \n#> 6 POLYGON ((175.5359 -36.3915... Great.Barrier.Island\n```\n\nThis
   is an ordinary data frame, with one exception: the **geometry** column. This column
-  contains **simple features**, a standard way of representing two dimesional geometries
+  contains **simple features**, a standard way of representing two dimensional geometries
   like points, lines, polygons, multilines, and multipolygons. Multilines and multipolygons
-  are nededed to represent geographic phenomena like a river with multiple branches,
+  are needed to represent geographic phenomena like a river with multiple branches,
   or a state made up of multiple islands.\n\n``` r\nnc$geometry\n#> Geometry set for
   100 features \n#> geometry type:  MULTIPOLYGON\n#> dimension:      XY\n#> bbox:
   \          xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965\n#> epsg
@@ -63,7 +62,7 @@ desc: "\nSpatial packages\n----------------\n\nIn R, there are two main lineages
   (((-81.23989 36.36536, -81.24069 3...\n#> MULTIPOLYGON (((-80.45634 36.24256, -80.47639
   3...\n#> MULTIPOLYGON (((-76.00897 36.3196, -76.01735 36...\n#> MULTIPOLYGON (((-77.21767
   36.24098, -77.23461 3...\n```\n\nUse `plot()` to show the geometry. You'll learn
-  how to use ggplot2 for more complex data visualisations in the next unit.\n\n```
+  how to use ggplot2 for more complex data visualizations in the next unit.\n\n```
   r\nplot(nc$geometry)\n```\n\n![](spatial-basics_files/figure-markdown_github/nc-plot-1.png)\n\nManipulating
   with dplyr\n-----------------------\n\nSince an sf object is just a data frame,
   you can manipulate it with dplyr. The following example gives you a taste:\n\n```

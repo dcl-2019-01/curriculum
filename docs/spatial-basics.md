@@ -77,16 +77,16 @@ head(nc)
 #> epsg (SRID):    4267
 #> proj4string:    +proj=longlat +datum=NAD27 +no_defs
 #> # A tibble: 6 x 15
-#>     AREA PERIMETER CNTY_ CNTY_ID NAME    FIPS  FIPSNO CRESS_ID BIR74 SID74
-#>    <dbl>     <dbl> <dbl>   <dbl> <chr>   <chr>  <dbl>    <int> <dbl> <dbl>
-#> 1 0.114       1.44  1825    1825 Ashe    37009  37009        5  1091  1.00
-#> 2 0.0610      1.23  1827    1827 Allegh… 37005  37005        3   487  0   
-#> 3 0.143       1.63  1828    1828 Surry   37171  37171       86  3188  5.00
-#> 4 0.0700      2.97  1831    1831 Currit… 37053  37053       27   508  1.00
-#> 5 0.153       2.21  1832    1832 Northa… 37131  37131       66  1421  9.00
-#> 6 0.0970      1.67  1833    1833 Hertfo… 37091  37091       46  1452  7.00
-#> # ... with 5 more variables: NWBIR74 <dbl>, BIR79 <dbl>, SID79 <dbl>,
-#> #   NWBIR79 <dbl>, geometry <sf_geometry [degree]>
+#>    AREA PERIMETER CNTY_ CNTY_ID NAME  FIPS  FIPSNO CRESS_ID BIR74 SID74
+#>   <dbl>     <dbl> <dbl>   <dbl> <chr> <chr>  <dbl>    <int> <dbl> <dbl>
+#> 1 0.114      1.44  1825    1825 Ashe  37009  37009        5  1091     1
+#> 2 0.061      1.23  1827    1827 Alle… 37005  37005        3   487     0
+#> 3 0.143      1.63  1828    1828 Surry 37171  37171       86  3188     5
+#> 4 0.07       2.97  1831    1831 Curr… 37053  37053       27   508     1
+#> 5 0.153      2.21  1832    1832 Nort… 37131  37131       66  1421     9
+#> 6 0.097      1.67  1833    1833 Hert… 37091  37091       46  1452     7
+#> # … with 5 more variables: NWBIR74 <dbl>, BIR79 <dbl>, SID79 <dbl>,
+#> #   NWBIR79 <dbl>, geometry <MULTIPOLYGON [°]>
 head(nz_sf)
 #> Simple feature collection with 6 features and 1 field
 #> geometry type:  POLYGON
@@ -94,16 +94,16 @@ head(nz_sf)
 #> bbox:           xmin: 166.458 ymin: -46.91705 xmax: 175.552 ymax: -36.09273
 #> epsg (SRID):    4326
 #> proj4string:    +proj=longlat +datum=WGS84 +no_defs
-#>                      ID                       geometry
-#> 1        Anchor.Island  POLYGON ((166.458 -45.93695...
-#> 2       Arapawa.Island  POLYGON ((174.2599 -41.2092...
-#> 3          Coal.Island  POLYGON ((166.58 -46.31315,...
-#> 4       Codfish.Island  POLYGON ((167.5798 -46.8738...
-#> 5     D'Urville.Island  POLYGON ((173.9064 -40.8492...
-#> 6 Great.Barrier.Island  POLYGON ((175.5359 -36.3915...
+#>                         geometry                    ID
+#> 1 POLYGON ((166.458 -45.93695...        Anchor.Island 
+#> 2 POLYGON ((174.2599 -41.2092...       Arapawa.Island 
+#> 3 POLYGON ((166.58 -46.31315,...          Coal.Island 
+#> 4 POLYGON ((167.5798 -46.8738...       Codfish.Island 
+#> 5 POLYGON ((173.9064 -40.8492...     D'Urville.Island 
+#> 6 POLYGON ((175.5359 -36.3915... Great.Barrier.Island
 ```
 
-This is an ordinary data frame, with one exception: the **geometry** column. This column contains **simple features**, a standard way of representing two dimesional geometries like points, lines, polygons, multilines, and multipolygons. Multilines and multipolygons are nededed to represent geographic phenomena like a river with multiple branches, or a state made up of multiple islands.
+This is an ordinary data frame, with one exception: the **geometry** column. This column contains **simple features**, a standard way of representing two dimensional geometries like points, lines, polygons, multilines, and multipolygons. Multilines and multipolygons are needed to represent geographic phenomena like a river with multiple branches, or a state made up of multiple islands.
 
 ``` r
 nc$geometry
@@ -121,7 +121,7 @@ nc$geometry
 #> MULTIPOLYGON (((-77.21767 36.24098, -77.23461 3...
 ```
 
-Use `plot()` to show the geometry. You'll learn how to use ggplot2 for more complex data visualisations in the next unit.
+Use `plot()` to show the geometry. You'll learn how to use ggplot2 for more complex data visualizations in the next unit.
 
 ``` r
 plot(nc$geometry)

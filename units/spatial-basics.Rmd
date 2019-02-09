@@ -69,13 +69,13 @@ head(nc)
 head(nz_sf)
 ```
 
-This is an ordinary data frame, with one exception: the __geometry__ column. This column contains __simple features__, a standard way of representing two dimesional geometries like points, lines, polygons, multilines, and multipolygons. Multilines and multipolygons are nededed to represent geographic phenomena like a river with multiple branches, or a state made up of multiple islands.
+This is an ordinary data frame, with one exception: the __geometry__ column. This column contains __simple features__, a standard way of representing two dimensional geometries like points, lines, polygons, multilines, and multipolygons. Multilines and multipolygons are needed to represent geographic phenomena like a river with multiple branches, or a state made up of multiple islands.
 
 ```{r}
 nc$geometry
 ```
 
-Use `plot()` to show the geometry. You'll learn how to use ggplot2 for more complex data visualisations in the next unit.
+Use `plot()` to show the geometry. You'll learn how to use ggplot2 for more complex data visualizations in the next unit.
 
 ```{r nc-plot}
 plot(nc$geometry)

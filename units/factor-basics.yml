@@ -9,7 +9,4 @@ desc: |
 needs: [string-basics]
 
 readings:
-- book: r4ds-15.2
-- book: r4ds-15.3
-- book: r4ds-15.4
-- book: r4ds-15.5
+- book: r4ds-15
