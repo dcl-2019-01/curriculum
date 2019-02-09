@@ -18,4 +18,7 @@ new tools that allow you to bend strings to your will.
 
   * [Tools](http://r4ds.had.co.nz/strings.html#tools) [r4ds-14.4]
 
+  * [String manipulation with stringr cheat sheet](https://github.com/rstudio/cheatsheets/blob/master/strings.pdf).
+    The Regular Expressions section is a very helpful reference.
+
 
