@@ -1,0 +1,13 @@
+title: Time series
+theme: visualize
+
+desc: |
+  Many data sets include time as a variable, and you'll often be
+  curious how your data has changed across time. In this reading, you'll
+  learn about date scales and strategies for visualizing time series. 
+  
+needs: [vis-continuous-continuous]
+
+readings:
+- book: vis-wisdom-6
+
