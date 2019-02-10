@@ -1,7 +1,7 @@
 ---
 unit_title: "Spatial basics"
 theme: wrangle
-needs: [list-cols]
+needs: ~
 ---
 
 ```{r setup, include=FALSE}
@@ -19,12 +19,6 @@ In R, there are two main lineages of tools for dealing with spatial data: sp and
 * sf is newer (first released in October 2016!) so it doesn't have such a 
   rich ecosystem. However, it's much easier to use and fits in very naturally 
   with the tidyverse, and the ecosystem around it will grow rapidly.
-   
-In this class, we're going to use sf, so start by installing it:
-
-```{r, eval = FALSE}
-install.packages("sf")
-```
 
 ## Loading data
 

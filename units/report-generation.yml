@@ -11,7 +11,7 @@ desc: |
   powerful. It might stretch your brain a bit, and you might not understand
   exactly how it works, but it's useful pattern to know.
 
-needs: [list-cols, rmarkdown-basics]
+needs: ~
 
 readings:
 

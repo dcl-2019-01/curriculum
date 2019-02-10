@@ -1,7 +1,7 @@
 ---
 unit_title: Data rectangling
 theme: wrangle
-needs: [list-cols]
+needs: ~
 ---
 
 ```{r, include = FALSE}

@@ -46,3 +46,12 @@ id,title,depth,href
 5.3.2,Smoothing,3,https://bookdown.org/content/2138/continuous-continuous.html#smoothing
 5.3.3,Paired data,3,https://bookdown.org/content/2138/continuous-continuous.html#paired-data
 5.4,Three continuous variables,2,https://bookdown.org/content/2138/continuous-continuous.html#three-continuous-variables
+6,Time series,1,https://bookdown.org/content/2138/time-series.html
+6.1,Mechanics,2,https://bookdown.org/content/2138/time-series.html#mechanics-2
+6.1.1,Date/time scales,3,https://bookdown.org/content/2138/time-series.html#datetime-scales
+6.2,Trends,2,https://bookdown.org/content/2138/time-series.html#trends
+6.2.1,Distributions over time,3,https://bookdown.org/content/2138/time-series.html#distributions-over-time
+6.2.2,Two response variables,3,https://bookdown.org/content/2138/time-series.html#two-response-variables
+6.2.3,Multiple trend-types,3,https://bookdown.org/content/2138/time-series.html#multiple-trend-types
+6.3,Short-term fluctuations,2,https://bookdown.org/content/2138/time-series.html#short-term-fluctuations
+6.4,Individual values,2,https://bookdown.org/content/2138/time-series.html#individual-values

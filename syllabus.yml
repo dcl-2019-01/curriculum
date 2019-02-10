@@ -48,7 +48,7 @@ weeks:
   - spatial-basics
   - factor-basics
   - list-cols
-#  - vis-time-series
+  - vis-time-series
   - model-vis
 
   week-07:

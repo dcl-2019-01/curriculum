@@ -260,6 +260,12 @@ title: Theme index
 </tr>
 <tr>
 <td></td>
+  <td colspan="2"></td>
+  <td colspan="6"><a class="visualize" href="vis-time-series.html">Time series</a></td>
+  <td colspan="4"></td>
+</tr>
+<tr>
+<td></td>
   <td colspan="3"></td>
   <td colspan="6"><a class="model" href="model-vis.html">Fitting and visualizing models</a></td>
   <td colspan="3"></td>

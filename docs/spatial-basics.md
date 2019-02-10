@@ -5,7 +5,6 @@ title: Spatial basics
 <!-- Generated automatically from spatial-basics.yml. Do not edit by hand -->
 
 # Spatial basics <small class='wrangle'>[wrangle]</small>
-<small>(Builds on: [List-columns](list-cols.md))</small>  
 <small>(Leads to: [Spatial visualisation](spatial-vis.md))</small>
 
 
@@ -17,12 +16,6 @@ In R, there are two main lineages of tools for dealing with spatial data: sp and
 -   sp has been around for a while (the first release was in 2005), and it has a rich ecosystem of tools built on top of it. However, it uses a rather complex data structure, which can make it challenging to use.
 
 -   sf is newer (first released in October 2016!) so it doesn't have such a rich ecosystem. However, it's much easier to use and fits in very naturally with the tidyverse, and the ecosystem around it will grow rapidly.
-
-In this class, we're going to use sf, so start by installing it:
-
-``` r
-install.packages("sf")
-```
 
 Loading data
 ------------
@@ -167,7 +160,7 @@ str(nc$geometry[[1]])
 plot(nc$geometry[[1]])
 ```
 
-![](spatial-basics_files/figure-markdown_github/unnamed-chunk-7-1.png)
+![](spatial-basics_files/figure-markdown_github/unnamed-chunk-6-1.png)
 
 Note the use of `[[` to extract a single element, here, the first polygon.
 
@@ -186,7 +179,7 @@ This is list of lists of matrices:
     plot(interesting)
     ```
 
-    ![](spatial-basics_files/figure-markdown_github/unnamed-chunk-8-1.png)
+    ![](spatial-basics_files/figure-markdown_github/unnamed-chunk-7-1.png)
 
     ``` r
     str(interesting)
