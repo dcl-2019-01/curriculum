@@ -46,9 +46,9 @@ weeks:
   week-06:
   - regexps
   - spatial-basics
-  - factor-basics
   - list-cols
   - vis-time-series
+  - factor-basics
   - model-vis
 
   week-07:
