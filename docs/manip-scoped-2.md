@@ -10,7 +10,7 @@ title: Scoped verbs with predicates
 
 In the *Scoped verb basics* reading, you learned about the `_at` and `_all` variants of `mutate()`, `transmute()`, `summarize()`, `select()`, and `rename()`.
 
-In this reading, you'll learn about scoped verbs that use **predicate functions**. First, you'll learn about the third suffix, `_if`. Then, you'll learn abut the scoped variants of `filter()`.
+In this reading, you'll learn about scoped verbs that use **predicate functions**. First, you'll learn about the third suffix, `_if`. Then, you'll learn about the scoped variants of `filter()`.
 
 \_if
 ----

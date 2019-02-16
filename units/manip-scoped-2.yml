@@ -6,20 +6,20 @@ updated: ~
 desc: "\nIn the *Scoped verb basics* reading, you learned about the `_at` and `_all`
   variants of `mutate()`, `transmute()`, `summarize()`, `select()`, and `rename()`.\n\nIn
   this reading, you'll learn about scoped verbs that use **predicate functions**.
-  First, you'll learn about the third suffix, `_if`. Then, you'll learn abut the scoped
-  variants of `filter()`.\n\n\\_if\n----\n\nLike the `_at` scoped verbs, the `_if`
-  variants apply a dplyr verb only to specified columns. The `_at` variants specify
-  columns based on name. The `_if` variants instead use predicate functions, applying
-  the dplyr verb only to the columns for which the predicate function is `TRUE`.\n\n`small_towns`
-  is a tibble with information about some very small towns. However, whoever collected
-  the data didn't do a very good job. The town and state names aren't capitalized,
-  and there are several missing values.\n\n``` r\nsmall_towns <-\n  tribble(\n    ~town,
-  \    ~state,         ~population,    ~sq_miles,\n    \"bettles\", \"alaska\",                12,
-  \        1.74,\n    \"gilbert\", \"arkansas\",              NA,         0.38,\n
-  \   NA,        \"hawaii\",                NA,         2,\n    \"ruso\",    \"north
-  dakota\",           4,        NA\n  )\n```\n\nWe could use `mutate_at()` to capitalize
-  the town and state names.\n\n``` r\nsmall_towns %>% \n  mutate_at(vars(town, state),
-  str_to_title)\n```\n\n    ## # A tibble: 4 x 4\n    ##   town    state        population
+  First, you'll learn about the third suffix, `_if`. Then, you'll learn about the
+  scoped variants of `filter()`.\n\n\\_if\n----\n\nLike the `_at` scoped verbs, the
+  `_if` variants apply a dplyr verb only to specified columns. The `_at` variants
+  specify columns based on name. The `_if` variants instead use predicate functions,
+  applying the dplyr verb only to the columns for which the predicate function is
+  `TRUE`.\n\n`small_towns` is a tibble with information about some very small towns.
+  However, whoever collected the data didn't do a very good job. The town and state
+  names aren't capitalized, and there are several missing values.\n\n``` r\nsmall_towns
+  <-\n  tribble(\n    ~town,     ~state,         ~population,    ~sq_miles,\n    \"bettles\",
+  \"alaska\",                12,         1.74,\n    \"gilbert\", \"arkansas\",              NA,
+  \        0.38,\n    NA,        \"hawaii\",                NA,         2,\n    \"ruso\",
+  \   \"north dakota\",           4,        NA\n  )\n```\n\nWe could use `mutate_at()`
+  to capitalize the town and state names.\n\n``` r\nsmall_towns %>% \n  mutate_at(vars(town,
+  state), str_to_title)\n```\n\n    ## # A tibble: 4 x 4\n    ##   town    state        population
   sq_miles\n    ##   <chr>   <chr>             <dbl>    <dbl>\n    ## 1 Bettles Alaska
   \              12     1.74\n    ## 2 Gilbert Arkansas             NA     0.38\n
   \   ## 3 <NA>    Hawaii               NA     2   \n    ## 4 Ruso    North Dakota
