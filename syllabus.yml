@@ -1,4 +1,4 @@
-cur-week: 6
+cur-week: 7
 
 weeks:
   week-01:
@@ -52,19 +52,18 @@ weeks:
   - model-vis
 
   week-07:
-  - manip-scoped-2
-  - parse-detail
   - function-predicate
+  - manip-scoped-2
   - timespans
-  - vis-annotation
-  - workflow-rmarkdown
   - model-multivariate
+  - purrr-parallel
 
   week-08:
-  - purrr-parallel
+  - parse-detail
   - model-many
   - separate-unite
   - spatial-vis
+    - workflow-rmarkdown
 
   week-09:
   - tidy-eval

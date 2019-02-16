@@ -271,4 +271,36 @@ title: Theme index
   <td colspan="3"></td>
 </tr>
 </tbody>
+<tbody>
+<tr>
+<td id='week-7'>7</td>
+  <td colspan="4"></td>
+  <td colspan="6"><a class="program" href="function-predicate.html">Predicate functions</a></td>
+  <td colspan="2"></td>
+</tr>
+<tr>
+<td></td>
+  <td colspan="1"></td>
+  <td colspan="6"><a class="wrangle" href="manip-scoped-2.html">Scoped verbs with predicates</a></td>
+  <td colspan="5"></td>
+</tr>
+<tr>
+<td></td>
+  <td colspan="1"></td>
+  <td colspan="6"><a class="wrangle" href="timespans.html">Time spans</a></td>
+  <td colspan="5"></td>
+</tr>
+<tr>
+<td></td>
+  <td colspan="3"></td>
+  <td colspan="6"><a class="model" href="model-multivariate.html">Models with multiple variables</a></td>
+  <td colspan="3"></td>
+</tr>
+<tr>
+<td></td>
+  <td colspan="4"></td>
+  <td colspan="6"><a class="program" href="purrr-parallel.html">purrr map with multiple inputs</a></td>
+  <td colspan="2"></td>
+</tr>
+</tbody>
 </table>
