@@ -17,15 +17,16 @@ desc: "\nIn the previous purrr units, you learned how to use the `map()` functio
   instead of one.\n\n``` r\nx <- c(1, 2, 4)\ny <- c(6, 5, 3)\n\nmap2_dbl(x, y, min)\n```\n\n
   \   ## [1] 1 2 3\n\nSince the `map2()` functions iterate along the two vectors in
   parallel, they need to be the same length.\n\n``` r\nx2 <- c(1, 2, 4)\ny2 <- c(6,
-  5)\n\nmap2_dbl(x2, y2, min)\n```\n\n    ## Error: `.x` (3) and `.y` (2) are different
-  lengths\n\nInside anonymous functions in the `map()` functions, you refer to each
-  element of the input vector as `.`. In the `map2()` functions, you refer to elements
-  of the first vector as `.x` and elements of the second as `.y`.\n\n``` r\nmap2_chr(x,
-  y, ~ str_glue(\"The minimum of {.x} and {.y} is {min(.x, .y)}.\"))\n```\n\n    ##
-  [1] \"The minimum of 1 and 6 is 1.\" \"The minimum of 2 and 5 is 2.\"\n    ## [3]
-  \"The minimum of 4 and 3 is 3.\"\n\nIf you don't create an anonymous function and
-  use a named function instead, the first vector will be supplied as the first argument
-  to the function and the second vector will be supplied as the second argument.\n\n`pmap()`\n--------\n\nThere
+  5)\n\nmap2_dbl(x2, y2, min)\n```\n\n    ## Error: Mapped vectors must have consistent
+  lengths:\n    ## * `.x` has length 3\n    ## * `.y` has length 2\n\nInside anonymous
+  functions in the `map()` functions, you refer to each element of the input vector
+  as `.` . In the `map2()` functions, you refer to elements of the first vector as
+  `.x` and elements of the second as `.y` .\n\n``` r\nmap2_chr(x, y, ~ str_glue(\"The
+  minimum of {.x} and {.y} is {min(.x, .y)}.\"))\n```\n\n    ## [1] \"The minimum
+  of 1 and 6 is 1.\" \"The minimum of 2 and 5 is 2.\"\n    ## [3] \"The minimum of
+  4 and 3 is 3.\"\n\nIf you don't create an anonymous function and use a named function
+  instead, the first vector will be supplied as the first argument to the function
+  and the second vector will be supplied as the second argument.\n\n`pmap()`\n--------\n\nThere
   are no `map3()` or `map4()` functions. Instead, you can use a `pmap()` (\"p\" for
   parallel) function to map over more than two vectors.\n\nThe `pmap()` functions
   work slightly differently than the `map()` and `map2()` functions. In `map()` and
@@ -57,8 +58,8 @@ desc: "\nIn the previous purrr units, you learned how to use the `map()` functio
   we'll create a named function.\n\n``` r\nstate_sentence <- function(animal, type,
   state) {\n  str_glue(\"The {state} state {type} is the {animal}.\")\n}\n```\n\nThis
   does not work:\n\n``` r\nstate_animals %>% \n  pmap_chr(state_sentence)\n```\n\n
-  \   ## Error in .f(state = .l[[c(1L, i)]], type = .l[[c(2L, i)]], animal = .l[[c(3L,
-  : unused argument (binomial = .l[[c(4, i)]])\n\n`state_animals` has four variables,
+  \   ## Error in .f(state = .l[[1L]][[i]], type = .l[[2L]][[i]], animal = .l[[3L]][[i]],
+  : unused argument (binomial = .l[[4]][[i]])\n\n`state_animals` has four variables,
   but `state_sentence` is expecting three. The number of input variables must match
   the number of function arguments.\n\nYou can fix the problem by simply getting rid
   of the unused variable.\n\n``` r\nstate_animals %>% \n  select(-binomial) %>% \n

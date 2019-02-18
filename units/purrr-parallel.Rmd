@@ -35,7 +35,7 @@ y2 <- c(6, 5)
 map2_dbl(x2, y2, min)
 ```
 
-Inside anonymous functions in the `map()` functions, you refer to each element of the input vector as `.`. In the `map2()` functions, you refer to elements of the first vector as `.x` and elements of the second as `.y`.
+Inside anonymous functions in the `map()` functions, you refer to each element of the input vector as `.` . In the `map2()` functions, you refer to elements of the first vector as `.x` and elements of the second as `.y` .
 
 ```{r}
 map2_chr(x, y, ~ str_glue("The minimum of {.x} and {.y} is {min(.x, .y)}."))

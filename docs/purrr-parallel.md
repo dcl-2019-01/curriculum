@@ -37,9 +37,11 @@ y2 <- c(6, 5)
 map2_dbl(x2, y2, min)
 ```
 
-    ## Error: `.x` (3) and `.y` (2) are different lengths
+    ## Error: Mapped vectors must have consistent lengths:
+    ## * `.x` has length 3
+    ## * `.y` has length 2
 
-Inside anonymous functions in the `map()` functions, you refer to each element of the input vector as `.`. In the `map2()` functions, you refer to elements of the first vector as `.x` and elements of the second as `.y`.
+Inside anonymous functions in the `map()` functions, you refer to each element of the input vector as `.` . In the `map2()` functions, you refer to elements of the first vector as `.x` and elements of the second as `.y` .
 
 ``` r
 map2_chr(x, y, ~ str_glue("The minimum of {.x} and {.y} is {min(.x, .y)}."))
@@ -130,7 +132,7 @@ state_animals %>%
   pmap_chr(state_sentence)
 ```
 
-    ## Error in .f(state = .l[[c(1L, i)]], type = .l[[c(2L, i)]], animal = .l[[c(3L, : unused argument (binomial = .l[[c(4, i)]])
+    ## Error in .f(state = .l[[1L]][[i]], type = .l[[2L]][[i]], animal = .l[[3L]][[i]], : unused argument (binomial = .l[[4]][[i]])
 
 `state_animals` has four variables, but `state_sentence` is expecting three. The number of input variables must match the number of function arguments.
 
