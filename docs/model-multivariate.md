@@ -13,6 +13,11 @@ strong trend), but almost every real model contains multiple variables. In
 this unit, you'll learn how to visualise these more complicated models,
 including models for categorical data (i.e. factors).
 
+You already read the following chapter as part of the *Fitting and visualizing 
+models* unit, but it's relevant for this unit as well. Review the chapter, 
+paying attention to the parts that discuss building and interpreting models
+with multiple variables. 
+
 ## Readings
 
   * [Formulas and model families](http://r4ds.had.co.nz/model-basics.html#formulas-and-model-families) [r4ds-23.4]
