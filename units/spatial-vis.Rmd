@@ -15,7 +15,6 @@ We'll start by loading the tidyverse, sf, and read in a couple of sample dataset
 ```{r setup, message = FALSE}
 library(tidyverse)
 library(sf)
-library(maps)
 
 nc <- read_sf(system.file("shape/nc.shp", package = "sf"))
 states <- st_as_sf(maps::map("state", plot = FALSE, fill = TRUE))

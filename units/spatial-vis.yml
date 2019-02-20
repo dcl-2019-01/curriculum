@@ -4,11 +4,10 @@ needs: spatial-basics
 readings: ~
 updated: ~
 desc: "\nSetup\n-----\n\nWe'll start by loading the tidyverse, sf, and read in a couple
-  of sample datasets.\n\n``` r\nlibrary(tidyverse)\nlibrary(sf)\nlibrary(maps)\n\nnc
-  <- read_sf(system.file(\"shape/nc.shp\", package = \"sf\"))\nstates <- st_as_sf(maps::map(\"state\",
-  plot = FALSE, fill = TRUE))\n```\n\n`geom_sf()`\n-----------\n\nThe easiest way
-  to get started is to supply an sf object to `geom_sf()`:\n\n``` r\nggplot() +\n
-  \ geom_sf(data = nc)\n```\n\n![](spatial-vis_files/figure-markdown_github/unnamed-chunk-2-1.png)\n\nNotice
+  of sample datasets.\n\n``` r\nlibrary(tidyverse)\nlibrary(sf)\n\nnc <- read_sf(system.file(\"shape/nc.shp\",
+  package = \"sf\"))\nstates <- st_as_sf(maps::map(\"state\", plot = FALSE, fill =
+  TRUE))\n```\n\n`geom_sf()`\n-----------\n\nThe easiest way to get started is to
+  supply an sf object to `geom_sf()`:\n\n``` r\nggplot() +\n  geom_sf(data = nc)\n```\n\n![](spatial-vis_files/figure-markdown_github/unnamed-chunk-2-1.png)\n\nNotice
   that ggplot2 takes care of setting the aspect ratio correctly.\n\nYou can supply
   other aesthetics: for polygons, `fill` is most useful:\n\n``` r\nggplot() +\n  geom_sf(aes(fill
   = AREA), data = nc, color = \"white\")\n```\n\n![](spatial-vis_files/figure-markdown_github/unnamed-chunk-3-1.png)\n\nWhen

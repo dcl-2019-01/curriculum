@@ -47,57 +47,59 @@ desc: "\nIn the *Scoped verb basics* reading, you learned about the `_at` and `_
   \   ## [1] FALSE  TRUE\n\nTo get a single value, we can use the function `all()`.
   `all()` returns `TRUE` if all the values in a vector are `TRUE`. A related function,
   `any()`, returns `TRUE` if at least one of the values is `TRUE`.\n\n``` r\nall(!is.na(x))\n```\n\n
-  \   ## [1] TRUE\n\n``` r\nall(!is.na(y))\n```\n\n    ## [1] FALSE\n\n`all(!is.na())`
-  is an anonymous function. Recall that, in scoped verbs, you declare anonymous functions
-  with a `~` and use `.` to refer to the argument.\n\nThe following code selects only
-  the columns with no `NA`s.\n\n``` r\nsmall_towns %>% \n  select_if(~ all(!is.na(.)))\n```\n\n
-  \   ## # A tibble: 4 x 1\n    ##   state       \n    ##   <chr>       \n    ## 1
-  alaska      \n    ## 2 arkansas    \n    ## 3 hawaii      \n    ## 4 north dakota\n\nUnfortunately,
-  there's only one: `state`.\n\nScoped `filter()`\n-----------------\n\nEach value
-  in `small_towns` is either missing or not, and so `!is.na()` will either be `TRUE`
-  or `FALSE` for every value. We can visualize this using `mutate_all()`.\n\n``` r\nsmall_towns
-  %>% \n  mutate_all(~ !is.na(.))\n```\n\n    ## # A tibble: 4 x 4\n    ##   town
-  \ state population sq_miles\n    ##   <lgl> <lgl> <lgl>      <lgl>   \n    ## 1
-  TRUE  TRUE  TRUE       TRUE    \n    ## 2 TRUE  TRUE  FALSE      TRUE    \n    ##
-  3 FALSE TRUE  FALSE      TRUE    \n    ## 4 TRUE  TRUE  TRUE       FALSE\n\nThe
-  `_if` scoped verbs use the *columns* of these `TRUE`s and `FALSE`s to decide the
-  columns to which to apply the dplyr verb. The `filter()` scoped verbs consider the
-  *rows* of these truth values to decide which of them to keep.\n\n### `all_vars()`
-  and `any_vars()`\n\nThere are multiple ways to combine a row of truth values. For
-  example, look at the last row of the above tibble: `TRUE` `TRUE` `TRUE` `FALSE`.
-  We can combine these truth values using **and** or **or**:\n\n-   `TRUE` **and**
-  `TRUE` **and** `TRUE` **and** `FALSE` is `FALSE`\n-   `TRUE` **or** `TRUE` **or**
-  `TRUE` **or** `FALSE` is `TRUE`\n\n`all()` combines using **and**, returning `TRUE`
-  only when all of the elements are `TRUE`. `any()` combines using **or**, returning
-  `TRUE` when any of the elements are `TRUE`. The scoped `filter()` verbs have their
-  own `all()` and `any()` functions designed to work with predicate functions on tibble
-  rows: `all_vars()` and `any_vars()`.\n\nSay we want to find all the rows in `small_towns`
-  with no `NA`s. We need to consider all columns, so we'll use `filter_all()`. And
-  we want *all* the values in a row to be non-`NA`, so we'll use `all_vars()`.\n\n```
-  r\nsmall_towns %>% \n  filter_all(all_vars(!is.na(.)))\n```\n\n    ## # A tibble:
-  1 x 4\n    ##   town    state  population sq_miles\n    ##   <chr>   <chr>       <dbl>
-  \   <dbl>\n    ## 1 bettles alaska         12     1.74\n\n(The function `drop_na()`
-  actually carries out this specific operation for you.)\n\nIf we just want rows in
-  which at least one value is not `NA`, we'll use `any_vars()`.\n\n``` r\nsmall_towns
-  %>% \n  filter_all(any_vars(!is.na(.)))\n```\n\n    ## # A tibble: 4 x 4\n    ##
-  \  town    state        population sq_miles\n    ##   <chr>   <chr>             <dbl>
-  \   <dbl>\n    ## 1 bettles alaska               12     1.74\n    ## 2 gilbert arkansas
-  \            NA     0.38\n    ## 3 <NA>    hawaii               NA     2   \n    ##
-  4 ruso    north dakota          4    NA\n\nThere are no rows in `small_towns` that
-  only contain missing values, so we didn't actually remove any data.\n\n`filter_at()`
-  only considers the truth values in the specified columns. The following code finds
-  the rows with non-`NA` values for both `town` and `population`.\n\n``` r\nsmall_towns
-  %>% \n  filter_at(vars(town, population), all_vars(!is.na(.)))\n```\n\n    ## #
-  A tibble: 2 x 4\n    ##   town    state        population sq_miles\n    ##   <chr>
-  \  <chr>             <dbl>    <dbl>\n    ## 1 bettles alaska               12     1.74\n
-  \   ## 2 ruso    north dakota          4    NA\n\nBettles, Alaska and Ruso, North
-  Dakota both have non-missing values for `town` and `population`. The rest of the
-  rows had missing values in `town` or `population`, or both.\n\nYou can't just supply
-  `all_vars()` and `any_vars()` with the name of a function.\n\n``` r\nsmall_towns
-  %>% \n  filter_all(any_vars(is.na))\n```\n\n    ## Error in filter_impl(.data, quo):
-  Evaluation error: operations are possible only for numeric, logical or complex types.\n\n`all_vars()`
-  and `any_vars()` always require that you use `.` to refer to the function argument,
-  even when using a named function like `is.na()`.\n\n``` r\nsmall_towns %>% \n  filter_all(any_vars(is.na(.)))\n```\n\n
+  \   ## [1] TRUE\n\n``` r\nall(!is.na(y))\n```\n\n    ## [1] FALSE\n\nTo use `all(!is.na())`
+  in a scoped verb, we'll need to create an anonymous function. Recall that, in scoped
+  verbs, you declare anonymous functions with a `~` and use `.` to refer to the argument.\n\nThe
+  following code selects only the columns with no `NA`s.\n\n``` r\nsmall_towns %>%
+  \n  select_if(~ all(!is.na(.)))\n```\n\n    ## # A tibble: 4 x 1\n    ##   state
+  \      \n    ##   <chr>       \n    ## 1 alaska      \n    ## 2 arkansas    \n    ##
+  3 hawaii      \n    ## 4 north dakota\n\nUnfortunately, there's only one: `state`.\n\nScoped
+  `filter()`\n-----------------\n\nEach value in `small_towns` is either missing or
+  not, and so `!is.na()` will either be `TRUE` or `FALSE` for every value. We can
+  visualize this using `mutate_all()`.\n\n``` r\nsmall_towns %>% \n  mutate_all(~
+  !is.na(.))\n```\n\n    ## # A tibble: 4 x 4\n    ##   town  state population sq_miles\n
+  \   ##   <lgl> <lgl> <lgl>      <lgl>   \n    ## 1 TRUE  TRUE  TRUE       TRUE    \n
+  \   ## 2 TRUE  TRUE  FALSE      TRUE    \n    ## 3 FALSE TRUE  FALSE      TRUE    \n
+  \   ## 4 TRUE  TRUE  TRUE       FALSE\n\nThe `_if` scoped verbs use the *columns*
+  of these `TRUE`s and `FALSE`s to decide the columns to which to apply the dplyr
+  verb. The `filter()` scoped verbs consider the *rows* of these truth values to decide
+  which of them to keep. However, as you'll see in the next section, there are multiple
+  ways to combine these rows of truth values.\n\n### Specifying rows with `all_vars()`
+  and `any_vars()`\n\nTake a look at the last row of the above tibble: `TRUE` `TRUE`
+  `TRUE` `FALSE`. There are two different ways we can combine these truth values.
+  We can use **and** or we can use **or**:\n\n-   `TRUE` **and** `TRUE` **and** `TRUE`
+  **and** `FALSE` is `FALSE`\n-   `TRUE` **or** `TRUE` **or** `TRUE` **or** `FALSE`
+  is `TRUE`\n\nThe base R function `all()`, which we used earlier, combines using
+  **and**, returning `TRUE` only when all of the elements are `TRUE`. `any()` combines
+  using **or**, returning `TRUE` when any of the elements are `TRUE`. The scoped `filter()`
+  verbs have their own `all()` and `any()` functions designed to work with predicate
+  functions on tibble rows: `all_vars()` and `any_vars()`.\n\nSay we want to find
+  all the rows in `small_towns` with no `NA`s. We need to consider all columns, so
+  we'll use `filter_all()`. And we want *all* the values in a row to be non-`NA`,
+  so we'll use `all_vars()`.\n\n``` r\nsmall_towns %>% \n  filter_all(all_vars(!is.na(.)))\n```\n\n
+  \   ## # A tibble: 1 x 4\n    ##   town    state  population sq_miles\n    ##   <chr>
+  \  <chr>       <dbl>    <dbl>\n    ## 1 bettles alaska         12     1.74\n\n(The
+  function `drop_na()` actually carries out this specific operation for you.)\n\nIf
+  we just want rows in which at least one value is not `NA`, we'll use `any_vars()`.\n\n```
+  r\nsmall_towns %>% \n  filter_all(any_vars(!is.na(.)))\n```\n\n    ## # A tibble:
+  4 x 4\n    ##   town    state        population sq_miles\n    ##   <chr>   <chr>
+  \            <dbl>    <dbl>\n    ## 1 bettles alaska               12     1.74\n
+  \   ## 2 gilbert arkansas             NA     0.38\n    ## 3 <NA>    hawaii               NA
+  \    2   \n    ## 4 ruso    north dakota          4    NA\n\nThere are no rows in
+  `small_towns` that only contain missing values, so we didn't actually remove any
+  data.\n\n`filter_at()` only considers the truth values in the specified columns.
+  The following code finds the rows with non-`NA` values for both `town` and `population`.\n\n```
+  r\nsmall_towns %>% \n  filter_at(vars(town, population), all_vars(!is.na(.)))\n```\n\n
+  \   ## # A tibble: 2 x 4\n    ##   town    state        population sq_miles\n    ##
+  \  <chr>   <chr>             <dbl>    <dbl>\n    ## 1 bettles alaska               12
+  \    1.74\n    ## 2 ruso    north dakota          4    NA\n\nBettles, Alaska and
+  Ruso, North Dakota both have non-missing values for `town` and `population`. The
+  rest of the rows had missing values in `town` or `population`, or both.\n\nYou can't
+  just supply `all_vars()` and `any_vars()` with the name of a function.\n\n``` r\nsmall_towns
+  %>% \n  filter_all(any_vars(is.na))\n```\n\n    ## Error in (~is.na) | ~is.na: operations
+  are possible only for numeric, logical or complex types\n\n`all_vars()` and `any_vars()`
+  always require that you use `.` to refer to the function argument, even when using
+  a named function like `is.na()`.\n\n``` r\nsmall_towns %>% \n  filter_all(any_vars(is.na(.)))\n```\n\n
   \   ## # A tibble: 3 x 4\n    ##   town    state        population sq_miles\n    ##
   \  <chr>   <chr>             <dbl>    <dbl>\n    ## 1 gilbert arkansas             NA
   \    0.38\n    ## 2 <NA>    hawaii               NA     2   \n    ## 3 ruso    north

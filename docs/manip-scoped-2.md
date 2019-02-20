@@ -126,7 +126,7 @@ all(!is.na(y))
 
     ## [1] FALSE
 
-`all(!is.na())` is an anonymous function. Recall that, in scoped verbs, you declare anonymous functions with a `~` and use `.` to refer to the argument.
+To use `all(!is.na())` in a scoped verb, we'll need to create an anonymous function. Recall that, in scoped verbs, you declare anonymous functions with a `~` and use `.` to refer to the argument.
 
 The following code selects only the columns with no `NA`s.
 
@@ -163,16 +163,16 @@ small_towns %>%
     ## 3 FALSE TRUE  FALSE      TRUE    
     ## 4 TRUE  TRUE  TRUE       FALSE
 
-The `_if` scoped verbs use the *columns* of these `TRUE`s and `FALSE`s to decide the columns to which to apply the dplyr verb. The `filter()` scoped verbs consider the *rows* of these truth values to decide which of them to keep.
+The `_if` scoped verbs use the *columns* of these `TRUE`s and `FALSE`s to decide the columns to which to apply the dplyr verb. The `filter()` scoped verbs consider the *rows* of these truth values to decide which of them to keep. However, as you'll see in the next section, there are multiple ways to combine these rows of truth values.
 
-### `all_vars()` and `any_vars()`
+### Specifying rows with `all_vars()` and `any_vars()`
 
-There are multiple ways to combine a row of truth values. For example, look at the last row of the above tibble: `TRUE` `TRUE` `TRUE` `FALSE`. We can combine these truth values using **and** or **or**:
+Take a look at the last row of the above tibble: `TRUE` `TRUE` `TRUE` `FALSE`. There are two different ways we can combine these truth values. We can use **and** or we can use **or**:
 
 -   `TRUE` **and** `TRUE` **and** `TRUE` **and** `FALSE` is `FALSE`
 -   `TRUE` **or** `TRUE` **or** `TRUE` **or** `FALSE` is `TRUE`
 
-`all()` combines using **and**, returning `TRUE` only when all of the elements are `TRUE`. `any()` combines using **or**, returning `TRUE` when any of the elements are `TRUE`. The scoped `filter()` verbs have their own `all()` and `any()` functions designed to work with predicate functions on tibble rows: `all_vars()` and `any_vars()`.
+The base R function `all()`, which we used earlier, combines using **and**, returning `TRUE` only when all of the elements are `TRUE`. `any()` combines using **or**, returning `TRUE` when any of the elements are `TRUE`. The scoped `filter()` verbs have their own `all()` and `any()` functions designed to work with predicate functions on tibble rows: `all_vars()` and `any_vars()`.
 
 Say we want to find all the rows in `small_towns` with no `NA`s. We need to consider all columns, so we'll use `filter_all()`. And we want *all* the values in a row to be non-`NA`, so we'll use `all_vars()`.
 
@@ -227,7 +227,7 @@ small_towns %>%
   filter_all(any_vars(is.na))
 ```
 
-    ## Error in filter_impl(.data, quo): Evaluation error: operations are possible only for numeric, logical or complex types.
+    ## Error in (~is.na) | ~is.na: operations are possible only for numeric, logical or complex types
 
 `all_vars()` and `any_vars()` always require that you use `.` to refer to the function argument, even when using a named function like `is.na()`.
 
