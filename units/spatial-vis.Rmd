@@ -1,6 +1,6 @@
 ---
 unit_title: "Spatial visualisation"
-theme: explore
+theme: visualize
 needs: [spatial-basics]
 ---
 

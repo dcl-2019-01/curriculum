@@ -4,7 +4,7 @@ title: Spatial visualisation
 
 <!-- Generated automatically from spatial-vis.yml. Do not edit by hand -->
 
-# Spatial visualisation <small class='explore'>[explore]</small>
+# Spatial visualisation <small class='visualize'>[visualize]</small>
 <small>(Builds on: [Spatial basics](spatial-basics.md))</small>
 
 
