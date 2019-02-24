@@ -80,7 +80,7 @@ You'll need to use `coord_sf()` for two reasons:
 
     ![](spatial-vis_files/figure-markdown_github/unnamed-chunk-6-1.png)
 
--   You want to override to use a specific projection. If you don't specify the `crs` argument, it just uses the one provided in the first layer. The following example uses the Albers Equal Area projection and the NAD83 datum, which has an EPSG code of 102003.
+-   You want to override to use a specific projection. If you don't specify the `crs` argument, it just uses the one provided in the first layer. The following example uses an Albers Equal Area projection and the NAD83 datum, with an EPSG code of 102003.
 
     ``` r
     ggplot() +

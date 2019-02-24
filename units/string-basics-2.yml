@@ -4,7 +4,7 @@ theme: wrangle
 desc: |
   The glue package contains the functions `glue()` and `glue_data()` as
   alternates to `str_c()` for combining data and strings. These functions can be
-  used without loading the glue package by through the stringr functions
+  used without loading the glue package through the stringr functions
   `str_glue()` and `str_glue_data()`, respectively.
 
 needs: [string-basics]

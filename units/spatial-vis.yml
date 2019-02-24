@@ -24,6 +24,6 @@ desc: "\nSetup\n-----\n\nWe'll start by loading the tidyverse, sf, and read in a
   = 4) + \n      coord_sf(xlim = c(-81, -79), ylim = c(34, 36))\n    ```\n\n    ![](spatial-vis_files/figure-markdown_github/unnamed-chunk-6-1.png)\n\n-
   \  You want to override to use a specific projection. If you don't specify the `crs`
   argument, it just uses the one provided in the first layer. The following example
-  uses the Albers Equal Area projection and the NAD83 datum, which has an EPSG code
-  of 102003.\n\n    ``` r\n    ggplot() +\n      geom_sf(data = states) +\n      coord_sf(crs
-  = st_crs(102003))\n    ```\n\n    ![](spatial-vis_files/figure-markdown_github/unnamed-chunk-7-1.png)\n"
+  uses an Albers Equal Area projection and the NAD83 datum, with an EPSG code of 102003.\n\n
+  \   ``` r\n    ggplot() +\n      geom_sf(data = states) +\n      coord_sf(crs =
+  st_crs(102003))\n    ```\n\n    ![](spatial-vis_files/figure-markdown_github/unnamed-chunk-7-1.png)\n"
