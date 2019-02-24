@@ -18,3 +18,5 @@ desc: |
 
 readings:
 - book: r4ds-12.4
+- html: https://tidyr.tidyverse.org/reference/extract.html
+  text: Extract one column into multiple columns

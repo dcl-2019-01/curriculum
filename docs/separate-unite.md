@@ -23,4 +23,6 @@ that is spread across multiple columns. This happens much less commonly.
 
   * [Separating and uniting](http://r4ds.had.co.nz/tidy-data.html#separating-and-uniting) [r4ds-12.4]
 
+Extract one column into multiple columns
+
 
