@@ -15,7 +15,8 @@ At some point during the quarter, you may have noticed that you were copy-and-pa
 
 Tidy evaluation is a complicated subject. This reading will focus on how to do the most common operations, without explaining the theory in-depth. If you're curious and want to learn more, the following are useful resources:
 
--   [Programming with dplyr](https://dplyr.tidyverse.org/articles/programming.html) vignette
+-   The [Programming with dplyr](https://dplyr.tidyverse.org/articles/programming.html) vignette
+-   The [Tidy evaluation with rlang](https://github.com/rstudio/cheatsheets/blob/master/tidyeval.pdf) cheat sheet
 -   Ian Lyttle's [Tidyeval](https://ijlyttle.shinyapps.io/tidyeval/) interactive tutorial
 
 Quoted arguments
@@ -173,12 +174,12 @@ fun_1 <- function(x) quo(x)
 fun_1(a + b)
 #> <quosure>
 #> expr: ^x
-#> env:  0x7fbfcd65eaa8
+#> env:  0x7fc4d9108260
 fun_2 <- function(x) enquo(x)
 fun_2(a + b)
 #> <quosure>
 #> expr: ^a + b
-#> env:  0x7fbfc8c37710
+#> env:  0x7fc4d489f510
 ```
 
 As a rule of thumb, use `quo()` when you're experimenting interactively at the console, and `enquo()` when you're creating a function.

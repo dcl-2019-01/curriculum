@@ -16,7 +16,8 @@ At some point during the quarter, you may have noticed that you were copy-and-pa
 
 Tidy evaluation is a complicated subject. This reading will focus on how to do the most common operations, without explaining the theory in-depth. If you're curious and want to learn more, the following are useful resources:
 
-* [Programming with dplyr](https://dplyr.tidyverse.org/articles/programming.html) vignette
+* The [Programming with dplyr](https://dplyr.tidyverse.org/articles/programming.html) vignette
+* The [Tidy evaluation with rlang](https://github.com/rstudio/cheatsheets/blob/master/tidyeval.pdf) cheat sheet
 * Ian Lyttle's [Tidyeval](https://ijlyttle.shinyapps.io/tidyeval/) interactive tutorial
 
 ## Quoted arguments
