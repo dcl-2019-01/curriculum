@@ -13,7 +13,8 @@ Here you'll learn how to use `separate()` to pull them out into their own
 columns.
 
 The `sep` argument to `separate()` is a regular expression, which gives
-you a lot of power. You might also want to read about `extract()`:
+you a lot of power. You might also want to read about
+[`extract()`](https://tidyr.tidyverse.org/reference/extract.html):
 `str_split()` is to `separate()` as `str_match()` is to `extract()`.
 
 The inverse of `separate()` is `unite()`. You use it when you have a variable
