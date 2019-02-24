@@ -1,10 +1,10 @@
 ---
-title: Spatial visualisation
+title: Spatial visualization
 ---
 
 <!-- Generated automatically from spatial-vis.yml. Do not edit by hand -->
 
-# Spatial visualisation <small class='visualize'>[visualize]</small>
+# Spatial visualization <small class='visualize'>[visualize]</small>
 <small>(Builds on: [Spatial basics](spatial-basics.md))</small>
 
 
@@ -44,7 +44,7 @@ ggplot() +
 
 ![](spatial-vis_files/figure-markdown_github/unnamed-chunk-3-1.png)
 
-When you include multiple layers, ggplot2 will take care of ensuring that they all have a common CRS so that it makes sense to overlay them.
+When you include multiple layers, ggplot2 will take care of ensuring that they all have a common coordinate reference system (CRS) so that it makes sense to overlay them.
 
 ``` r
 ggplot() +
@@ -59,7 +59,7 @@ You can combine `geom_sf()` with other geoms. In this case, `x` and `y` position
 ``` r
 ggplot() +
   geom_sf(data = nc) +
-  annotate("point", x = -80, y = 35, colour = "red", size = 4)
+  annotate(geom = "point", x = -80, y = 35, color = "red", size = 4)
 ```
 
 ![](spatial-vis_files/figure-markdown_github/unnamed-chunk-5-1.png)
@@ -74,13 +74,13 @@ You'll need to use `coord_sf()` for two reasons:
     ``` r
     ggplot() +
       geom_sf(data = nc) +
-      annotate("point", x = -80, y = 35, colour = "red", size = 4) + 
+      annotate(geom = "point", x = -80, y = 35, color = "red", size = 4) + 
       coord_sf(xlim = c(-81, -79), ylim = c(34, 36))
     ```
 
     ![](spatial-vis_files/figure-markdown_github/unnamed-chunk-6-1.png)
 
--   You want to override to use a specific projection. If you don't specify the `crs` argument, it just uses the one provided in the first layer. The following example uses "USA\_Contiguous\_Albers\_Equal\_Area\_Conic". The easiest way to supply the CRS is as a EPSG ID. I found this ID (102003) with a little Googling. It uses the NAD83 datum.
+-   You want to override to use a specific projection. If you don't specify the `crs` argument, it just uses the one provided in the first layer. The following example uses the Albers Equal Area projection and the NAD83 datum, which has an EPSG code of 102003.
 
     ``` r
     ggplot() +

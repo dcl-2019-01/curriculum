@@ -319,7 +319,7 @@ title: Theme index
 <tr>
 <td></td>
   <td colspan="2"></td>
-  <td colspan="6"><a class="visualize" href="spatial-vis.html">Spatial visualisation</a></td>
+  <td colspan="6"><a class="visualize" href="spatial-vis.html">Spatial visualization</a></td>
   <td colspan="4"></td>
 </tr>
 <tr>

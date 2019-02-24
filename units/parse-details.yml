@@ -16,4 +16,5 @@ desc: |
 readings:
 - book: r4ds-11.3
 - book: r4ds-11.4
-- book: cheatsheets-data-import
+- href: https://github.com/rstudio/cheatsheets/blob/master/data-import.pdf
+  text: Data import cheat sheet

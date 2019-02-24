@@ -23,6 +23,6 @@ guess the correct columns types. In this unit you'll learn:
 
   * [Parsing a file](http://r4ds.had.co.nz/data-import.html#parsing-a-file) [r4ds-11.4]
 
-  * [Data Import Cheat Sheet](https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf) [cheatsheets-data-import]
+  * [Data import cheat sheet](https://github.com/rstudio/cheatsheets/blob/master/data-import.pdf)
 
 
