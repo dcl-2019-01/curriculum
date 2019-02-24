@@ -1,4 +1,4 @@
-cur-week: 7
+cur-week: 8
 
 weeks:
   week-01:
@@ -59,18 +59,18 @@ weeks:
   - purrr-parallel
 
   week-08:
-  - parse-detail
+  - tidy-eval
+  - parse-details
+  - spatial-vis
+  - string-basics-2
   - model-many
   - separate-unite
-  - spatial-vis
-    - workflow-rmarkdown
 
   week-09:
-  - tidy-eval
+  - workflow-rmarkdown
   - purrr-extras
   - window-functions
   - model-eval
-  - rectangling
 
   week-10:
   - rmarkdown-formats
@@ -86,6 +86,7 @@ weeks:
 # - reprexes # included in getting-help
 # - vis-scales-2
 # - lists
+# - rectangling
 # Next
 # - analysis-workflow
 # - times

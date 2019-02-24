@@ -303,4 +303,41 @@ title: Theme index
   <td colspan="2"></td>
 </tr>
 </tbody>
+<tbody>
+<tr>
+<td id='week-8'>8</td>
+  <td colspan="4"></td>
+  <td colspan="6"><a class="program" href="tidy-eval.html">Tidy evaluation</a></td>
+  <td colspan="2"></td>
+</tr>
+<tr>
+<td></td>
+  <td colspan="1"></td>
+  <td colspan="6"><a class="wrangle" href="parse-details.html">Parsing details</a></td>
+  <td colspan="5"></td>
+</tr>
+<tr>
+<td></td>
+  <td colspan="6"><a class="explore" href="spatial-vis.html">Spatial visualisation</a></td>
+  <td colspan="6"></td>
+</tr>
+<tr>
+<td></td>
+  <td colspan="1"></td>
+  <td colspan="6"><a class="wrangle" href="string-basics-2.html">String basics - glue</a></td>
+  <td colspan="5"></td>
+</tr>
+<tr>
+<td></td>
+  <td colspan="3"></td>
+  <td colspan="6"><a class="model" href="model-many.html">Many models</a></td>
+  <td colspan="3"></td>
+</tr>
+<tr>
+<td></td>
+  <td colspan="1"></td>
+  <td colspan="6"><a class="wrangle" href="separate-unite.html">Separate and unite</a></td>
+  <td colspan="5"></td>
+</tr>
+</tbody>
 </table>
