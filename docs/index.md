@@ -313,7 +313,7 @@ title: Theme index
 <tr>
 <td></td>
   <td colspan="1"></td>
-  <td colspan="6"><a class="wrangle" href="parse-details.html">Parsing details</a></td>
+  <td colspan="6"><a class="wrangle" href="separate-unite.html">Separate and unite</a></td>
   <td colspan="5"></td>
 </tr>
 <tr>
@@ -337,7 +337,7 @@ title: Theme index
 <tr>
 <td></td>
   <td colspan="1"></td>
-  <td colspan="6"><a class="wrangle" href="separate-unite.html">Separate and unite</a></td>
+  <td colspan="6"><a class="wrangle" href="parse-details.html">Parsing details</a></td>
   <td colspan="5"></td>
 </tr>
 </tbody>

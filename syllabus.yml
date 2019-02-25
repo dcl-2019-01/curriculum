@@ -60,11 +60,11 @@ weeks:
 
   week-08:
   - tidy-eval
-  - parse-details
+  - separate-unite
   - spatial-vis
   - string-basics-2
   - model-many
-  - separate-unite
+  - parse-details
 
   week-09:
   - workflow-rmarkdown
