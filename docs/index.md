@@ -325,7 +325,7 @@ title: Theme index
 <tr>
 <td></td>
   <td colspan="1"></td>
-  <td colspan="6"><a class="wrangle" href="string-basics-2.html">String basics - glue</a></td>
+  <td colspan="6"><a class="wrangle" href="string-details.html">String details</a></td>
   <td colspan="5"></td>
 </tr>
 <tr>
