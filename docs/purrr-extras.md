@@ -14,7 +14,7 @@ title: Other purrr functions
 
 In this reading, you'll learn about two more map variants, `map_dfr()` and `map_dfc()`. Then, you'll learn about `walk()`, as well as some useful purrr functions that work with functions that return either `TRUE` or `FALSE`.
 
-The purrr package contains more functions that we can cover. The [purrr cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/purrr.pdf) is a great way to see an overview of the package or find a helpful function when you encounter a new type of iteration problem.
+The purrr package contains more functions that we can cover. The [purrr cheatsheet](https://github.com/rstudio/cheatsheets/blob/master/purrr.pdf) is a great way to see an overview of the package or find a helpful function when you encounter a new type of iteration problem.
 
 map functions that output tibbles
 ---------------------------------
@@ -40,7 +40,7 @@ read_csv("purrr-extras/file_001.csv")
 
     ## # A tibble: 1 x 2
     ##      id genus        
-    ##   <int> <chr>        
+    ##   <dbl> <chr>        
     ## 1     1 Hoplitosaurus
 
 ``` r
@@ -49,7 +49,7 @@ read_csv("purrr-extras/file_002.csv")
 
     ## # A tibble: 1 x 2
     ##      id genus        
-    ##   <int> <chr>        
+    ##   <dbl> <chr>        
     ## 1     2 Herrerasaurus
 
 ``` r
@@ -58,7 +58,7 @@ read_csv("purrr-extras/file_003.csv")
 
     ## # A tibble: 1 x 2
     ##      id genus      
-    ##   <int> <chr>      
+    ##   <dbl> <chr>      
     ## 1     3 Coelophysis
 
 `read_csv()` produces a tibble, and so we can use `map_dfr()` to map over all three file names and bind the resulting individual tibbles into a single tibble.
@@ -79,7 +79,7 @@ files %>%
 
     ## # A tibble: 3 x 2
     ##      id genus        
-    ##   <int> <chr>        
+    ##   <dbl> <chr>        
     ## 1     1 Hoplitosaurus
     ## 2     2 Herrerasaurus
     ## 3     3 Coelophysis
@@ -94,7 +94,7 @@ read_csv("purrr-extras/file_004.csv")
 
     ## # A tibble: 2 x 3
     ##      id genus         start_period 
-    ##   <int> <chr>         <chr>        
+    ##   <dbl> <chr>         <chr>        
     ## 1     4 Dilophosaurus Sinemurian   
     ## 2     5 Segisaurus    Pliensbachian
 
@@ -105,7 +105,7 @@ c(files, "purrr-extras/file_004.csv") %>%
 
     ## # A tibble: 5 x 3
     ##      id genus         start_period 
-    ##   <int> <chr>         <chr>        
+    ##   <dbl> <chr>         <chr>        
     ## 1     1 Hoplitosaurus <NA>         
     ## 2     2 Herrerasaurus <NA>         
     ## 3     3 Coelophysis   <NA>         
@@ -126,7 +126,7 @@ read_csv("purrr-extras/file_005.csv")
 
     ## # A tibble: 1 x 3
     ##      id diet      start_period
-    ##   <int> <chr>     <chr>       
+    ##   <dbl> <chr>     <chr>       
     ## 1     1 herbivore Barremian
 
 ``` r
@@ -136,7 +136,7 @@ c("purrr-extras/file_001.csv", "purrr-extras/file_005.csv") %>%
 
     ## # A tibble: 1 x 5
     ##      id genus           id1 diet      start_period
-    ##   <int> <chr>         <int> <chr>     <chr>       
+    ##   <dbl> <chr>         <dbl> <chr>     <chr>       
     ## 1     1 Hoplitosaurus     1 herbivore Barremian
 
 Instead, you end up with a duplicated column.
@@ -153,7 +153,7 @@ left_join(
 
     ## # A tibble: 1 x 4
     ##      id genus         diet      start_period
-    ##   <int> <chr>         <chr>     <chr>       
+    ##   <dbl> <chr>         <chr>     <chr>       
     ## 1     1 Hoplitosaurus herbivore Barremian
 
 Finally, because `map_dfc()` combines tibbles by row position, the tibbles can have different numbers of columns, but must have the same number of rows.
@@ -175,7 +175,7 @@ c("purrr-extras/file_001.csv", "purrr-extras/file_006.csv") %>%
   map_dfc(read_csv)
 ```
 
-    ## Error in cbind_all(x): Argument 2 must be length 1, not 2
+    ## Error: Argument 2 must be length 1, not 2
 
 Walk
 ----
