@@ -1,4 +1,4 @@
-cur-week: 8
+cur-week: 9
 
 weeks:
   week-01:
@@ -67,10 +67,8 @@ weeks:
   - parse-details
 
   week-09:
-  - workflow-rmarkdown
-  - purrr-extras
-  - window-functions
   - model-eval
+  - purrr-extras
 
   week-10:
   - rmarkdown-formats
@@ -78,6 +76,7 @@ weeks:
   - ggplot2-exts
   - googlesheets
   - learning-more
+  - workflow-rmarkdown
 
 # Not used
 # - export
@@ -87,6 +86,7 @@ weeks:
 # - vis-scales-2
 # - lists
 # - rectangling
+# - window-functions
 # Next
 # - analysis-workflow
 # - times
