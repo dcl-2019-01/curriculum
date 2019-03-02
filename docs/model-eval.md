@@ -22,11 +22,11 @@ Let's assume that we are trying to develop a model of a phenomenon that has a fu
 
 *y* = *f*(*x*)
 
-and that any measurements of *y* have errors. We typically would not know *f* -- that's why we are developing a model -- but for our purposes we will specify *f* and some simulated data.
+and that any measurements of *y* have errors. We typically would not know the function *f* -- that's why we are developing a model -- but for our purposes here we will specify *f* and some simulated data.
 
 ``` r
 # True function
-f <- function(x) x + 50 * sin(pi / 50 * x)
+f <- function(x) x + 50 * sin((pi / 50) * x)
 
 # Function with measurement error
 g <- function(x) f(x) + rnorm(n = length(x), mean = 0, sd = 20)
@@ -86,7 +86,8 @@ plot_loess <- function(span) {
 
 ``` r
 c(10, 1, 0.75, 0.1, 0.01) %>% 
-  walk(~ print(plot_loess(.)))
+  map(plot_loess) %>% 
+  walk(print)
 ```
 
 ![](model-eval_files/figure-markdown_github/unnamed-chunk-6-1.png)![](model-eval_files/figure-markdown_github/unnamed-chunk-6-2.png)![](model-eval_files/figure-markdown_github/unnamed-chunk-6-3.png)![](model-eval_files/figure-markdown_github/unnamed-chunk-6-4.png)![](model-eval_files/figure-markdown_github/unnamed-chunk-6-5.png)
@@ -180,7 +181,7 @@ The models get more complex as `span` gets smaller. We have plotted the errors a
 
 Notice from the plot that as the model gets more and more complex, the training error continues to decline but after a point the test error starts to increase. This divergence means that the model overfits the training data for small span values.
 
-Here we were able to generate new data (`data_50`) to calculate the actual test error. However, we typically will only have the original data (`data_1`), and getting new data will not be option. Therefore, it is important to be able to estimate the test error well. Since complex models can overfit the training data, as shown above, the training error is is not a good estimate of the test error, and it is *not* a good idea to use the training error to make decisions about the best model. In the next section, we will discuss better ways to estimate the test error from the original data.
+Here we were able to generate new data (`data_50`) to calculate the actual test error. However, we typically will only have the original data (`data_1`), and getting new data will not be option. Therefore, it is important to be able to estimate the test error well. Since complex models can overfit the training data, as shown above, the training error is is not a good estimate of the test error, and it is **not** a good idea to use the training error to make decisions about the best model. In the next section, we will discuss better ways to estimate the test error from the original data.
 
 Cross-validation
 ----------------
@@ -275,7 +276,7 @@ as_tibble(df$test[[1]])
     ##  8  36    51.9
     ##  9  38    38.3
     ## 10  44    84.9
-    ## # ... with 11 more rows
+    ## # … with 11 more rows
 
 Resample objects are quite wasteful of space, since each one contains the full dataset. A new package [rsample](https://topepo.github.io/rsample/) is being developed to support tidy modeling in a much more space-efficient way.
 
@@ -289,7 +290,7 @@ rmse_error <- function(span, train, test) {
 }
 ```
 
-The following function that calculates the errors for a given span on all of the train-test pairs in a given CV set, and then calculates the mean and standard deviation of the errors.
+The following function calculates the errors for a given span on all of the train-test pairs in a given CV set, and then calculates the mean and standard deviation of the errors.
 
 ``` r
 span_error <- function(span, data_cv) {

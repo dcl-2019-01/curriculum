@@ -7,16 +7,16 @@ desc: "\n``` r\nlibrary(tidyverse)\nlibrary(modelr)\n```\n\nHow do you know if a
   is any good? How do you measure the quality of a model? We will explore these questions
   below.\n\nThe problem\n-----------\n\nLet's assume that we are trying to develop
   a model of a phenomenon that has a functional representation of the form\n\n*y* = *f*(*x*)\n\nand
-  that any measurements of *y* have errors. We typically would not know *f* -- that's
-  why we are developing a model -- but for our purposes we will specify *f* and some
-  simulated data.\n\n``` r\n# True function\nf <- function(x) x + 50 * sin(pi / 50
-  * x)\n\n# Function with measurement error\ng <- function(x) f(x) + rnorm(n = length(x),
-  mean = 0, sd = 20)\n\n# Random sample of data points\nsim_data <- function(from,
-  to, by) {\n  tibble(\n    x = seq(from = from, to = to, by = by),\n    y = g(x)\n
-  \ )\n}\n```\n\nLet's generate a random sample that we'll use for our modeling below.\n\n```
-  r\nset.seed(439)\n\ndata_1 <- sim_data(0, 100, 0.5)\n```\n\nHere's a plot of the
-  true function with the data we will use to model it.\n\n``` r\ntibble(x = seq(0,
-  100, 0.5), y = f(x)) %>% \n  ggplot(aes(x, y)) +\n  geom_line() +\n  geom_point(data
+  that any measurements of *y* have errors. We typically would not know the function
+  *f* -- that's why we are developing a model -- but for our purposes here we will
+  specify *f* and some simulated data.\n\n``` r\n# True function\nf <- function(x)
+  x + 50 * sin((pi / 50) * x)\n\n# Function with measurement error\ng <- function(x)
+  f(x) + rnorm(n = length(x), mean = 0, sd = 20)\n\n# Random sample of data points\nsim_data
+  <- function(from, to, by) {\n  tibble(\n    x = seq(from = from, to = to, by = by),\n
+  \   y = g(x)\n  )\n}\n```\n\nLet's generate a random sample that we'll use for our
+  modeling below.\n\n``` r\nset.seed(439)\n\ndata_1 <- sim_data(0, 100, 0.5)\n```\n\nHere's
+  a plot of the true function with the data we will use to model it.\n\n``` r\ntibble(x
+  = seq(0, 100, 0.5), y = f(x)) %>% \n  ggplot(aes(x, y)) +\n  geom_line() +\n  geom_point(data
   = data_1) +\n  labs(title = \"True function and data to model it with\")\n```\n\n![](model-eval_files/figure-markdown_github/unnamed-chunk-4-1.png)\n\nThe
   `loess()` model\n-------------------\n\nGiven the shape of our data, we will try
   to model it using the `stats::loess()` function. This function works by creating
@@ -29,7 +29,8 @@ desc: "\n``` r\nlibrary(tidyverse)\nlibrary(modelr)\n```\n\nHow do you know if a
   ~ x, data = data_1, span = span)) %>% \n    ggplot(aes(x)) +\n    geom_line(aes(y
   = f)) +\n    geom_point(aes(y = y)) +\n    geom_line(aes(y = pred), color = \"#3366FF\",
   size = 1) +\n    labs(\n      title = str_c(\"loess, span = \", span),\n      y
-  = \"y\"\n    )\n}\n```\n\n``` r\nc(10, 1, 0.75, 0.1, 0.01) %>% \n  walk(~ print(plot_loess(.)))\n```\n\n![](model-eval_files/figure-markdown_github/unnamed-chunk-6-1.png)![](model-eval_files/figure-markdown_github/unnamed-chunk-6-2.png)![](model-eval_files/figure-markdown_github/unnamed-chunk-6-3.png)![](model-eval_files/figure-markdown_github/unnamed-chunk-6-4.png)![](model-eval_files/figure-markdown_github/unnamed-chunk-6-5.png)\n\nThe
+  = \"y\"\n    )\n}\n```\n\n``` r\nc(10, 1, 0.75, 0.1, 0.01) %>% \n  map(plot_loess)
+  %>% \n  walk(print)\n```\n\n![](model-eval_files/figure-markdown_github/unnamed-chunk-6-1.png)![](model-eval_files/figure-markdown_github/unnamed-chunk-6-2.png)![](model-eval_files/figure-markdown_github/unnamed-chunk-6-3.png)![](model-eval_files/figure-markdown_github/unnamed-chunk-6-4.png)![](model-eval_files/figure-markdown_github/unnamed-chunk-6-5.png)\n\nThe
   `span` parameter clearly makes a big difference in the model:\n\n-   `span = 10`
   is has too much smoothing, washing out the variablity in the model.\n-   `span =
   1` is much better, but still has a bit too much smoothing.\n-   `span = 0.75` is
@@ -86,7 +87,7 @@ desc: "\n``` r\nlibrary(tidyverse)\nlibrary(modelr)\n```\n\nHow do you know if a
   have the original data (`data_1`), and getting new data will not be option. Therefore,
   it is important to be able to estimate the test error well. Since complex models
   can overfit the training data, as shown above, the training error is is not a good
-  estimate of the test error, and it is *not* a good idea to use the training error
+  estimate of the test error, and it is **not** a good idea to use the training error
   to make decisions about the best model. In the next section, we will discuss better
   ways to estimate the test error from the original data.\n\nCross-validation\n----------------\n\nThe
   key idea of cross-validation is that in the absence of new data, we can hold out
@@ -127,7 +128,7 @@ desc: "\n``` r\nlibrary(tidyverse)\nlibrary(modelr)\n```\n\nHow do you know if a
   2\n    ##        x     y\n    ##    <dbl> <dbl>\n    ##  1   3   -18.3\n    ##  2
   \  7    35.0\n    ##  3  15    82.6\n    ##  4  22    75.6\n    ##  5  25    45.1\n
   \   ##  6  28.5  58.0\n    ##  7  32    96.4\n    ##  8  36    51.9\n    ##  9  38
-  \   38.3\n    ## 10  44    84.9\n    ## # ... with 11 more rows\n\nResample objects
+  \   38.3\n    ## 10  44    84.9\n    ## # … with 11 more rows\n\nResample objects
   are quite wasteful of space, since each one contains the full dataset. A new package
   [rsample](https://topepo.github.io/rsample/) is being developed to support tidy
   modeling in a much more space-efficient way.\n\nWith `crossv_mc()`, you can independently
@@ -137,27 +138,27 @@ desc: "\n``` r\nlibrary(tidyverse)\nlibrary(modelr)\n```\n\nHow do you know if a
   pairs with `crossv_kfold()` you can simply repeat it.\n\nThe following function
   returns the RMSE for a given span, train data, and test data.\n\n``` r\nrmse_error
   <- function(span, train, test) {\n  rmse(loess(y ~ x, data = as_tibble(train), span
-  = span), as_tibble(test))\n}\n```\n\nThe following function that calculates the
-  errors for a given span on all of the train-test pairs in a given CV set, and then
-  calculates the mean and standard deviation of the errors.\n\n``` r\nspan_error <-
-  function(span, data_cv) {\n  errors <- \n    data_cv %>% \n    select(-.id) %>%
-  \n    add_column(span = span) %>% \n    pmap_dbl(rmse_error)\n  \n  tibble(\n    span
-  = span,\n    error_mean = mean(errors, rm = TRUE),\n    error_sd = sd(errors, na.rm
-  = TRUE)\n  )\n}\n```\n\nNext, let's use `crossv_mc()` to generate 100 train-test
-  pairs with test sets consisting of approximately 20% of the data. We will then calculate
-  the CV error for all `span`s using these train-test pairs.\n\n``` r\nset.seed(430)\n\ndata_mc
-  <- crossv_mc(data_1, n = 100, test = 0.2)\n\nerrors_mc <- \n  spans %>% \n  map_dfr(~
-  span_error(span = ., data_cv = data_mc))\n\nerrors_mc %>% \n  knitr::kable()\n```\n\n|
-  \      span|  error\\_mean|  error\\_sd|\n|----------:|------------:|----------:|\n|
-  \ 2.0000000|     28.13057|   2.578456|\n|  1.7411011|     27.32540|   2.572414|\n|
-  \ 1.5157166|     26.29811|   2.566547|\n|  1.3195079|     25.00708|   2.558990|\n|
-  \ 1.1486984|     23.06875|   2.568471|\n|  1.0000000|     21.62002|   2.532316|\n|
-  \ 0.8705506|     19.58527|   2.417289|\n|  0.7578583|     18.97282|   2.323062|\n|
-  \ 0.6597540|     18.84846|   2.269925|\n|  0.5743492|     18.86447|   2.256472|\n|
-  \ 0.5000000|     18.90930|   2.260496|\n|  0.4352753|     18.93128|   2.254325|\n|
-  \ 0.3789291|     18.88556|   2.220315|\n|  0.3298770|     18.76699|   2.171678|\n|
-  \ 0.2871746|     18.60700|   2.135667|\n|  0.2500000|     18.52702|   2.109205|\n\nLet's
-  compare the CV estimates of the test error with the actual test error.\n\n``` r\nerrors_mc
+  = span), as_tibble(test))\n}\n```\n\nThe following function calculates the errors
+  for a given span on all of the train-test pairs in a given CV set, and then calculates
+  the mean and standard deviation of the errors.\n\n``` r\nspan_error <- function(span,
+  data_cv) {\n  errors <- \n    data_cv %>% \n    select(-.id) %>% \n    add_column(span
+  = span) %>% \n    pmap_dbl(rmse_error)\n  \n  tibble(\n    span = span,\n    error_mean
+  = mean(errors, rm = TRUE),\n    error_sd = sd(errors, na.rm = TRUE)\n  )\n}\n```\n\nNext,
+  let's use `crossv_mc()` to generate 100 train-test pairs with test sets consisting
+  of approximately 20% of the data. We will then calculate the CV error for all `span`s
+  using these train-test pairs.\n\n``` r\nset.seed(430)\n\ndata_mc <- crossv_mc(data_1,
+  n = 100, test = 0.2)\n\nerrors_mc <- \n  spans %>% \n  map_dfr(~ span_error(span
+  = ., data_cv = data_mc))\n\nerrors_mc %>% \n  knitr::kable()\n```\n\n|       span|
+  \ error\\_mean|  error\\_sd|\n|----------:|------------:|----------:|\n|  2.0000000|
+  \    28.13057|   2.578456|\n|  1.7411011|     27.32540|   2.572414|\n|  1.5157166|
+  \    26.29811|   2.566547|\n|  1.3195079|     25.00708|   2.558990|\n|  1.1486984|
+  \    23.06875|   2.568471|\n|  1.0000000|     21.62002|   2.532316|\n|  0.8705506|
+  \    19.58527|   2.417289|\n|  0.7578583|     18.97282|   2.323062|\n|  0.6597540|
+  \    18.84846|   2.269925|\n|  0.5743492|     18.86447|   2.256472|\n|  0.5000000|
+  \    18.90930|   2.260496|\n|  0.4352753|     18.93128|   2.254325|\n|  0.3789291|
+  \    18.88556|   2.220315|\n|  0.3298770|     18.76699|   2.171678|\n|  0.2871746|
+  \    18.60700|   2.135667|\n|  0.2500000|     18.52702|   2.109205|\n\nLet's compare
+  the CV estimates of the test error with the actual test error.\n\n``` r\nerrors_mc
   %>% \n  left_join(errors, by = \"span\") %>% \n  ggplot(aes(1 / span)) +\n  geom_line(aes(y
   = test_error, color = \"test_error\")) +\n  geom_point(aes(y = test_error, color
   = \"test_error\")) +\n  geom_line(aes(y = error_mean, color = \"mc_error\")) +\n
