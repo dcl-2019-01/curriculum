@@ -1,4 +1,4 @@
-cur-week: 9
+cur-week: 10
 
 weeks:
   week-01:
@@ -72,11 +72,11 @@ weeks:
 
   week-10:
   - rmarkdown-formats
-  - dplyr-databases
+  - workflow-rmarkdown
   - ggplot2-exts
+  - dplyr-databases
   - googlesheets
   - learning-more
-  - workflow-rmarkdown
 
 # Not used
 # - export
