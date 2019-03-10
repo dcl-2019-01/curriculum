@@ -369,9 +369,9 @@ title: Theme index
 </tr>
 <tr>
 <td></td>
-  <td colspan="5"></td>
-  <td colspan="6"><a class="communicate" href="ggplot2-exts.html">ggplot2 extensions</a></td>
-  <td colspan="1"></td>
+  <td colspan="2"></td>
+  <td colspan="6"><a class="visualize" href="ggplot2-exts.html">ggplot2 extensions</a></td>
+  <td colspan="4"></td>
 </tr>
 <tr>
 <td></td>

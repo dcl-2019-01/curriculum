@@ -1,5 +1,5 @@
 title: ggplot2 extensions
-theme: communicate
+theme: visualize
 updated: 2018-01
 
 desc: |
@@ -13,5 +13,5 @@ readings:
 - href: http://www.ggplot2-exts.org/gallery/
   text: ggplot2 extensions gallery
   desc: >
-    This is the best place to start if you discover a challenge plot type
+    This is the best place to start if you discover a plot type
     that doesn't seem easy to do with just ggplot2.
