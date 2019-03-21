@@ -13,8 +13,7 @@ Here you'll learn how to use `separate()` to pull them out into their own
 columns.
 
 The `sep` argument to `separate()` is a regular expression, which gives
-you a lot of power. You might also want to read about
-[`extract()`](https://tidyr.tidyverse.org/reference/extract.html):
+you a lot of power. You might also want to read about `extract()`:
 `str_split()` is to `separate()` as `str_match()` is to `extract()`.
 
 The inverse of `separate()` is `unite()`. You use it when you have a variable
@@ -24,6 +23,6 @@ that is spread across multiple columns. This happens much less commonly.
 
   * [Separating and uniting](http://r4ds.had.co.nz/tidy-data.html#separating-and-uniting) [r4ds-12.4]
 
-Extract one column into multiple columns
+  * [Extract one column into multiple columns](https://tidyr.tidyverse.org/reference/extract.html)
 
 

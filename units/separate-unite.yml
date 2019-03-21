@@ -10,8 +10,7 @@ desc: |
   columns.
 
   The `sep` argument to `separate()` is a regular expression, which gives
-  you a lot of power. You might also want to read about
-  [`extract()`](https://tidyr.tidyverse.org/reference/extract.html):
+  you a lot of power. You might also want to read about `extract()`:
   `str_split()` is to `separate()` as `str_match()` is to `extract()`.
 
   The inverse of `separate()` is `unite()`. You use it when you have a variable
@@ -19,5 +18,5 @@ desc: |
 
 readings:
 - book: r4ds-12.4
-- html: https://tidyr.tidyverse.org/reference/extract.html
+- href: https://tidyr.tidyverse.org/reference/extract.html
   text: Extract one column into multiple columns
