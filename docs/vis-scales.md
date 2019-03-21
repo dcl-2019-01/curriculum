@@ -5,7 +5,7 @@ title: Scales
 <!-- Generated automatically from vis-scales.yml. Do not edit by hand -->
 
 # Scales <small class='visualize'>[visualize]</small>
-<small>(Leads to: [Advanced scales](vis-scales-2.md))</small>
+
 
 You've already learned about transformation functions that you use with
 `dplyr::mutate()`. They take one (or more) vectors and return a transformed

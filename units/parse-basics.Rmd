@@ -12,6 +12,8 @@ So far you've worked with data sets that have been bundled in R packages, or hav
 
 ```{r}
 library(tidyverse)
+
+
 ```
 
 ## Delimited files
@@ -41,7 +43,7 @@ Note that:
 Typically you can recognise a csv file by its extension: `.csv`. But beware! Sometimes the extension lies, and if you're getting weird errors when reading a file, it's a good idea to peek inside the file using `readr::read_lines()` and `writeLines()`, specifying the `n_max` argument to just look at the first few lines. (You'll learn more about `writeLines()` when we get to strings; for now just remember it's a useful tool for printing lines to the screen.)
 
 ```{r}
-"heights.csv" %>% 
+"data/heights.csv" %>% 
   read_lines(n_max = 10) %>%
   writeLines()
 ```
@@ -53,7 +55,7 @@ This file illustrates another feature present in many csv files: some values are
 The workhorse for reading in csv files is called `read_csv()`. You give it a path to a csv file and it gives you back a tibble:
 
 ```{r}
-heights <- read_csv("heights.csv")
+heights <- read_csv("data/heights.csv")
 heights
 ```
 

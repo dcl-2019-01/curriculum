@@ -6,7 +6,7 @@ title: Data structure basics
 
 # Data structure basics <small class='program'>[program]</small>
 <small>(Builds on: [Manipulation basics](manip-basics.md))</small>  
-<small>(Leads to: [Date/time basics](datetime-basics.md), [Function basics](function-basics.md), [Parsing basics](parse-basics.md), [Iteration basics](purrr-map.md), [Atomic vectors](vectors.md))</small>
+<small>(Leads to: [Date/time basics](datetime-basics.md), [Function basics](function-basics.md), [Parsing basics](parse-basics.md))</small>
 
 
 It's helpful to know a little bit about how data structures are organised in R. In this reading, you'll learn about vectors, lists, and tibbles.

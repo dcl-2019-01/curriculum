@@ -5,8 +5,7 @@ title: Missing values
 <!-- Generated automatically from missing-values.yml. Do not edit by hand -->
 
 # Missing values <small class='wrangle'>[wrangle]</small>
-<small>(Builds on: [Exploratory data analysis (2D)](eda-2d.md))</small>  
-<small>(Leads to: [Vector and summary functions](vector-summary-functions.md))</small>
+<small>(Builds on: [Exploratory data analysis (2D)](eda-2d.md))</small>
 
 R uses `NA` to present unknown, but potentially measurable variables.
 

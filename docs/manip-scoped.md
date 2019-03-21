@@ -6,7 +6,7 @@ title: Scoped verb basics
 
 # Scoped verb basics <small class='wrangle'>[wrangle]</small>
 <small>(Builds on: [Manipulation basics](manip-basics.md))</small>  
-<small>(Leads to: [Programming with dplyr](manip-programming.md), [Scoped verbs with predicates](manip-scoped-2.md), [Tidy evaluation](tidy-eval.md))</small>
+<small>(Leads to: [Scoped verbs with predicates](manip-scoped-2.md), [Tidy evaluation](tidy-eval.md))</small>
 
 
 You'll often want to operate on multiple columns at the same time. Luckily, there are **scoped** versions of dplyr verbs that allow you to apply that verb to multiple columns at once.

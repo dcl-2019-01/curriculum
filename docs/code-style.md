@@ -5,8 +5,7 @@ title: Code style
 <!-- Generated automatically from code-style.yml. Do not edit by hand -->
 
 # Code style <small class='communicate'>[communicate]</small>
-<small>(Builds on: [Setup](setup.md))</small>  
-<small>(Leads to: [Reprexes](reprexes.md))</small>
+<small>(Builds on: [Setup](setup.md))</small>
 
 Code style is simultaneously incredibly important and utterly trivial.
 It'slikepunctuation: sureyoucanmakedowithoutit, but proper punctuation

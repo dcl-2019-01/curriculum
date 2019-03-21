@@ -6,7 +6,7 @@ title: Getting help
 
 # Getting help <small class='communicate'>[communicate]</small>
 <small>(Builds on: [Documentation](documentation.md))</small>  
-<small>(Leads to: [Learning more](learning-more.md), [Reprexes](reprexes.md))</small>
+<small>(Leads to: [Learning more](learning-more.md))</small>
 
 Jenny Bryan and Hadley Wickham
 
