@@ -18,6 +18,6 @@ through initial frustrations.
 This chapter will give you the basics of ggplot2, allowing to create simple,
 but informative, plots.
 
-  * [ggplot2 basics](https://bookdown.org/content/2138/ggplot2-basics.html) [vis-wisdom-1]
+  * [ggplot2 basics](https://dcl-data-vis.stanford.edu/ggplot2-basics.html) [data-vis-1]
 
 

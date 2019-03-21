@@ -9,11 +9,11 @@ title: Continuous-continuous relationships
 <small>(Leads to: [Time series](vis-time-series.md))</small>
 
 You've likely already come across situations in which you wanted to understand
-how two or more continuous variables were related. In this reading, you'll 
+how two or more continuous variables were related. In this reading, you'll
 learn some common strategies for visualizing continuous-continuous relationships.
 
 ## Readings
 
-  * [Continuous-continuous relationships](https://bookdown.org/content/2138/continuous-continuous.html) [vis-wisdom-5]
+  * [Continuous-continuous relationships](https://dcl-data-vis.stanford.edu/continuous-continuous.html) [data-vis-5]
 
 

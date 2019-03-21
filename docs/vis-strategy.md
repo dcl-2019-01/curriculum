@@ -15,9 +15,9 @@ creating effective visualizations.
 
   * [Graphic principles cheat sheet](https://github.com/GraphicsPrinciples/CheatSheet/blob/master/NVSCheatSheet.pdf).
     This cheat sheet is centered around principles for effective
-    visualizations.  The most helpful sections for this reading are _Planning_,
+    visualizations. The most helpful sections for this reading are _Planning_,
     _Effectivness rating_, and _Good graph checklist_.
 
-  * [General strategy](https://bookdown.org/content/2138/general-strategy.html) [vis-wisdom-3]
+  * [General strategy](https://dcl-data-vis.stanford.edu/general-strategy.html) [data-vis-3]
 
 

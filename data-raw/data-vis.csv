@@ -1,0 +1,57 @@
+id,title,depth,href
+1,ggplot2 basics,1,https://dcl-data-vis.stanford.edu/ggplot2-basics.html
+1.1,Additional information,2,https://dcl-data-vis.stanford.edu/ggplot2-basics.html#additional-information
+1.1.1,Pipes and aesthetics,3,https://dcl-data-vis.stanford.edu/ggplot2-basics.html#pipes-and-aesthetics
+1.1.2,Facet syntax,3,https://dcl-data-vis.stanford.edu/ggplot2-basics.html#facet-syntax
+1.1.3,The grammar of graphics,3,https://dcl-data-vis.stanford.edu/ggplot2-basics.html#the-grammar-of-graphics
+2,Discrete-continuous relationships,1,https://dcl-data-vis.stanford.edu/discrete-continuous.html
+2.1,Introduction,2,https://dcl-data-vis.stanford.edu/discrete-continuous.html#introduction
+2.2,Coordinate systems,2,https://dcl-data-vis.stanford.edu/discrete-continuous.html#coordinate-systems
+2.2.1,coord_fixed(),3,https://dcl-data-vis.stanford.edu/discrete-continuous.html#coord_fixed
+2.2.2,Zooming,3,https://dcl-data-vis.stanford.edu/discrete-continuous.html#zooming
+2.2.3,coord_flip(),3,https://dcl-data-vis.stanford.edu/discrete-continuous.html#coord_flip
+2.3,One discrete category,2,https://dcl-data-vis.stanford.edu/discrete-continuous.html#one-discrete-category
+2.3.1,Effective bar plots,3,https://dcl-data-vis.stanford.edu/discrete-continuous.html#effective-bar-plots
+2.3.2,geom_bar(),3,https://dcl-data-vis.stanford.edu/discrete-continuous.html#geom_bar
+2.3.3,Bars vs. dots,3,https://dcl-data-vis.stanford.edu/discrete-continuous.html#bars-vs.dots
+2.4,Two discrete categories,2,https://dcl-data-vis.stanford.edu/discrete-continuous.html#two-discrete-categories
+2.4.1,Color and facets,3,https://dcl-data-vis.stanford.edu/discrete-continuous.html#color-and-facets
+3,General strategy,1,https://dcl-data-vis.stanford.edu/general-strategy.html
+3.1,The goals of visualization,2,https://dcl-data-vis.stanford.edu/general-strategy.html#the-goals-of-visualization
+3.1.1,Two types of plots,3,https://dcl-data-vis.stanford.edu/general-strategy.html#two-types-of-plots
+3.1.2,Encoding and decoding,3,https://dcl-data-vis.stanford.edu/general-strategy.html#encoding-and-decoding
+3.2,Perception,2,https://dcl-data-vis.stanford.edu/general-strategy.html#perception
+3.2.1,Encodings,3,https://dcl-data-vis.stanford.edu/general-strategy.html#encodings
+3.3,Strategies,2,https://dcl-data-vis.stanford.edu/general-strategy.html#strategies
+3.3.1,Set goals,3,https://dcl-data-vis.stanford.edu/general-strategy.html#set-goals
+3.3.2,Go for quantity,3,https://dcl-data-vis.stanford.edu/general-strategy.html#go-for-quantity
+3.3.3,Look at your plots,3,https://dcl-data-vis.stanford.edu/general-strategy.html#look-at-your-plots
+3.3.4,Iterate,3,https://dcl-data-vis.stanford.edu/general-strategy.html#iterate
+4,Distributions,1,https://dcl-data-vis.stanford.edu/distributions.html
+4.1,Introduction,2,https://dcl-data-vis.stanford.edu/distributions.html#introduction-1
+4.2,Mechanics,2,https://dcl-data-vis.stanford.edu/distributions.html#mechanics
+4.2.1,Layering,3,https://dcl-data-vis.stanford.edu/distributions.html#layering
+4.2.2,theme(),3,https://dcl-data-vis.stanford.edu/distributions.html#theme
+4.3,One distribution,2,https://dcl-data-vis.stanford.edu/distributions.html#one-distribution
+4.4,Multiple distributions,2,https://dcl-data-vis.stanford.edu/distributions.html#multiple-distributions
+5,Continuous-continuous relationships,1,https://dcl-data-vis.stanford.edu/continuous-continuous.html
+5.1,Introduction,2,https://dcl-data-vis.stanford.edu/continuous-continuous.html#introduction-2
+5.2,Mechanics,2,https://dcl-data-vis.stanford.edu/continuous-continuous.html#mechanics-1
+5.2.1,Annotations,3,https://dcl-data-vis.stanford.edu/continuous-continuous.html#annotations
+5.2.2,Log scales,3,https://dcl-data-vis.stanford.edu/continuous-continuous.html#log-scales
+5.2.3,Continuous color scales,3,https://dcl-data-vis.stanford.edu/continuous-continuous.html#continuous-color-scales
+5.2.4,Size scales,3,https://dcl-data-vis.stanford.edu/continuous-continuous.html#size-scales
+5.3,Two continuous variables,2,https://dcl-data-vis.stanford.edu/continuous-continuous.html#two-continuous-variables
+5.3.1,Overplotting,3,https://dcl-data-vis.stanford.edu/continuous-continuous.html#overplotting
+5.3.2,Smoothing,3,https://dcl-data-vis.stanford.edu/continuous-continuous.html#smoothing
+5.3.3,Paired data,3,https://dcl-data-vis.stanford.edu/continuous-continuous.html#paired-data
+5.4,Three continuous variables,2,https://dcl-data-vis.stanford.edu/continuous-continuous.html#three-continuous-variables
+6,Time series,1,https://dcl-data-vis.stanford.edu/time-series.html
+6.1,Mechanics,2,https://dcl-data-vis.stanford.edu/time-series.html#mechanics-2
+6.1.1,Date/time scales,3,https://dcl-data-vis.stanford.edu/time-series.html#datetime-scales
+6.2,Trends,2,https://dcl-data-vis.stanford.edu/time-series.html#trends
+6.2.1,One response variable,3,https://dcl-data-vis.stanford.edu/time-series.html#one-response-variable
+6.2.2,Distributions over time,3,https://dcl-data-vis.stanford.edu/time-series.html#distributions-over-time
+6.2.3,Two response variables,3,https://dcl-data-vis.stanford.edu/time-series.html#two-response-variables
+6.3,Short-term fluctuations,2,https://dcl-data-vis.stanford.edu/time-series.html#short-term-fluctuations
+6.4,Individual values,2,https://dcl-data-vis.stanford.edu/time-series.html#individual-values

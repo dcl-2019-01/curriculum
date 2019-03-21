@@ -9,10 +9,10 @@ title: Time series
 
 Many data sets include time as a variable, and you'll often be
 curious how your data has changed across time. In this reading, you'll
-learn about date scales and strategies for visualizing time series. 
+learn about date scales and strategies for visualizing time series.
 
 ## Readings
 
-  * [Time series](https://bookdown.org/content/2138/time-series.html) [vis-wisdom-6]
+  * [Time series](https://dcl-data-vis.stanford.edu/time-series.html) [data-vis-6]
 
 
