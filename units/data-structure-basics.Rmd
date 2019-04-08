@@ -127,7 +127,7 @@ When you print a tibble it tell you its column names and the overall dimensions:
 diamonds
 ```
 
-If you want to get access dimensions directly, you have three options:
+If you want to access these dimensions directly, you have three options:
 
 ```{r}
 dim(diamonds)
